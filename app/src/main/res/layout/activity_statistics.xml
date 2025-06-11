@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F9F9F9">
+
+    <TextView
+        android:id="@+id/tv_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estatísticas"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Botões de filtro (ainda não funcionam) -->
+    <LinearLayout
+        android:id="@+id/filter_buttons"
+        android:layout_below="@id/tv_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btn_utilizador"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Utilizador"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_projeto"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Projeto"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_tarefa"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Tarefa"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- Bloco Estatísticas -->
+    <LinearLayout
+        android:id="@+id/stats_container"
+        android:layout_below="@id/filter_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp" >
+
+
+        <TextView
+            android:id="@+id/tv_nome"
+            android:text="João Silva"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_user"
+            android:drawablePadding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_tarefas"
+            android:text="Tarefas Atribuídas: 0\nTarefas Concluídas: 0"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_taxa"
+            android:text="Taxa Média de Conclusão: 0%"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_projetos"
+            android:text="Projetos Concluídos: 0"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_exportar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Exportar"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFF" />
+    </LinearLayout>
+
+    <!-- Menu inferior -->
+    <LinearLayout
+        android:id="@+id/bottom_nav"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"
+            android:contentDescription="Home"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/btn_profile"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_user"
+            android:contentDescription="Perfil"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/btn_settings"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_settings"
+            android:contentDescription="Configurações"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+    </LinearLayout>
+
+</RelativeLayout>

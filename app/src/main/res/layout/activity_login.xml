@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6">
+
+    <!-- Conteúdo principal dentro do ScrollView -->
+    <ScrollView
+        android:id="@+id/login_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/help_icon"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/logo_projetus"
+                android:contentDescription="Logo" />
+
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Iniciar sessão!"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:layout_marginTop="32dp"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:id="@+id/tv_forgot_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Esqueceu-se do email?"
+                android:textColor="#1976D2"
+                android:textSize="12sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Palavra-passe"
+                android:inputType="textPassword"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/tv_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Esqueceu-se da palavra-passe?"
+                android:textColor="#1976D2"
+                android:textSize="12sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entrar"
+                android:background="#EC4899"
+                android:textColor="#fff"
+                android:layout_marginTop="24dp" />
+
+            <Button
+                android:id="@+id/btn_goto_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Criar conta"
+                android:background="#E9D5EC"
+                android:textColor="#000"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Ícone de ajuda no canto inferior esquerdo -->
+    <ImageView
+        android:id="@+id/help_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/help_button"
+        android:contentDescription="Ajuda"
+        android:clickable="true"
+        android:focusable="true"/>
+</RelativeLayout>

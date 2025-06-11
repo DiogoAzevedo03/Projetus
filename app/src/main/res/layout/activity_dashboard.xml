@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <!-- Conteúdo principal -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Saudação -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/logo_projetus"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_welcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bem-vindo!"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Cartões -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#D0E7FF"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Projetos Ativos"
+                        android:textStyle="bold"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_active_projects"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#D0E7FF"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tarefas Pendentes"
+                        android:textStyle="bold"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_pending_tasks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Próxima tarefa -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Próxima tarefa:"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_next_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dia e hora - Descrição"
+                android:inputType="none"
+                android:enabled="false"
+                android:background="@android:drawable/editbox_background_normal"
+                android:padding="8dp"/>
+
+            <!-- Botões -->
+            <Button
+                android:id="@+id/btn_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver tarefas"
+                android:backgroundTint="#2196F3"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="16dp"/>
+
+            <Button
+                android:id="@+id/btn_projects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver projetos"
+                android:backgroundTint="#2196F3"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+
+
+            <Button
+                android:id="@+id/btn_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver estatísticas"
+                android:backgroundTint="#6A1B9A"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+
+            <Button
+                android:id="@+id/btn_user_management"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gestão de Utilizadores"
+                android:backgroundTint="#EC4899"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+
+            <Button
+                android:id="@+id/btn_project_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Histórico de Projetos"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#CCCCCC" />
+
+            <Button
+                android:id="@+id/btn_task_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Histórico de Tarefas"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#CCCCCC" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Menu inferior fixo -->
+    <LinearLayout
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"
+            android:contentDescription="Home"
+            android:scaleType="centerInside"
+            android:padding="8dp"/>
+
+        <ImageView
+            android:id="@+id/btn_profile"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_user"
+            android:contentDescription="Perfil"
+            android:scaleType="centerInside"
+            android:padding="8dp"/>
+
+        <ImageView
+            android:id="@+id/btn_settings"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_settings"
+            android:contentDescription="Configurações"
+            android:scaleType="centerInside"
+            android:padding="8dp"/>
+    </LinearLayout>
+</RelativeLayout>
+
+

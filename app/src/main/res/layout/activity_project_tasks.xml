@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/project_tasks_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tv_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tarefas do Projeto"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Nome do projeto -->
+    <TextView
+        android:id="@+id/tv_nome_projeto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Projeto"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Aqui vai a lista das tarefas (iremos usar RecyclerView depois) -->
+    <LinearLayout
+        android:id="@+id/tarefas_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp" />
+
+    <!-- Menu inferior fixo -->
+    <LinearLayout
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"
+            android:contentDescription="Home"
+            android:scaleType="centerInside"
+            android:padding="8dp"/>
+
+        <ImageView
+            android:id="@+id/btn_profile"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_user"
+            android:contentDescription="Perfil"
+            android:scaleType="centerInside"
+            android:padding="8dp"/>
+
+        <ImageView
+            android:id="@+id/btn_settings"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_settings"
+            android:contentDescription="Configurações"
+            android:scaleType="centerInside"
+            android:padding="8dp"/>
+    </LinearLayout>
+</LinearLayout>
