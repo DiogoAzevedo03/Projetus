@@ -16,6 +16,9 @@ class EditUserActivity : AppCompatActivity() {
     private lateinit var emailET: EditText
     private lateinit var passwordET: EditText
     private lateinit var btnAtualizar: Button
+    private lateinit var perfilSpinner: Spinner
+
+    private val perfis = listOf("utilizador", "administrador", "gestor")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,12 @@ class EditUserActivity : AppCompatActivity() {
         emailET = findViewById(R.id.et_email)
         passwordET = findViewById(R.id.et_password)
         btnAtualizar = findViewById(R.id.btn_atualizar)
+        perfilSpinner = findViewById(R.id.spinner_perfil)
+
+        // Preencher spinner com os tipos de perfil
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, perfis)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        perfilSpinner.adapter = adapter
 
         // Receber dados do utilizador passado por Intent
         val user = intent.getSerializableExtra("utilizador") as? Utilizador
@@ -34,6 +43,12 @@ class EditUserActivity : AppCompatActivity() {
             nomeET.setText(user.nome)
             usernameET.setText(user.username)
             emailET.setText(user.email)
+
+            // Selecionar o tipo_perfil atual no spinner
+            val index = perfis.indexOf(user.tipo_perfil)
+            if (index >= 0) {
+                perfilSpinner.setSelection(index)
+            }
         }
 
         btnAtualizar.setOnClickListener {
@@ -41,20 +56,24 @@ class EditUserActivity : AppCompatActivity() {
             val username = usernameET.text.toString()
             val email = emailET.text.toString()
             val password = passwordET.text.toString()
+            val tipoPerfil = perfilSpinner.selectedItem.toString()
 
             if (nome.isEmpty() || username.isEmpty() || email.isEmpty()) {
                 Toast.makeText(this, "Preenche todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-
-            val data = mapOf(
+            val data = mutableMapOf(
                 "id" to user?.id.toString(),
                 "nome" to nome,
                 "username" to username,
                 "email" to email,
-                "password" to password
+                "tipo_perfil" to tipoPerfil
             )
+
+            if (password.isNotEmpty()) {
+                data["password"] = password
+            }
 
             RetrofitClient.instance.updateUser(data).enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {

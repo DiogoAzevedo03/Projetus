@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
+import com.example.projetus.LocaleManager
+
 class SettingsActivity : AppCompatActivity() {
 
     private var userId: Int = -1
@@ -28,11 +30,15 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         btnPt.setOnClickListener {
-            Toast.makeText(this, "Idioma definido para Português", Toast.LENGTH_SHORT).show()
+            LocaleManager.setLocale(this, "pt")
+            Toast.makeText(this, getString(R.string.toast_lang_pt), Toast.LENGTH_SHORT).show()
+            recreate()
         }
 
         btnEn.setOnClickListener {
-            Toast.makeText(this, "Idioma definido para Inglês", Toast.LENGTH_SHORT).show()
+            LocaleManager.setLocale(this, "en")
+            Toast.makeText(this, getString(R.string.toast_lang_en), Toast.LENGTH_SHORT).show()
+            recreate()
         }
 
         // Navegação inferior

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Projetus</string>
+    <string name="title_settings">Definições</string>
+    <string name="send_suggestion">✉️ Enviar sugestões:</string>
+    <string name="hint_write_here">Escreva aqui...</string>
+    <string name="action_send">Enviar</string>
+    <string name="change_language">🌐 Mudar idioma:</string>
+    <string name="lang_portuguese">Português</string>
+    <string name="lang_english">Inglês</string>
+    <string name="toast_lang_pt">Idioma definido para Português</string>
+    <string name="toast_lang_en">Idioma definido para Inglês</string>
+    <string name="toast_suggestion_sent">Sugestão enviada: %1$s</string>
+    <string name="desc_help">Ajuda</string>
+    <string name="desc_home">Home</string>
+    <string name="desc_profile">Perfil</string>
+    <string name="desc_settings">Definições</string>
 </resources>

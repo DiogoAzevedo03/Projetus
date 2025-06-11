@@ -112,6 +112,8 @@ interface ApiService {
     @POST("delete_user.php")
     fun deleteUser(@Body data: Map<String, String>): Call<GenericResponse>
 
+    @POST("get_gestores.php")
+    fun getGestores(): Call<GestoresResponse>
 
 
 }

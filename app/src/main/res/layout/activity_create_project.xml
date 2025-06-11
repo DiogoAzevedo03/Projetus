@@ -46,6 +46,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
+    <Spinner
+        android:id="@+id/spinner_gestor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
     <Button
         android:id="@+id/btn_guardar_projeto"
         android:text="Guardar"

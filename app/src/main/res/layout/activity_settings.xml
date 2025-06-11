@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Definições"
+                android:text="@string/title_settings"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="24dp"/>
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="✉️ Enviar sugestões:"
+                android:text="@string/send_suggestion"
                 android:textSize="16sp"/>
 
             <LinearLayout
@@ -45,7 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Escreva aqui..."
+                    android:hint="@string/hint_write_here"
                     android:background="@android:drawable/editbox_background"
                     android:padding="8dp"/>
 
@@ -53,7 +53,7 @@
                     android:id="@+id/btn_enviar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enviar"
+                    android:text="@string/action_send"
                     android:backgroundTint="#007BFF"
                     android:textColor="#FFFFFF"
                     android:layout_marginStart="8dp"/>
@@ -63,8 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🌐 Mudar idioma:"
-                android:textSize="16sp"
+                android:text="@string/change_language"                android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
 
             <LinearLayout
@@ -77,7 +76,7 @@
                     android:id="@+id/btn_pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Português"
+                    android:text="@string/lang_portuguese"
                     android:background="#DDDDDD"
                     android:layout_marginEnd="8dp"/>
 
@@ -85,7 +84,7 @@
                     android:id="@+id/btn_en"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Inglês"
+                    android:text="@string/lang_english"
                     android:background="#DDDDDD"/>
             </LinearLayout>
         </LinearLayout>
@@ -98,7 +97,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/help_button"
-        android:contentDescription="Ajuda"
+        android:contentDescription="@string/desc_help"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"/>
@@ -120,7 +119,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:contentDescription="Home"
+            android:contentDescription="@string/desc_home"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -130,7 +129,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Perfil"
+            android:contentDescription="@string/desc_profile"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -140,7 +139,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
-            android:contentDescription="Definições"
+            android:contentDescription="@string/desc_settings"
             android:scaleType="centerInside"
             android:padding="8dp"/>
     </LinearLayout>
