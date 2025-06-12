@@ -21,6 +21,7 @@ class SettingsActivity : AppCompatActivity() {
         val btnEnviar = findViewById<Button>(R.id.btn_enviar)
         val btnPt = findViewById<Button>(R.id.btn_pt)
         val btnEn = findViewById<Button>(R.id.btn_en)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         // Exemplo: enviar sugestão
         btnEnviar.setOnClickListener {
@@ -45,12 +46,16 @@ class SettingsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         findViewById<ImageView>(R.id.btn_perfil).setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -59,6 +64,8 @@ class SettingsActivity : AppCompatActivity() {
         btnAjuda.setOnClickListener {
             val intent = Intent(this, HelpLoggedActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 

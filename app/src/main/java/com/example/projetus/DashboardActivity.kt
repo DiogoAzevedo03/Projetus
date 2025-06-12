@@ -26,6 +26,8 @@ class DashboardActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageView>(R.id.btn_home)
 
         val userId = intent.getIntExtra("user_id", -1)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+
         if (userId == -1) {
             tvWelcome.text = "Erro: utilizador não autenticado"
             return
@@ -61,6 +63,7 @@ class DashboardActivity : AppCompatActivity() {
         btnStatistics.setOnClickListener {
             val intent = Intent(this, StatisticsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
             startActivity(intent)
         }
 
@@ -68,11 +71,15 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_projects).setOnClickListener {
             val intent = Intent(this, ProjectsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
         findViewById<Button>(R.id.btn_tasks).setOnClickListener {
             val intent = Intent(this, TasksActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -80,6 +87,8 @@ class DashboardActivity : AppCompatActivity() {
             Log.d("TasksActivity", "A abrir DashboardActivity com user_id: $userId")
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -87,12 +96,16 @@ class DashboardActivity : AppCompatActivity() {
         btnProjectHistory.setOnClickListener {
             val intent = Intent(this, HistoricoProjetosActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
         val btnTaskHistory = findViewById<Button>(R.id.btn_task_history)
         btnTaskHistory.setOnClickListener {
             val intent = Intent(this, HistoricoTarefasActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -103,12 +116,16 @@ class DashboardActivity : AppCompatActivity() {
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -117,7 +134,42 @@ class DashboardActivity : AppCompatActivity() {
         btnUserManagement.setOnClickListener {
             val intent = Intent(this, UserManagementActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
+        }
+
+        val btnProjects = findViewById<Button>(R.id.btn_projects)
+        val btnTasks = findViewById<Button>(R.id.btn_tasks)
+
+        when (tipoPerfil) {
+            "administrador" -> {
+                // Pode tudo
+                btnUserManagement.visibility = Button.VISIBLE
+                btnProjects.visibility = Button.VISIBLE
+                btnTasks.visibility = Button.VISIBLE
+                btnStatistics.visibility = Button.VISIBLE
+                btnProjectHistory.visibility = Button.VISIBLE
+                btnTaskHistory.visibility = Button.VISIBLE
+            }
+
+            "gestor" -> {
+                btnUserManagement.visibility = Button.GONE  // não pode gerir utilizadores
+                btnProjects.visibility = Button.VISIBLE
+                btnTasks.visibility = Button.VISIBLE
+                btnStatistics.visibility = Button.VISIBLE
+                btnProjectHistory.visibility = Button.VISIBLE
+                btnTaskHistory.visibility = Button.VISIBLE
+            }
+
+            "utilizador" -> {
+                btnUserManagement.visibility = Button.GONE
+                btnProjects.visibility = Button.GONE
+                btnTasks.visibility = Button.VISIBLE  // só pode ver tarefas
+                btnStatistics.visibility = Button.GONE
+                btnProjectHistory.visibility = Button.GONE
+                btnTaskHistory.visibility = Button.VISIBLE  // ver histórico
+            }
         }
 
 

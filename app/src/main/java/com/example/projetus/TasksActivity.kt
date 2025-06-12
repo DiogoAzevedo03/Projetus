@@ -22,6 +22,7 @@ class TasksActivity : AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.tasks_container)
         val btnAddTask = findViewById<Button>(R.id.btn_add_task)
         val btnHome = findViewById<ImageView>(R.id.btn_home)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         if (userId == -1) {
             Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show()
@@ -80,6 +81,8 @@ class TasksActivity : AppCompatActivity() {
             Log.d("TasksActivity", "A abrir DashboardActivity com user_id: $userId")
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -89,6 +92,8 @@ class TasksActivity : AppCompatActivity() {
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -97,6 +102,8 @@ class TasksActivity : AppCompatActivity() {
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 

@@ -22,6 +22,7 @@ class ProjectsActivity : AppCompatActivity() {
 
         projectsContainer = findViewById(R.id.projects_container)
         userId = intent.getIntExtra("user_id", -1)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         if (userId == -1) {
             Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
@@ -43,6 +44,8 @@ class ProjectsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
         val btnProfile = findViewById<ImageView>(R.id.btn_profile)
@@ -51,12 +54,16 @@ class ProjectsActivity : AppCompatActivity() {
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -90,6 +97,7 @@ class ProjectsActivity : AppCompatActivity() {
 
         for (projeto in projetos) {
             val view = inflater.inflate(R.layout.item_project, projectsContainer, false)
+            val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
             view.findViewById<TextView>(R.id.tv_project_name).text = projeto.nome
             view.findViewById<TextView>(R.id.tv_project_manager).text = "Gestor: ${projeto.gestor_nome}"
@@ -102,6 +110,8 @@ class ProjectsActivity : AppCompatActivity() {
                 val intent = Intent(this, ProjectDetailsActivity::class.java)
                 intent.putExtra("projeto", projeto)
                 intent.putExtra("user_id", userId) // <- importante
+                intent.putExtra("tipo_perfil", tipoPerfil) // <-- ADICIONA ISTO!
+
                 startActivity(intent)
             }
 

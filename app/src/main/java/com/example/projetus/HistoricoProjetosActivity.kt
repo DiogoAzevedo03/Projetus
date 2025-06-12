@@ -26,6 +26,7 @@ class HistoricoProjetosActivity : AppCompatActivity() {
 
         projectsContainer = findViewById(R.id.projects_container)
         userId = intent.getIntExtra("user_id", -1)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         if (userId == -1) {
             Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
@@ -35,15 +36,26 @@ class HistoricoProjetosActivity : AppCompatActivity() {
 
         loadProjects()
 
-        // Navegação
+        /// Navegação
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
     }
 
@@ -79,16 +91,11 @@ class HistoricoProjetosActivity : AppCompatActivity() {
             view.findViewById<TextView>(R.id.tv_project_status).text = "Estado: ${projeto.estado}"
             view.findViewById<TextView>(R.id.tv_task_count).text = "${projeto.total_tarefas} tarefas"
 
-            view.findViewById<Button>(R.id.btn_project_action).apply {
-                text = "Ver"
-                setOnClickListener {
-                    val intent = Intent(this@HistoricoProjetosActivity, ProjectDetailsActivity::class.java)
-                    intent.putExtra("projeto", projeto)
-                    intent.putExtra("user_id", userId)
-                    startActivity(intent)
-                }
-            }
+            // 🔴 Esconde o botão "Ver"
+            val btnVer = view.findViewById<Button>(R.id.btn_project_action)
+            btnVer.visibility = Button.GONE
 
+            // 🔵 Mantém o botão "Ver Tarefas"
             view.findViewById<Button>(R.id.btn_ver_tarefas).setOnClickListener {
                 val intent = Intent(this, ProjectTasksActivity::class.java)
                 intent.putExtra("project_id", projeto.id)
@@ -100,4 +107,5 @@ class HistoricoProjetosActivity : AppCompatActivity() {
             projectsContainer.addView(view)
         }
     }
+
 }

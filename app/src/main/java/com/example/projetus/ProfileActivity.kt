@@ -33,6 +33,8 @@ class ProfileActivity : AppCompatActivity() {
 
         userId = intent.getIntExtra("user_id", -1)
 
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+
         if (userId == -1) {
             Toast.makeText(this, "ID de utilizador inválido", Toast.LENGTH_SHORT).show()
             finish()
@@ -47,6 +49,8 @@ class ProfileActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -60,6 +64,8 @@ class ProfileActivity : AppCompatActivity() {
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 

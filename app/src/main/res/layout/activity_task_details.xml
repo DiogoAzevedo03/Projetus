@@ -57,13 +57,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <SeekBar
+                    android:id="@+id/seekBarProgress"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:max="100" />
+                    android:max="100"
+                    android:progress="0"/>
+
 
                 <TextView
                     android:id="@+id/tv_percent"
@@ -92,6 +93,15 @@
                 android:layout_height="wrap_content"
                 android:hint="Foto (URL ou caminho)"
                 android:layout_marginTop="12dp" />
+
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Pré-visualização da imagem"/>
+
 
             <Button
                 android:id="@+id/btn_guardar"

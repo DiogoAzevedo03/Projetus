@@ -148,7 +148,8 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Menu inferior -->
+
+    <!-- Menu inferior fixo -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -165,6 +166,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
+            android:contentDescription="Home"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -174,6 +176,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
+            android:contentDescription="Perfil"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -183,6 +186,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
+            android:contentDescription="Configurações"
             android:scaleType="centerInside"
             android:padding="8dp"/>
     </LinearLayout>

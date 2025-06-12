@@ -11,6 +11,7 @@ class HelpLoggedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_help_logged)
 
         val userId = intent.getIntExtra("user_id", -1)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         val etMessage = findViewById<EditText>(R.id.et_message)
         val btnSend = findViewById<Button>(R.id.btn_send)
@@ -29,18 +30,24 @@ class HelpLoggedActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
     }

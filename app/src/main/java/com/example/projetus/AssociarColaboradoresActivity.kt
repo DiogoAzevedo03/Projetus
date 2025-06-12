@@ -1,10 +1,12 @@
 package com.example.projetus
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projetus.network.AssociarRequest
+import com.example.projetus.network.Project
 import com.example.projetus.network.Utilizador
 import com.example.projetus.network.SimpleResponse
 import com.example.projetus.network.UtilizadoresResponse
@@ -21,6 +23,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_associar_colaboradores)
+        val projeto = intent.getSerializableExtra("projeto") as? Project
 
         layoutUtilizadores = findViewById(R.id.layout_utilizadores)
         projetoId = intent.getIntExtra("projeto_id", -1)
@@ -36,6 +39,19 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_associar).setOnClickListener {
             associarSelecionados()
         }
+
+        findViewById<Button>(R.id.btn_cancelar).setOnClickListener {
+            val userId = intent.getIntExtra("user_id", -1)
+            val projeto = intent.getSerializableExtra("projeto") as? Project
+
+            val intent = Intent(this, ProjectDetailsActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("projeto", projeto)
+            intent.putExtra("tipo_perfil", "utilizador") // ou outro, se for necessário
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     private fun carregarUtilizadores() {

@@ -26,6 +26,7 @@ class ProjectEvaluationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_evaluation)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         userId = intent.getIntExtra("user_id", -1)
         projectId = intent.getIntExtra("projeto_id", -1)
@@ -48,15 +49,26 @@ class ProjectEvaluationActivity : AppCompatActivity() {
             concluirProjeto()
         }
 
-        // Navegação inferior
+        // Navegação
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
     }
 

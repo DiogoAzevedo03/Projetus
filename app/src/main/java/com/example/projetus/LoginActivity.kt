@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
 
                             val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                             intent.putExtra("user_id", user?.id)
+                            intent.putExtra("tipo_perfil", user?.tipo_perfil)
                             startActivity(intent)
                             finish()
                         } else {

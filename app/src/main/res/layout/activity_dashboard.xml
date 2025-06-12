@@ -125,56 +125,68 @@
             <Button
                 android:id="@+id/btn_tasks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:text="Ver tarefas"
-                android:backgroundTint="#2196F3"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#42A5F5"
                 android:textColor="#FFFFFF"
                 android:layout_marginTop="16dp"/>
 
             <Button
                 android:id="@+id/btn_projects"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:text="Ver projetos"
-                android:backgroundTint="#2196F3"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#26A69A"
                 android:textColor="#FFFFFF"
-                android:layout_marginTop="8dp"/>
-
+                android:layout_marginTop="16dp"/>
 
             <Button
                 android:id="@+id/btn_statistics"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:text="Ver estatísticas"
-                android:backgroundTint="#6A1B9A"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#7E57C2"
                 android:textColor="#FFFFFF"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="16dp"/>
 
             <Button
                 android:id="@+id/btn_user_management"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:text="Gestão de Utilizadores"
-                android:backgroundTint="#EC4899"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#EC407A"
                 android:textColor="#FFFFFF"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="16dp"/>
 
             <Button
                 android:id="@+id/btn_project_history"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:text="Histórico de Projetos"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#CCCCCC" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#FFB74D"
+                android:textColor="#FFFFFF"/>
 
             <Button
                 android:id="@+id/btn_task_history"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:text="Histórico de Tarefas"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#CCCCCC" />
-
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#AED581"
+                android:textColor="#FFFFFF"/>
 
         </LinearLayout>
     </ScrollView>
@@ -221,5 +233,4 @@
             android:padding="8dp"/>
     </LinearLayout>
 </RelativeLayout>
-
 

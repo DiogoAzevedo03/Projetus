@@ -19,6 +19,8 @@ import android.os.Environment
 import java.io.OutputStream
 import com.example.projetus.network.StatisticsProjetoResponse
 import com.example.projetus.network.ProjectStat
+import android.content.res.ColorStateList
+import android.graphics.Color
 
 class StatisticsActivity : AppCompatActivity() {
 
@@ -50,6 +52,7 @@ class StatisticsActivity : AppCompatActivity() {
             finish()
             return
         }
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         val btnUtilizador = findViewById<Button>(R.id.btn_utilizador)
         val btnProjeto = findViewById<Button>(R.id.btn_projeto)
@@ -72,17 +75,28 @@ class StatisticsActivity : AppCompatActivity() {
             filtroAtual = "tarefa"
             carregarEstatisticasTarefa(userId)
         }
-
-        // Navegação
+// Navegação
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
     }
 
     private fun carregarEstatisticasUtilizador(userId: Int) {
@@ -219,23 +233,13 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun adicionarBotaoExportar() {
-        val btnExportar = Button(this).apply {
-            id = R.id.btn_exportar
-            text = "Exportar"
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                topMargin = 64
-            }
-            setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
-            setTextColor(resources.getColor(android.R.color.white))
-            setOnClickListener {
-                exportarEstatisticas()
-            }
+        val btnExportar = layoutInflater.inflate(R.layout.layout_export_button, statsContainer, false) as Button
+        btnExportar.setOnClickListener {
+            exportarEstatisticas()
         }
         statsContainer.addView(btnExportar)
     }
+
 
     private fun exportarEstatisticas() {
         val fileContents = when (filtroAtual) {
@@ -313,8 +317,8 @@ class StatisticsActivity : AppCompatActivity() {
 
     private fun gerarPDF(content: String, filename: String) {
         val pdfDocument = PdfDocument()
-        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // Tamanho A4
-        val page = pdfDocument.startPage(pageInfo)
+        var pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // Tamanho A4
+        var page = pdfDocument.startPage(pageInfo)
 
         var canvas = page.canvas
         val paint = android.graphics.Paint()
@@ -329,9 +333,9 @@ class StatisticsActivity : AppCompatActivity() {
             // Verificar se precisamos de uma nova página
             if (y + 20 > pageHeight - bottomMargin) {
                 pdfDocument.finishPage(page)
-                val newPageInfo = PdfDocument.PageInfo.Builder(595, 842, pdfDocument.pages.size + 1).create()
-                val newPage = pdfDocument.startPage(newPageInfo)
-                canvas = newPage.canvas
+                pageInfo = PdfDocument.PageInfo.Builder(595, 842, pdfDocument.pages.size + 1).create()
+                page = pdfDocument.startPage(pageInfo)
+                canvas = page.canvas
                 y = 50
             }
 

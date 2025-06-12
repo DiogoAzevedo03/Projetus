@@ -11,6 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.example.projetus.network.GenericResponse
 import com.example.projetus.network.UpdateTaskRequest
+import com.bumptech.glide.Glide
 
 class TaskDetailsActivity : AppCompatActivity() {
     private var tarefaId: Int = -1
@@ -27,13 +28,25 @@ class TaskDetailsActivity : AppCompatActivity() {
 
         val nome = findViewById<TextView>(R.id.tv_nome)
         val dataEntrega = findViewById<TextView>(R.id.tv_entrega)
-        val progresso = findViewById<ProgressBar>(R.id.progressBar)
+        val progresso = findViewById<SeekBar>(R.id.seekBarProgress)
         val percentagem = findViewById<TextView>(R.id.tv_percent)
+
+        progresso.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                percentagem.text = "$progress%"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+
         val tempo = findViewById<EditText>(R.id.et_tempo)
         val observacoes = findViewById<EditText>(R.id.et_obs)
         val foto = findViewById<EditText>(R.id.et_foto)
         val btnConcluir = findViewById<Button>(R.id.btn_concluir)
         val btnGuardar = findViewById<Button>(R.id.btn_guardar)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         if (tarefaId == -1 || utilizadorId == -1) {
             Toast.makeText(this, "Dados inválidos", Toast.LENGTH_SHORT).show()
@@ -54,14 +67,35 @@ class TaskDetailsActivity : AppCompatActivity() {
                     dataEntrega.text = "Entrega: ${t["data_entrega"]}"
                     tempo.setText((t["tempo_gasto"] ?: "").toString())
                     observacoes.setText((t["observacoes"] ?: "").toString())
-                    progresso.progress = (t["taxa_conclusao"] as? Double)?.toInt() ?: 0
-                    percentagem.text = "${progresso.progress}%"
+
+                    val taxaConclusao = when (val valor = t["taxa_conclusao"]) {
+                        is Double -> valor.toInt()
+                        is Int -> valor
+                        is String -> valor.toIntOrNull() ?: 0
+                        else -> 0
+                    }
+
+                    progresso.progress = taxaConclusao
+                    percentagem.text = "$taxaConclusao%"
                     foto.setText((t["foto"] ?: "").toString())
 
+                    // ✅ Mostrar imagem com Glide
+                    val imagePreview = findViewById<ImageView>(R.id.image_preview)
+                    val fotoUrl = (t["foto"] ?: "").toString()
 
-                } else {
+                    if (fotoUrl.isNotBlank() && (fotoUrl.startsWith("http://") || fotoUrl.startsWith("https://"))) {
+                        Glide.with(this@TaskDetailsActivity)
+                            .load(fotoUrl)
+                            .into(imagePreview)
+                    } else {
+                        imagePreview.setImageResource(R.mipmap.ic_launcher)
+                    }
+                }
+                else {
                     Toast.makeText(this@TaskDetailsActivity, "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
                 }
+
+
             }
 
             override fun onFailure(call: Call<TaskDetailsResponse>, t: Throwable) {
@@ -128,18 +162,24 @@ class TaskDetailsActivity : AppCompatActivity() {
         btnHome.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 

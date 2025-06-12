@@ -25,6 +25,7 @@ class ProjectDetailsActivity : AppCompatActivity() {
         val progresso = findViewById<ProgressBar>(R.id.progressBar)
         val percentagem = findViewById<TextView>(R.id.tv_percent)
         val btnConcluir = findViewById<Button>(R.id.btn_concluir)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
 
 
@@ -53,6 +54,7 @@ class ProjectDetailsActivity : AppCompatActivity() {
             val intent = Intent(this, AssociarColaboradoresActivity::class.java)
             intent.putExtra("projeto_id", projeto?.id)
             intent.putExtra("user_id", userId)
+            intent.putExtra("projeto", projeto) // <-- Adiciona isto
             startActivity(intent)
         }
 
@@ -82,6 +84,33 @@ class ProjectDetailsActivity : AppCompatActivity() {
             }
         })
 
+        val btnHome = findViewById<ImageView>(R.id.btn_home)
+
+        findViewById<ImageView>(R.id.btn_home).setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
+            startActivity(intent)
+        }
+        val btnProfile = findViewById<ImageView>(R.id.btn_profile)
+        val btnSettings = findViewById<ImageView>(R.id.btn_settings)
+
+        btnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
+            startActivity(intent)
+        }
+
+        btnSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
+            startActivity(intent)
+        }
 
     }
 }

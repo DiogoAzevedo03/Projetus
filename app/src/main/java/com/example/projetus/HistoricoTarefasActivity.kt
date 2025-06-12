@@ -20,6 +20,7 @@ class HistoricoTarefasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_historico_tarefas)
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         container = findViewById(R.id.tasks_container)
         userId = intent.getIntExtra("user_id", -1)
@@ -32,14 +33,26 @@ class HistoricoTarefasActivity : AppCompatActivity() {
 
         carregarTarefasConcluidas()
 
+        // Navegação
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
+
         findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java).putExtra("user_id", userId))
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+            startActivity(intent)
         }
     }
 
@@ -61,12 +74,7 @@ class HistoricoTarefasActivity : AppCompatActivity() {
                             view.findViewById<TextView>(R.id.tv_task_date).text = tarefa.data_entrega
                             view.findViewById<TextView>(R.id.tv_task_status).text = tarefa.estado
 
-                            view.setOnClickListener {
-                                val intent = Intent(this@HistoricoTarefasActivity, TaskDetailsActivity::class.java)
-                                intent.putExtra("task_id", tarefa.id)
-                                intent.putExtra("user_id", userId)
-                                startActivity(intent)
-                            }
+
 
                             container.addView(view)
                         }

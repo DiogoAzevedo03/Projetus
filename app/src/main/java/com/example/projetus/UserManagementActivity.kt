@@ -40,11 +40,15 @@ class UserManagementActivity : AppCompatActivity() {
 
         carregarUtilizadores()
 
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+
         val btnHome = findViewById<ImageView>(R.id.btn_home)
 
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
         val btnProfile = findViewById<ImageView>(R.id.btn_profile)
@@ -53,12 +57,16 @@ class UserManagementActivity : AppCompatActivity() {
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
     }
