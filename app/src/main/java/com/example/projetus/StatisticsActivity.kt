@@ -21,6 +21,8 @@ import com.example.projetus.network.StatisticsProjetoResponse
 import com.example.projetus.network.ProjectStat
 import android.content.res.ColorStateList
 import android.graphics.Color
+import com.example.projetus.network.TaskStat
+import com.example.projetus.network.StatisticsTarefaResponse
 
 class StatisticsActivity : AppCompatActivity() {
 
@@ -378,17 +380,3 @@ class StatisticsActivity : AppCompatActivity() {
         }
     }
 }
-
-// Data classes necessárias para as tarefas
-data class TaskStat(
-    val nome: String,
-    val projeto_nome: String,
-    val estado: String,
-    val data_criacao: String?,
-    val data_conclusao: String?
-)
-
-data class StatisticsTarefaResponse(
-    val success: Boolean,
-    val tarefas: List<TaskStat>?
-)

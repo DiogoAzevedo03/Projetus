@@ -1,7 +1,7 @@
 package com.example.projetus.network
 
 import AvaliacoesResponse
-import com.example.projetus.StatisticsTarefaResponse
+import com.example.projetus.network.StatisticsTarefaResponse
 import com.example.projetus.network.GenericResponse
 import retrofit2.Call
 import retrofit2.http.Body
