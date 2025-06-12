@@ -23,6 +23,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var ivFoto: ImageView
     private lateinit var btnGuardar: Button
     private var userId: Int = -1
+    private var tipoPerfil: String = "utilizador"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class ProfileActivity : AppCompatActivity() {
 
         userId = intent.getIntExtra("user_id", -1)
 
-        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+        tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         if (userId == -1) {
             Toast.makeText(this, "ID de utilizador inválido", Toast.LENGTH_SHORT).show()
@@ -136,7 +137,8 @@ class ProfileActivity : AppCompatActivity() {
             "username" to username,
             "email" to email,
             "password" to password,
-            "foto" to foto  // Passando a URL da foto corretamente
+            "foto" to foto,  // Passando a URL da foto corretamente
+            "tipo_perfil" to tipoPerfil
         )
         Log.d("ProfileActivity", "Body enviado: $body")
 

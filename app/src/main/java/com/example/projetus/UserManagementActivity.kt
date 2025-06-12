@@ -71,6 +71,11 @@ class UserManagementActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Refresh the user list whenever we return to this screen
+        carregarUtilizadores()
+    }
     private fun carregarUtilizadores() {
         RetrofitClient.instance.getUtilizadores().enqueue(object : Callback<UtilizadoresResponse> {
             override fun onResponse(call: Call<UtilizadoresResponse>, response: Response<UtilizadoresResponse>) {
