@@ -88,7 +88,7 @@ class TaskDetailsActivity : AppCompatActivity() {
                             .load(fotoUrl)
                             .into(imagePreview)
                     } else {
-                        imagePreview.setImageResource(R.mipmap.ic_launcher)
+                        imagePreview.setImageResource(R.drawable.placeholder)
                     }
                 }
                 else {
