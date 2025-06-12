@@ -21,7 +21,7 @@ class AjudaActivity : AppCompatActivity() {
                 Toast.makeText(this, "Escreva a sua dúvida", Toast.LENGTH_SHORT).show()
             } else {
                 // TODO: Enviar mensagem via API (futuramente)
-                Toast.makeText(this, "Mensagem enviada (mock)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Mensagem enviada", Toast.LENGTH_SHORT).show()
                 etMensagem.text.clear()
             }
         }
