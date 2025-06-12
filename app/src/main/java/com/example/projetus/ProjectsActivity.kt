@@ -121,6 +121,8 @@ class ProjectsActivity : AppCompatActivity() {
                 intent.putExtra("project_id", projeto.id)
                 intent.putExtra("project_name", projeto.nome)
                 intent.putExtra("user_id", userId)
+                intent.putExtra("tipo_perfil", tipoPerfil)
+
                 startActivity(intent)
             }
 

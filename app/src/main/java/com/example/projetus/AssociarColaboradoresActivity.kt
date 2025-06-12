@@ -24,6 +24,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_associar_colaboradores)
         val projeto = intent.getSerializableExtra("projeto") as? Project
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         layoutUtilizadores = findViewById(R.id.layout_utilizadores)
         projetoId = intent.getIntExtra("projeto_id", -1)
@@ -47,7 +48,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
             val intent = Intent(this, ProjectDetailsActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("projeto", projeto)
-            intent.putExtra("tipo_perfil", "utilizador") // ou outro, se for necessário
+            intent.putExtra("tipo_perfil", tipoPerfil)
             startActivity(intent)
             finish()
         }

@@ -80,6 +80,8 @@ class HistoricoProjetosActivity : AppCompatActivity() {
     }
 
     private fun renderProjects(projetos: List<Project>) {
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+
         val inflater = LayoutInflater.from(this)
         projectsContainer.removeAllViews()
 
@@ -101,6 +103,7 @@ class HistoricoProjetosActivity : AppCompatActivity() {
                 intent.putExtra("project_id", projeto.id)
                 intent.putExtra("project_name", projeto.nome)
                 intent.putExtra("user_id", userId)
+                intent.putExtra("tipo_perfil", tipoPerfil)
                 startActivity(intent)
             }
 

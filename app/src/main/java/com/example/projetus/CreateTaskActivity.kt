@@ -108,7 +108,7 @@ class CreateTaskActivity : AppCompatActivity() {
     }
 
     private fun setupEstadoSpinner() {
-        val estados = arrayOf("Pendente", "Em andamento", "Concluída")
+        val estados = arrayOf("Pendente", "Concluída")
         spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, estados)
     }
 

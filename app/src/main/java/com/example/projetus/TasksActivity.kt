@@ -51,6 +51,8 @@ class TasksActivity : AppCompatActivity() {
                                 val intent = Intent(this@TasksActivity, TaskDetailsActivity::class.java)
                                 intent.putExtra("task_id", task.id)
                                 intent.putExtra("user_id", userId)
+                                intent.putExtra("tipo_perfil", tipoPerfil)
+
                                 startActivity(intent)
                             }
 
@@ -73,6 +75,8 @@ class TasksActivity : AppCompatActivity() {
             Log.d("TasksActivity", "A abrir CreateTaskActivity com user_id: $userId")
             val intent = Intent(this, CreateTaskActivity::class.java)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 

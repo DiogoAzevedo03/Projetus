@@ -55,6 +55,8 @@ class ProjectDetailsActivity : AppCompatActivity() {
             intent.putExtra("projeto_id", projeto?.id)
             intent.putExtra("user_id", userId)
             intent.putExtra("projeto", projeto) // <-- Adiciona isto
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
 
@@ -64,6 +66,8 @@ class ProjectDetailsActivity : AppCompatActivity() {
             intent.putExtra("projeto_id", projeto?.id)
             intent.putExtra("projeto_nome", projeto?.nome)
             intent.putExtra("user_id", userId)
+            intent.putExtra("tipo_perfil", tipoPerfil)
+
             startActivity(intent)
         }
         val colaboradoresTv = findViewById<TextView>(R.id.tv_colaboradores)
