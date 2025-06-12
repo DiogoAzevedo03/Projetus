@@ -27,7 +27,8 @@ interface ApiService {
         @Field("username") username: String,
         @Field("email") email: String,
         @Field("password") password: String,
-        @Field("tipo_perfil") tipoPerfil: String
+        @Field("tipo_perfil") tipoPerfil: String,
+        @Field("foto") foto: String
     ): Call<GenericResponse>
 
     @POST("dashboard.php")

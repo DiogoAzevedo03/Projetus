@@ -42,6 +42,13 @@
         android:inputType="textPassword" />
 
 
+    <EditText
+        android:id="@+id/et_foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Foto (URL)"
+        android:layout_marginTop="12dp" />
+
 
     <Button
         android:id="@+id/btn_atualizar"

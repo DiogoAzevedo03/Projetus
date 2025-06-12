@@ -50,6 +50,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <ImageView
+                android:id="@+id/iv_foto"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_user"
@@ -91,6 +92,15 @@
                 android:layout_height="wrap_content"
                 android:hint="Palavra-passe"
                 android:inputType="textPassword"
+                android:background="@android:drawable/editbox_background"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_foto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Foto (URL)"
                 android:background="@android:drawable/editbox_background"
                 android:padding="12dp"
                 android:layout_marginBottom="16dp"/>

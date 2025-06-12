@@ -11,5 +11,6 @@ data class User(
     val email: String,
     val password: String,
     val tipo_perfil: String,
-    val estado: String
+    val estado: String,
+    val foto: String = ""
 )

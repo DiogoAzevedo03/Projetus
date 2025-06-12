@@ -53,6 +53,14 @@
                 android:layout_marginBottom="12dp"
                 android:inputType="textPassword"/>
 
+            <EditText
+                android:id="@+id/et_foto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Foto (URL)"
+                android:layout_marginBottom="12dp"/>
+
+
             <Spinner
                 android:id="@+id/spinner_tipo_perfil"
                 android:layout_width="match_parent"

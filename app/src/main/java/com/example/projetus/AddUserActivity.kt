@@ -23,6 +23,8 @@ class AddUserActivity : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.et_username)
         val email = findViewById<EditText>(R.id.et_email)
         val password = findViewById<EditText>(R.id.et_password)
+        val foto = findViewById<EditText>(R.id.et_foto).text.toString()
+
         val spinner = findViewById<Spinner>(R.id.spinner_tipo_perfil)
 
         val btnCancelar = findViewById<Button>(R.id.btn_cancelar)
@@ -41,13 +43,15 @@ class AddUserActivity : AppCompatActivity() {
             val emailTxt = email.text.toString()
             val passTxt = password.text.toString()
             val perfil = spinner.selectedItem.toString()
+            val foto = findViewById<EditText>(R.id.et_foto).text.toString()  // Mover a captura da foto aqui
 
             if (nomeTxt.isEmpty() || userTxt.isEmpty() || emailTxt.isEmpty() || passTxt.isEmpty()) {
                 Toast.makeText(this, "Preenche todos os campos!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            RetrofitClient.instance.registerUser(nomeTxt, userTxt, emailTxt, passTxt, perfil)
+            // Enviar os dados para o servidor, incluindo a foto
+            RetrofitClient.instance.registerUser(nomeTxt, userTxt, emailTxt, passTxt, perfil, foto)
                 .enqueue(object : Callback<GenericResponse> {
                     override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                         if (response.isSuccessful && response.body()?.success == true) {
@@ -63,5 +67,6 @@ class AddUserActivity : AppCompatActivity() {
                     }
                 })
         }
+
     }
 }

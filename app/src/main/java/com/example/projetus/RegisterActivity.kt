@@ -36,7 +36,8 @@ class RegisterActivity : AppCompatActivity() {
                 username = user,
                 email = mail,
                 password = pass,
-                tipoPerfil = "utilizador"
+                tipoPerfil = "utilizador",
+                foto = ""
             ).enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,

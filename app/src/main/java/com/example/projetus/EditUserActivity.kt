@@ -16,6 +16,8 @@ class EditUserActivity : AppCompatActivity() {
     private lateinit var emailET: EditText
     private lateinit var passwordET: EditText
     private lateinit var btnAtualizar: Button
+    private lateinit var fotoET: EditText
+
     private lateinit var perfilSpinner: Spinner
 
     private val perfis = listOf("utilizador", "administrador", "gestor")
@@ -28,6 +30,8 @@ class EditUserActivity : AppCompatActivity() {
         usernameET = findViewById(R.id.et_username)
         emailET = findViewById(R.id.et_email)
         passwordET = findViewById(R.id.et_password)
+        fotoET = findViewById(R.id.et_foto)
+
         btnAtualizar = findViewById(R.id.btn_atualizar)
         perfilSpinner = findViewById(R.id.spinner_perfil)
 
@@ -43,6 +47,8 @@ class EditUserActivity : AppCompatActivity() {
             nomeET.setText(user.nome)
             usernameET.setText(user.username)
             emailET.setText(user.email)
+            fotoET.setText(user.foto)
+
 
             // Selecionar o tipo_perfil atual no spinner
             val index = perfis.indexOf(user.tipo_perfil)
@@ -56,6 +62,8 @@ class EditUserActivity : AppCompatActivity() {
             val username = usernameET.text.toString()
             val email = emailET.text.toString()
             val password = passwordET.text.toString()
+            val foto = fotoET.text.toString()
+
             val tipoPerfil = perfilSpinner.selectedItem.toString()
 
             if (nome.isEmpty() || username.isEmpty() || email.isEmpty()) {
@@ -68,8 +76,8 @@ class EditUserActivity : AppCompatActivity() {
                 "nome" to nome,
                 "username" to username,
                 "email" to email,
-                "tipo_perfil" to tipoPerfil
-            )
+                "tipo_perfil" to tipoPerfil,
+                "foto" to foto            )
 
             if (password.isNotEmpty()) {
                 data["password"] = password
