@@ -4,7 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.projetus.data.local.AppDatabase
+import com.example.projetus.data.local.PendingUser
 import com.example.projetus.network.GenericResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,8 +69,25 @@ class AddUserActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                        Toast.makeText(this@AddUserActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
+                        // Guardar localmente
+                        val userToSave = PendingUser(
+                            nome = nomeTxt,
+                            username = userTxt,
+                            email = emailTxt,
+                            password = passTxt,
+                            tipo_perfil = perfil,
+                            foto = foto
+                        )
+
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            AppDatabase.getDatabase(this@AddUserActivity).pendingUserDao().insert(userToSave)
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(this@AddUserActivity, "Sem internet! Utilizador guardado localmente.", Toast.LENGTH_LONG).show()
+                                finish()
+                            }
+                        }
                     }
+
                 })
         }
 

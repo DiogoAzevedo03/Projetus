@@ -13,11 +13,19 @@ import com.example.projetus.network.DashboardResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.lifecycle.lifecycleScope
+import com.example.projetus.data.local.AppDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        syncPendingUsers()
+
 
         val tvWelcome = findViewById<TextView>(R.id.tv_welcome)
         val tvActiveProjects = findViewById<TextView>(R.id.tv_active_projects)
@@ -33,6 +41,13 @@ class DashboardActivity : AppCompatActivity() {
             return
         }
 
+        lifecycleScope.launch {
+            val user = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                AppDatabase.getDatabase(this@DashboardActivity).userDao().getById(userId)
+            }
+            user?.let { tvWelcome.text = "Bem-vindo, ${it.nome}!" }
+        }
+
         // Chamada à API do dashboard
         RetrofitClient.instance.getDashboardData(mapOf("user_id" to userId))
             .enqueue(object : Callback<DashboardResponse> {
@@ -40,7 +55,6 @@ class DashboardActivity : AppCompatActivity() {
                     if (response.isSuccessful && response.body()?.success == true) {
                         val data = response.body()!!
 
-                        tvWelcome.text = "Bem-vindo!"
                         tvActiveProjects.text = data.projetos_ativos.toString()
                         tvPendingTasks.text = data.tarefas_pendentes.toString()
                         etNextTask.setText(
@@ -49,13 +63,13 @@ class DashboardActivity : AppCompatActivity() {
                             } ?: "Nenhuma tarefa agendada"
                         )
                     } else {
-                        Toast.makeText(this@DashboardActivity, "Erro ao carregar dados do dashboard", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Erro ao carregar dados do dashboard", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<DashboardResponse>, t: Throwable) {
                     Log.e("Dashboard", "Erro na API: ${t.message}")
-                    Toast.makeText(this@DashboardActivity, "Erro na conexão com o servidor", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Erro na conexão com o servidor", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -174,5 +188,36 @@ class DashboardActivity : AppCompatActivity() {
 
 
     }
+    private fun syncPendingUsers() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val dao = AppDatabase.getDatabase(this@DashboardActivity).pendingUserDao()
+                val pendentes = dao.getAll()
+
+                for (user in pendentes) {
+                    val call = RetrofitClient.instance.registerUser(
+                        user.nome,
+                        user.username,
+                        user.email,
+                        user.password,
+                        user.tipo_perfil,
+                        user.foto ?: ""
+                    )
+
+                    val response = call.execute()
+
+                    if (response.isSuccessful && response.body()?.success == true) {
+                        dao.delete(user)
+                        Log.d("Sync", "Utilizador ${user.username} sincronizado.")
+                    } else {
+                        Log.e("Sync", "Erro ao sincronizar ${user.username}: ${response.message()}")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Sync", "Erro geral ao sincronizar: ${e.message}")
+            }
+        }
+    }
+
 }
 

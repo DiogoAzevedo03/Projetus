@@ -5,7 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.projetus.network.LoginResponse
+import com.example.projetus.network.Utilizador
+import com.example.projetus.data.local.AppDatabase
+import com.example.projetus.data.model.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Preenche todos os campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Preenche todos os campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -42,10 +49,40 @@ class LoginActivity : AppCompatActivity() {
                         if (response.isSuccessful && response.body()?.success == true) {
                             val user = response.body()?.user
                             Toast.makeText(
-                                this@LoginActivity,
+                                applicationContext,
                                 "Bem-vindo, ${user?.nome}",
                                 Toast.LENGTH_SHORT
                             ).show()
+
+                            user?.let { userData ->
+                                RetrofitClient.instance.getUser(mapOf("user_id" to userData.id))
+                                    .enqueue(object : Callback<Utilizador> {
+                                        override fun onResponse(
+                                            call: Call<Utilizador>,
+                                            resp: Response<Utilizador>
+                                        ) {
+                                            resp.body()?.let { fullUser ->
+                                                lifecycleScope.launch(Dispatchers.IO) {
+                                                    val localUser = User(
+                                                        id = fullUser.id,
+                                                        nome = fullUser.nome,
+                                                        username = fullUser.username,
+                                                        email = fullUser.email,
+                                                        password = fullUser.password,
+                                                        tipo_perfil = fullUser.tipo_perfil,
+                                                        estado = "Ativo",
+                                                        foto = fullUser.foto
+                                                    )
+                                                    AppDatabase.getDatabase(this@LoginActivity).userDao().insert(localUser)
+                                                }
+                                            }
+                                        }
+
+                                        override fun onFailure(call: Call<Utilizador>, t: Throwable) {
+                                            Log.e("LoginActivity", "Erro ao obter detalhes: ${t.message}")
+                                        }
+                                    })
+                            }
 
                             val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                             intent.putExtra("user_id", user?.id)
@@ -54,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         } else {
                             Toast.makeText(
-                                this@LoginActivity,
+                                applicationContext,
                                 response.body()?.message ?: "Erro de login",
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -62,12 +99,25 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Erro: ${t.message}",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            val localUser = AppDatabase.getDatabase(this@LoginActivity).userDao().getByEmail(email)
+                            if (localUser != null && localUser.password == password) {
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(applicationContext, "Login offline com sucesso", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                                    intent.putExtra("user_id", localUser.id)
+                                    intent.putExtra("tipo_perfil", localUser.tipo_perfil)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            } else {
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(applicationContext, "Erro: sem internet e utilizador não encontrado localmente", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
                     }
+
                 })
         }
 
