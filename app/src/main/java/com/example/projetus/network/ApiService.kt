@@ -1,120 +1,120 @@
-package com.example.projetus.network
+package com.example.projetus.network // Define o pacote do arquivo
 
-import AvaliacoesResponse
-import com.example.projetus.network.StatisticsTarefaResponse
-import com.example.projetus.network.GenericResponse
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import AvaliacoesResponse // Importa o modelo de resposta de avaliacoes
+import com.example.projetus.network.StatisticsTarefaResponse // Importa a resposta para estatisticas de tarefas
+import com.example.projetus.network.GenericResponse // Importa a resposta generica
+import retrofit2.Call // Classe Call do Retrofit para chamadas HTTP
+import retrofit2.http.Body // Anotacao para enviar o corpo da requisicao
+import retrofit2.http.Field // Anotacao para enviar um campo em formulários
+import retrofit2.http.FieldMap // Anotacao para enviar varios campos em formulários
+import retrofit2.http.FormUrlEncoded // Indica que a chamada envia dados codificados em formulário
+import retrofit2.http.GET // Anotacao para requisicoes GET
+import retrofit2.http.POST // Anotacao para requisicoes POST
 
-interface ApiService {
+interface ApiService { // Interface que define os endpoints da API
 
-    @FormUrlEncoded
-    @POST("login.php")
+    @FormUrlEncoded // Envia os dados como formulario
+    @POST("login.php") // Endpoint de login
     fun loginUser(
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<LoginResponse>
+        @Field("email") email: String, // Email do utilizador
+        @Field("password") password: String // Password do utilizador
+    ): Call<LoginResponse> // Resposta com os dados do login
 
-    @FormUrlEncoded
-    @POST("register.php")
+    @FormUrlEncoded // Envia os dados de registro como formulario
+    @POST("register.php") // Endpoint de registro
     fun registerUser(
-        @Field("nome") nome: String,
-        @Field("username") username: String,
-        @Field("email") email: String,
-        @Field("password") password: String,
-        @Field("tipo_perfil") tipoPerfil: String,
-        @Field("foto") foto: String
-    ): Call<GenericResponse>
+        @Field("nome") nome: String, // Nome do utilizador
+        @Field("username") username: String, // Username do utilizador
+        @Field("email") email: String, // Email do utilizador
+        @Field("password") password: String, // Password do utilizador
+        @Field("tipo_perfil") tipoPerfil: String, // Perfil de acesso
+        @Field("foto") foto: String // Foto do utilizador
+    ): Call<GenericResponse> // Resposta generica com o resultado
 
-    @POST("dashboard.php")
+    @POST("dashboard.php") // Endpoint para obter dados do dashboard
     fun getDashboardData(
-        @Body userIdBody: Map<String, Int>): Call<DashboardResponse>
+        @Body userIdBody: Map<String, Int>): Call<DashboardResponse> // Envia o ID do utilizador e recebe o dashboard
 
-    @POST("tasks.php")
+    @POST("tasks.php") // Endpoint de lista de tarefas
     fun getTasks(
-        @Body body: Map<String, Int>): Call<TasksResponse>
+        @Body body: Map<String, Int>): Call<TasksResponse> // Envia parametros e recebe a lista de tarefas
 
-    @POST("get_projects.php")
+    @POST("get_projects.php") // Endpoint de obtencao de projetos
     fun getProjects(
         @Body body: Map<String, Int>
-    ): Call<ProjectResponse>
+    ): Call<ProjectResponse> // Resposta com a lista de projetos
 
-    @FormUrlEncoded
-    @POST("add_project.php")
+    @FormUrlEncoded // Envia dados do projeto como formulario
+    @POST("add_project.php") // Endpoint para adicionar projeto
     fun addProject(
-        @Field("nome") nome: String,
-        @Field("descricao") descricao: String,
-        @Field("gestor_id") gestorId: Int,
-        @Field("data_inicio") dataInicio: String,
-        @Field("data_fim") dataFim: String
-    ): Call<GenericResponse>
+        @Field("nome") nome: String, // Nome do projeto
+        @Field("descricao") descricao: String, // Descricao do projeto
+        @Field("gestor_id") gestorId: Int, // ID do gestor
+        @Field("data_inicio") dataInicio: String, // Data de inicio
+        @Field("data_fim") dataFim: String // Data de fim
+    ): Call<GenericResponse> // Resposta generica
 
-    @POST("get_users.php")
-    fun getUtilizadores(): Call<UtilizadoresResponse>
-
-
-    @POST("add_task.php")
-    fun addTask(@Body body: Map<String, String>): Call<GenericResponse>
+    @POST("get_users.php") // Endpoint para obter utilizadores
+    fun getUtilizadores(): Call<UtilizadoresResponse> // Retorna lista de utilizadores
 
 
-    @POST("get_user.php")
-    fun getUser(@Body body: Map<String, Int>): Call<Utilizador>
-
-    @POST("update_user.php")
-    fun updateUser(@Body body: Map<String, String>): Call<GenericResponse>
-
-    @POST("get_task_details.php")
-    fun getTaskDetails(@Body data: Map<String, Int>): Call<TaskDetailsResponse>
-
-    @POST("update_task_details.php")
-    fun updateTaskDetails(@Body data: Map<String, Any>): Call<GenericResponse>
-
-    @POST("concluir_tarefa.php")
-    fun marcarTarefaConcluida(@Body data: Map<String, Int>): Call<GenericResponse>
+    @POST("add_task.php") // Endpoint para adicionar tarefa
+    fun addTask(@Body body: Map<String, String>): Call<GenericResponse> // Envia dados da tarefa
 
 
-    @POST("update_task_details.php")
-    fun updateTaskDetails(@Body data: UpdateTaskRequest): Call<GenericResponse>
+    @POST("get_user.php") // Endpoint para obter um utilizador
+    fun getUser(@Body body: Map<String, Int>): Call<Utilizador> // Devolve os dados do utilizador
 
-    @POST("estatisticas.php")
-    fun getEstatisticas(@Body body: Map<String, Int>): Call<StatisticsResponse>
+    @POST("update_user.php") // Endpoint para atualizar utilizador
+    fun updateUser(@Body body: Map<String, String>): Call<GenericResponse> // Envia dados atualizados
 
-    @POST("getTarefasDoProjeto.php")
-    fun getTasksByProject(@Body data: Map<String, Int>): Call<TasksResponse>
+    @POST("get_task_details.php") // Endpoint para detalhes de tarefa
+    fun getTaskDetails(@Body data: Map<String, Int>): Call<TaskDetailsResponse> // Retorna detalhes completos
 
-    @POST("concluirProjeto.php")
-    fun concluirProjeto(@Body data: Map<String, Int>): Call<SimpleResponse>
+    @POST("update_task_details.php") // Atualiza dados da tarefa
+    fun updateTaskDetails(@Body data: Map<String, Any>): Call<GenericResponse> // Envia mapa de dados variado
 
-    @POST("associarColaborador.php")
-    fun associarColaborador(@Body request: AssociarRequest): Call<SimpleResponse>
-
-    @POST("colaboradoresProjeto.php")
-    fun getColaboradoresDoProjeto(@Body data: Map<String, Int>): Call<UtilizadoresResponse>
-
-    @POST("tarefasDoProjetoComColaboradores.php")
-    fun getTarefasComColaboradores(@Body data: Map<String, Int>): Call<AvaliacoesResponse>
-
-    @POST("avaliarTarefa.php")
-    fun avaliarTarefa(@Body data: AvaliacaoRequest): Call<SimpleResponse>
-
-    @POST("estatisticasProjeto.php")
-    fun getEstatisticasProjeto(@Body body: Map<String, Int>): Call<StatisticsProjetoResponse>
+    @POST("concluir_tarefa.php") // Marca tarefa como concluída
+    fun marcarTarefaConcluida(@Body data: Map<String, Int>): Call<GenericResponse> // Envia ID da tarefa
 
 
-    @POST("estatisticasTarefa.php")
-    fun getEstatisticasTarefas(@Body params: Map<String, Int>): Call<StatisticsTarefaResponse>
+    @POST("update_task_details.php") // Outra versao de atualizacao de tarefa
+    fun updateTaskDetails(@Body data: UpdateTaskRequest): Call<GenericResponse> // Usa objeto dedicado
+
+    @POST("estatisticas.php") // Endpoint de estatisticas gerais
+    fun getEstatisticas(@Body body: Map<String, Int>): Call<StatisticsResponse> // Retorna dados estatisticos
+
+    @POST("getTarefasDoProjeto.php") // Tarefas de um projeto especifico
+    fun getTasksByProject(@Body data: Map<String, Int>): Call<TasksResponse> // Envia id do projeto e recebe tarefas
+
+    @POST("concluirProjeto.php") // Concluir um projeto
+    fun concluirProjeto(@Body data: Map<String, Int>): Call<SimpleResponse> // Envia id do projeto
+
+    @POST("associarColaborador.php") // Associa colaborador a projeto
+    fun associarColaborador(@Body request: AssociarRequest): Call<SimpleResponse> // Usa objeto com ids
+
+    @POST("colaboradoresProjeto.php") // Busca colaboradores de um projeto
+    fun getColaboradoresDoProjeto(@Body data: Map<String, Int>): Call<UtilizadoresResponse> // Lista de utilizadores
+
+    @POST("tarefasDoProjetoComColaboradores.php") // Tarefas de um projeto e seus colaboradores
+    fun getTarefasComColaboradores(@Body data: Map<String, Int>): Call<AvaliacoesResponse> // Retorna avaliacoes
+
+    @POST("avaliarTarefa.php") // Envia avaliacao da tarefa
+    fun avaliarTarefa(@Body data: AvaliacaoRequest): Call<SimpleResponse> // Utiliza objeto de avaliacao
+
+    @POST("estatisticasProjeto.php") // Estatisticas especificas de projeto
+    fun getEstatisticasProjeto(@Body body: Map<String, Int>): Call<StatisticsProjetoResponse> // Retorna dados do projeto
 
 
-    @POST("delete_user.php")
-    fun deleteUser(@Body data: Map<String, String>): Call<GenericResponse>
-
-    @POST("get_gestores.php")
-    fun getGestores(): Call<GestoresResponse>
+    @POST("estatisticasTarefa.php") // Estatisticas das tarefas
+    fun getEstatisticasTarefas(@Body params: Map<String, Int>): Call<StatisticsTarefaResponse> // Retorna lista de tarefas
 
 
-}
+    @POST("delete_user.php") // Remove utilizador
+    fun deleteUser(@Body data: Map<String, String>): Call<GenericResponse> // Envia id do utilizador
+
+    @POST("get_gestores.php") // Lista de gestores
+    fun getGestores(): Call<GestoresResponse> // Resposta com gestores
+
+
+} // Fim da interface
