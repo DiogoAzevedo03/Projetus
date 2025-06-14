@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext // Mudança de contexto da coroutine
 import retrofit2.Call // Representa uma chamada HTTP
 import retrofit2.Callback // Callback para o Retrofit
 import retrofit2.Response // Resposta de uma chamada Retrofit
+import android.util.Patterns // Padrões para validação de email
 
 class AddUserActivity : AppCompatActivity() { // Activity responsável por adicionar um utilizador
 
@@ -54,6 +55,17 @@ class AddUserActivity : AppCompatActivity() { // Activity responsável por adici
             if (nomeTxt.isEmpty() || userTxt.isEmpty() || emailTxt.isEmpty() || passTxt.isEmpty()) {
                 Toast.makeText(this, "Preenche todos os campos!", Toast.LENGTH_SHORT).show() // Validação simples
                 return@setOnClickListener // Interrompe se algum campo estiver vazio
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()) {
+                Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val passwordPattern = Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}")
+            if (!passwordPattern.containsMatchIn(passTxt)) {
+                Toast.makeText(this, "Palavra-passe fraca", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             // Enviar os dados para o servidor, incluindo a foto

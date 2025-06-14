@@ -8,6 +8,8 @@ import com.example.projetus.network.GenericResponse // Modelo de resposta
 import retrofit2.Call // Representa a chamada HTTP
 import retrofit2.Callback // Callback assíncrono do Retrofit
 import retrofit2.Response // Resposta HTTP do Retrofit
+import android.util.Patterns // Padrões para validação de email
+
 
 // Activity que permite registar novos utilizadores
 class RegisterActivity : AppCompatActivity() {
@@ -35,6 +37,17 @@ class RegisterActivity : AppCompatActivity() {
             if (nome.isEmpty() || user.isEmpty() || mail.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Preenche todos os campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener // Encerra se faltarem dados
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
+                Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val passwordPattern = Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}")
+            if (!passwordPattern.containsMatchIn(pass)) {
+                Toast.makeText(this, "Palavra-passe fraca", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             // Chamada à API para registar o utilizador

@@ -8,6 +8,8 @@ import com.example.projetus.network.Utilizador // Modelo de utilizador
 import retrofit2.Call // Chamada da API
 import retrofit2.Callback // Callback da API
 import retrofit2.Response // Resposta da API
+import android.util.Patterns // Padrões para validação de email
+
 
 class EditUserActivity : AppCompatActivity() { // Activity para editar utilizadores
 
@@ -69,6 +71,19 @@ class EditUserActivity : AppCompatActivity() { // Activity para editar utilizado
             if (nome.isEmpty() || username.isEmpty() || email.isEmpty()) { // Valida campos
                 Toast.makeText(this, "Preenche todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (password.isNotEmpty()) {
+                val passwordPattern = Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}")
+                if (!passwordPattern.containsMatchIn(password)) {
+                    Toast.makeText(this, "Palavra-passe fraca", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
 
             val data = mutableMapOf(
