@@ -1,47 +1,47 @@
-package com.example.projetus
+package com.example.projetus // Pacote principal
 
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.AssociarRequest
-import com.example.projetus.network.Project
-import com.example.projetus.network.Utilizador
-import com.example.projetus.network.SimpleResponse
-import com.example.projetus.network.UtilizadoresResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.content.Intent // Para navegação
+import android.os.Bundle // Ciclo de vida
+import android.util.Log // Logs de depuração
+import android.widget.* // Componentes de UI
+import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.network.AssociarRequest // Modelo de associação
+import com.example.projetus.network.Project // Modelo de projeto
+import com.example.projetus.network.Utilizador // Modelo de utilizador
+import com.example.projetus.network.SimpleResponse // Resposta simples
+import com.example.projetus.network.UtilizadoresResponse // Lista de utilizadores
+import retrofit2.Call // Chamada HTTP
+import retrofit2.Callback // Callback do Retrofit
+import retrofit2.Response // Resposta do Retrofit
 
-class AssociarColaboradoresActivity : AppCompatActivity() {
+class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para associar colaboradores a um projeto
 
-    private lateinit var layoutUtilizadores: LinearLayout
-    private var projetoId: Int = -1
+    private lateinit var layoutUtilizadores: LinearLayout // Layout que receberá os checkboxes
+    private var projetoId: Int = -1 // Id do projeto atual
     private val checkBoxes = mutableListOf<Pair<CheckBox, Int>>() // (CheckBox, utilizador_id)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_associar_colaboradores)
-        val projeto = intent.getSerializableExtra("projeto") as? Project
-        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+    override fun onCreate(savedInstanceState: Bundle?) { // Inicialização
+        super.onCreate(savedInstanceState) // Super
+        setContentView(R.layout.activity_associar_colaboradores) // Layout
+        val projeto = intent.getSerializableExtra("projeto") as? Project // Projeto recebido
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Perfil do utilizador
 
-        layoutUtilizadores = findViewById(R.id.layout_utilizadores)
-        projetoId = intent.getIntExtra("projeto_id", -1)
+        layoutUtilizadores = findViewById(R.id.layout_utilizadores) // Layout onde serão listados
+        projetoId = intent.getIntExtra("projeto_id", -1) // Id do projeto vindo da Intent
 
-        if (projetoId == -1) {
+        if (projetoId == -1) { // Valida projeto
             Toast.makeText(this, "Projeto inválido", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        carregarUtilizadores()
+        carregarUtilizadores() // Carrega utilizadores da API
 
-        findViewById<Button>(R.id.btn_associar).setOnClickListener {
-            associarSelecionados()
+        findViewById<Button>(R.id.btn_associar).setOnClickListener { // Botão para associar
+            associarSelecionados() // Chama função de associação
         }
 
-        findViewById<Button>(R.id.btn_cancelar).setOnClickListener {
+        findViewById<Button>(R.id.btn_cancelar).setOnClickListener { // Cancelar volta aos detalhes
             val userId = intent.getIntExtra("user_id", -1)
             val projeto = intent.getSerializableExtra("projeto") as? Project
 
@@ -53,9 +53,9 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
             finish()
         }
 
-    }
+    } // Fim do onCreate
 
-    private fun carregarUtilizadores() {
+    private fun carregarUtilizadores() { // Obtém e lista utilizadores
         // 1. Vai buscar todos os utilizadores
         RetrofitClient.instance.getUtilizadores().enqueue(object : Callback<UtilizadoresResponse> {
             override fun onResponse(call: Call<UtilizadoresResponse>, response: Response<UtilizadoresResponse>) {
@@ -70,8 +70,8 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
                             response: Response<UtilizadoresResponse>
                         ) {
                             if (response.isSuccessful && response.body()?.success == true) {
-                                val associados = response.body()?.utilizadores ?: emptyList()
-                                val idsAssociados = associados.map { it.id }
+                                val associados = response.body()?.utilizadores ?: emptyList() // Utilizadores já ligados
+                                val idsAssociados = associados.map { it.id } // Ids destes utilizadores
 
                                 // 3. Filtrar os que ainda podem ser associados
                                 val utilizadoresDisponiveis = todosUtilizadores.filter { it.id !in idsAssociados }
@@ -81,8 +81,8 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
                                     val checkBox = CheckBox(this@AssociarColaboradoresActivity).apply {
                                         text = utilizador.nome
                                     }
-                                    layoutUtilizadores.addView(checkBox)
-                                    checkBoxes.add(Pair(checkBox, utilizador.id))
+                                    layoutUtilizadores.addView(checkBox) // Mostra na tela
+                                    checkBoxes.add(Pair(checkBox, utilizador.id)) // Guarda para posterior uso
                                 }
                             } else {
                                 Toast.makeText(this@AssociarColaboradoresActivity, "Erro ao buscar associados", Toast.LENGTH_SHORT).show()
@@ -103,11 +103,11 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
                 Toast.makeText(this@AssociarColaboradoresActivity, "Falha na rede (todos)", Toast.LENGTH_SHORT).show()
             }
         })
-    }
+    } // Fim de carregarUtilizadores
 
 
 
-    private fun associarSelecionados() {
+    private fun associarSelecionados() { // Associa os utilizadores escolhidos
         val selecionados = checkBoxes.filter { it.first.isChecked }.map { it.second }
 
         if (selecionados.isEmpty()) {
@@ -130,7 +130,6 @@ class AssociarColaboradoresActivity : AppCompatActivity() {
         }
 
         Toast.makeText(this, "Colaboradores associados com sucesso!", Toast.LENGTH_SHORT).show()
-        finish()
-    }
-
+        finish() // Fecha a Activity após associar
+    } // Fim de associarSelecionados
 }
