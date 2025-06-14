@@ -1,120 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Declara a versão de XML e a codificação usada neste ficheiro -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    <!-- Namespace para atributos padrão do Android -->
     xmlns:tools="http://schemas.android.com/tools"
-    <!-- Namespace para atributos das ferramentas do Android -->
     package="com.example.projetus">
-    <!-- Nome do pacote que identifica a aplicação -->
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Permite que a aplicação aceda à internet -->
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- Permissão para ler do armazenamento externo -->
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"/>
-    <!-- Permissão para escrever no armazenamento externo até ao nível de API 28 -->
 
     <application
-        <!-- Configurações ao nível da aplicação começam aqui -->
         android:localeConfig="@xml/locales_config"
-        <!-- Especifica os idiomas suportados -->
         android:name=".ProjetusApplication"
-        <!-- Nome da classe Application -->
         android:allowBackup="true"
-        <!-- Permite a cópia de segurança de dados -->
         android:dataExtractionRules="@xml/data_extraction_rules"
-        <!-- Regras de extração de dados durante o backup -->
         android:fullBackupContent="@xml/backup_rules"
-        <!-- Especifica ficheiros a incluir/excluir nos backups -->
         android:icon="@mipmap/ic_launcher"
-        <!-- Recurso do ícone da aplicação -->
         android:label="@string/app_name"
-        <!-- Rótulo da aplicação -->
         android:roundIcon="@mipmap/ic_launcher_round"
-        <!-- Recurso do ícone redondo -->
         android:supportsRtl="true"
-        <!-- Suporta layouts da direita para a esquerda -->
         android:theme="@style/Theme.Projetus"
-        <!-- Tema padrão da aplicação -->
         android:networkSecurityConfig="@xml/network_security_config"
-        <!-- Configuração personalizada de segurança de rede -->
         tools:targetApi="31">
-        <!-- Nível de API alvo para os elementos do manifesto -->
 
         <activity
-            <!-- Ecrã de introdução mostrado ao iniciar -->
             android:name=".IntroActivity"
             android:exported="true">
-            <!-- Marca a atividade como exportada para o launcher -->
             <intent-filter>
-                <!-- Filtro de intent que define o ponto de entrada do launcher -->
                 <action android:name="android.intent.action.MAIN" />
-                <!-- Ação principal para o launcher -->
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!-- Categoria que indica o ícone do launcher -->
             </intent-filter>
         </activity>
-
-
         <activity android:name=".LoginActivity" android:exported="false" />
-        <!-- Atividade do ecrã de login -->
         <activity android:name=".MainActivity" android:exported="false" />
-        <!-- Atividade principal da aplicação -->
         <activity android:name=".RegisterActivity" android:exported="false" />
-        <!-- Atividade de registo de utilizador -->
         <activity android:name=".DashboardActivity" android:exported="false" />
-        <!-- Dashboard que mostra a visão geral -->
         <activity android:name=".ProjectsActivity" android:exported="false"/>
-        <!-- Lista os projetos disponíveis -->
         <activity android:name=".TasksActivity" />
-        <!-- Atividade que lista as tarefas -->
         <activity android:name=".CreateProjectActivity" />
-        <!-- Ecrã para criar um novo projeto -->
         <activity android:name=".CreateTaskActivity" />
-        <!-- Ecrã para criar uma nova tarefa -->
         <activity android:name=".ProfileActivity" />
-        <!-- Ecrã de perfil do utilizador -->
         <activity android:name=".SettingsActivity" />
-        <!-- Ecrã de configurações da aplicação -->
         <activity android:name=".PasswordRecoveryActivity" />
-        <!-- Fluxo de recuperação de palavra-passe -->
         <activity android:name=".UsernameRecoveryActivity" />
-        <!-- Fluxo de recuperação de nome de utilizador -->
         <activity android:name=".AjudaActivity" />
-        <!-- Ecrã de ajuda para utilizadores não autenticados -->
         <activity android:name=".HelpLoggedActivity" />
-        <!-- Ecrã de ajuda para utilizadores autenticados -->
         <activity android:name=".UserManagementActivity" />
-        <!-- Gerir utilizadores da aplicação -->
         <activity android:name=".AddUserActivity" />
-        <!-- Ecrã para adicionar novo utilizador -->
         <activity android:name=".ProjectDetailsActivity" />
-        <!-- Mostra detalhes de um projeto -->
         <activity android:name=".TaskDetailsActivity" />
-        <!-- Mostra detalhes de uma tarefa -->
         <activity android:name=".StatisticsActivity" />
-        <!-- Ecrã de estatísticas da aplicação -->
         <activity android:name=".ProjectTasksActivity" />
-        <!-- Lista tarefas de um projeto específico -->
         <activity android:name=".ProjectEvaluationActivity" />
-        <!-- Atividade para avaliar projetos -->
         <activity android:name=".AssociarColaboradoresActivity" />
-        <!-- Associar colaboradores a projetos -->
         <activity android:name=".HistoricoProjetosActivity" />
-        <!-- Mostra o histórico de projetos -->
         <activity android:name=".HistoricoTarefasActivity" />
-        <!-- Mostra o histórico de tarefas -->
         <activity android:name=".EditUserActivity" />
-        <!-- Editar informações do utilizador -->
-
-
-
-
     </application>
-    <!-- Fim do elemento application -->
-
 </manifest>
-<!-- Fim do manifest -->
