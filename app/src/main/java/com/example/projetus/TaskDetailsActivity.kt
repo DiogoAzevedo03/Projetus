@@ -1,36 +1,43 @@
-package com.example.projetus
+package com.example.projetus // Pacote da aplicação
 
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.TaskDetailsResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import com.example.projetus.network.GenericResponse
-import com.example.projetus.network.UpdateTaskRequest
-import com.bumptech.glide.Glide
+import android.content.Intent // Necessário para navegação entre Activities
+import android.os.Bundle // Fornece informação sobre o estado da Activity
+import android.util.Log // Utilizado para logs de depuração
+import android.widget.* // Contém TextView, Button, SeekBar, etc.
+import androidx.appcompat.app.AppCompatActivity // Activity base com ActionBar
+import com.example.projetus.network.TaskDetailsResponse // Modelo da resposta dos detalhes
+import retrofit2.Call // Representa uma chamada Retrofit
+import retrofit2.Callback // Callback assíncrono do Retrofit
+import retrofit2.Response // Resposta HTTP do Retrofit
+import com.example.projetus.network.GenericResponse // Resposta genérica
+import com.example.projetus.network.UpdateTaskRequest // Modelo para atualização de tarefa
+import com.bumptech.glide.Glide // Biblioteca para carregar imagens
 
+// Activity que apresenta e permite editar os detalhes de uma tarefa
 class TaskDetailsActivity : AppCompatActivity() {
+    // ID da tarefa a ser visualizada
     private var tarefaId: Int = -1
+    // ID do utilizador associado
     private var utilizadorId: Int = -1
 
+    // Método executado na criação da Activity
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("DEBUG", "tarefaId: $tarefaId | utilizadorId: $utilizadorId")
+        Log.d("DEBUG", "tarefaId: $tarefaId | utilizadorId: $utilizadorId") // Log para depuração
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_details)
+        setContentView(R.layout.activity_task_details) // Define o layout
 
+        // Recupera os IDs enviados na intent
         tarefaId = intent.getIntExtra("task_id", -1)
-        utilizadorId = intent.getIntExtra("user_id", -1) // este também deve vir da intent
+        utilizadorId = intent.getIntExtra("user_id", -1) // também passado na intent
 
+        // Elementos de interface
         val nome = findViewById<TextView>(R.id.tv_nome)
         val dataEntrega = findViewById<TextView>(R.id.tv_entrega)
         val progresso = findViewById<SeekBar>(R.id.seekBarProgress)
         val percentagem = findViewById<TextView>(R.id.tv_percent)
 
+        // Atualiza o texto de percentagem à medida que o utilizador move a barra
         progresso.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 percentagem.text = "$progress%"
@@ -41,6 +48,7 @@ class TaskDetailsActivity : AppCompatActivity() {
         })
 
 
+        // Campos editáveis e botões
         val tempo = findViewById<EditText>(R.id.et_tempo)
         val observacoes = findViewById<EditText>(R.id.et_obs)
         val foto = findViewById<EditText>(R.id.et_foto)
@@ -48,6 +56,7 @@ class TaskDetailsActivity : AppCompatActivity() {
         val btnGuardar = findViewById<Button>(R.id.btn_guardar)
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
+        // Verifica se os dados necessários foram fornecidos
         if (tarefaId == -1 || utilizadorId == -1) {
             Toast.makeText(this, "Dados inválidos", Toast.LENGTH_SHORT).show()
             finish()
@@ -55,6 +64,7 @@ class TaskDetailsActivity : AppCompatActivity() {
         }
 
 
+        // Chamada à API para obter os detalhes da tarefa
         val data = mapOf("tarefa_id" to tarefaId)
         RetrofitClient.instance.getTaskDetails(data).enqueue(object : Callback<TaskDetailsResponse> {
             override fun onResponse(call: Call<TaskDetailsResponse>, response: Response<TaskDetailsResponse>) {
@@ -63,11 +73,13 @@ class TaskDetailsActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body()?.success == true) {
                     val t = response.body()!!.tarefa
 
+                    // Preenche os campos com os dados recebidos
                     nome.text = "Nome: ${t["nome"]}"
                     dataEntrega.text = "Entrega: ${t["data_entrega"]}"
                     tempo.setText((t["tempo_gasto"] ?: "").toString())
                     observacoes.setText((t["observacoes"] ?: "").toString())
 
+                    // Conversão da taxa de conclusão para inteiro
                     val taxaConclusao = when (val valor = t["taxa_conclusao"]) {
                         is Double -> valor.toInt()
                         is Int -> valor
@@ -75,11 +87,12 @@ class TaskDetailsActivity : AppCompatActivity() {
                         else -> 0
                     }
 
+                    // Atualiza a UI com a taxa de conclusão
                     progresso.progress = taxaConclusao
                     percentagem.text = "$taxaConclusao%"
                     foto.setText((t["foto"] ?: "").toString())
 
-                    // ✅ Mostrar imagem com Glide
+                    // Mostrar imagem com Glide
                     val imagePreview = findViewById<ImageView>(R.id.image_preview)
                     val fotoUrl = (t["foto"] ?: "").toString()
 
@@ -99,16 +112,19 @@ class TaskDetailsActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<TaskDetailsResponse>, t: Throwable) {
+                // Caso a chamada falhe
                 Toast.makeText(this@TaskDetailsActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
             }
         })
 
+        // Guarda as alterações efetuadas na tarefa
         btnGuardar.setOnClickListener {
             val tempoGasto = tempo.text.toString()
             val obs = observacoes.text.toString()
             val fotoUrl = foto.text.toString()
             val progressoAtual = progresso.progress
 
+            // Cria objeto com os dados para enviar
             val data = UpdateTaskRequest(
                 tarefa_id = tarefaId,
                 utilizador_id = utilizadorId,
@@ -134,6 +150,7 @@ class TaskDetailsActivity : AppCompatActivity() {
         }
 
 
+        // Marca a tarefa como concluída
         btnConcluir.setOnClickListener {
             val data = mapOf("tarefa_id" to tarefaId)
 
@@ -153,12 +170,14 @@ class TaskDetailsActivity : AppCompatActivity() {
             })
         }
 
+        // Recupera novamente o ID do utilizador para navegação
         val userId = intent.getIntExtra("user_id", -1)
 
         val btnHome = findViewById<ImageView>(R.id.btn_home)
         val btnProfile = findViewById<ImageView>(R.id.btn_profile)
         val btnSettings = findViewById<ImageView>(R.id.btn_settings)
 
+        // Botão para voltar ao dashboard
         btnHome.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
@@ -167,6 +186,7 @@ class TaskDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Botão para abrir o perfil
         btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
@@ -175,6 +195,7 @@ class TaskDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Botão para abrir as definições
         btnSettings.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
@@ -186,3 +207,5 @@ class TaskDetailsActivity : AppCompatActivity() {
 
     }
 }
+
+
