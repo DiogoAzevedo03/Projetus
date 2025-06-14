@@ -1,57 +1,57 @@
-package com.example.projetus
+package com.example.projetus // Pacote da aplicação
 
-import android.app.DatePickerDialog
-import android.content.Intent
-import android.os.Bundle
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.GenericResponse
-import com.example.projetus.network.Gestor
-import com.example.projetus.network.GestoresResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
+import android.app.DatePickerDialog // Diálogo de seleção de data
+import android.content.Intent // Navegação entre Activities
+import android.os.Bundle // Estado da Activity
+import android.widget.* // Widgets Android
+import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.network.GenericResponse // Resposta genérica da API
+import com.example.projetus.network.Gestor // Modelo de gestor
+import com.example.projetus.network.GestoresResponse // Resposta com gestores
+import retrofit2.Call // Chamada HTTP
+import retrofit2.Callback // Callback do Retrofit
+import retrofit2.Response // Resposta do Retrofit
+import java.util.* // Utilidades de data
 
-class CreateProjectActivity : AppCompatActivity() {
+class CreateProjectActivity : AppCompatActivity() { // Activity para criar projetos
 
-    private lateinit var spinnerGestor: Spinner
-    private var listaGestores: List<Gestor> = emptyList()
+    private lateinit var spinnerGestor: Spinner // Dropdown de gestores
+    private var listaGestores: List<Gestor> = emptyList() // Lista carregada da API
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_project)
+    override fun onCreate(savedInstanceState: Bundle?) { // Método inicial
+        super.onCreate(savedInstanceState) // Super
+        setContentView(R.layout.activity_create_project) // Layout
 
-        val etNome = findViewById<EditText>(R.id.et_nome_projeto)
-        val etDescricao = findViewById<EditText>(R.id.et_descricao_projeto)
-        val dpInicio = findViewById<EditText>(R.id.et_data_inicio)
-        val dpFim = findViewById<EditText>(R.id.et_data_fim)
-        val btnGuardar = findViewById<Button>(R.id.btn_guardar_projeto)
-        val btnCancelar = findViewById<Button>(R.id.btn_cancelar_projeto)
-        spinnerGestor = findViewById(R.id.spinner_gestor)
+        val etNome = findViewById<EditText>(R.id.et_nome_projeto) // Campo nome
+        val etDescricao = findViewById<EditText>(R.id.et_descricao_projeto) // Campo descrição
+        val dpInicio = findViewById<EditText>(R.id.et_data_inicio) // Data início
+        val dpFim = findViewById<EditText>(R.id.et_data_fim) // Data fim
+        val btnGuardar = findViewById<Button>(R.id.btn_guardar_projeto) // Botão guardar
+        val btnCancelar = findViewById<Button>(R.id.btn_cancelar_projeto) // Botão cancelar
+        spinnerGestor = findViewById(R.id.spinner_gestor) // Spinner de gestores
 
         // Date pickers
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance() // Instância de calendário
         val setDateListener = { target: EditText ->
             DatePickerDialog(this, { _, year, month, day ->
                 val date = String.format("%04d-%02d-%02d", year, month + 1, day)
-                target.setText(date)
+                target.setText(date) // Define data escolhida
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        dpInicio.setOnClickListener { setDateListener(dpInicio) }
-        dpFim.setOnClickListener { setDateListener(dpFim) }
+        dpInicio.setOnClickListener { setDateListener(dpInicio) } // Escolher data início
+        dpFim.setOnClickListener { setDateListener(dpFim) } // Escolher data fim
 
-        carregarGestores()
+        carregarGestores() // Carrega gestores disponíveis
 
-        btnGuardar.setOnClickListener {
-            val nome = etNome.text.toString().trim()
-            val descricao = etDescricao.text.toString().trim()
-            val dataInicio = dpInicio.text.toString().trim()
-            val dataFim = dpFim.text.toString().trim()
+        btnGuardar.setOnClickListener { // Ao guardar projeto
+            val nome = etNome.text.toString().trim() // Nome inserido
+            val descricao = etDescricao.text.toString().trim() // Descrição inserida
+            val dataInicio = dpInicio.text.toString().trim() // Data início
+            val dataFim = dpFim.text.toString().trim() // Data fim
 
-            val gestorSelecionado = spinnerGestor.selectedItemPosition
-            val gestorId = listaGestores.getOrNull(gestorSelecionado)?.id ?: -1
+            val gestorSelecionado = spinnerGestor.selectedItemPosition // Posição selecionada
+            val gestorId = listaGestores.getOrNull(gestorSelecionado)?.id ?: -1 // Id do gestor
 
             if (nome.isEmpty() || descricao.isEmpty() || dataInicio.isEmpty() || dataFim.isEmpty() || gestorId == -1) {
                 Toast.makeText(this, "Preencha todos os campos e selecione um gestor", Toast.LENGTH_SHORT).show()
@@ -83,12 +83,12 @@ class CreateProjectActivity : AppCompatActivity() {
             })
         }
 
-        btnCancelar.setOnClickListener {
+        btnCancelar.setOnClickListener { // Cancela criação
             finish()
         }
     }
 
-    private fun carregarGestores() {
+    private fun carregarGestores() { // Carrega lista de gestores do servidor
         RetrofitClient.instance.getGestores().enqueue(object : Callback<GestoresResponse> {
             override fun onResponse(call: Call<GestoresResponse>, response: Response<GestoresResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
