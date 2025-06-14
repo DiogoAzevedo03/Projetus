@@ -1,40 +1,40 @@
-package com.example.projetus
+package com.example.projetus // Pacote principal
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.Project
-import com.example.projetus.network.ProjectResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.content.Intent // Para navegação
+import android.os.Bundle // Estado da Activity
+import android.view.LayoutInflater // Para inflar layouts
+import android.widget.Button // Botões
+import android.widget.ImageView // Ícones de navegação
+import android.widget.LinearLayout // Layout de lista
+import android.widget.TextView // Texto
+import android.widget.Toast // Mensagens rápidas
+import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.network.Project // Modelo de projeto
+import com.example.projetus.network.ProjectResponse // Resposta da API
+import retrofit2.Call // Chamada
+import retrofit2.Callback // Callback
+import retrofit2.Response // Resposta
 
-class HistoricoProjetosActivity : AppCompatActivity() {
+class HistoricoProjetosActivity : AppCompatActivity() { // Lista projetos concluídos
 
-    private lateinit var projectsContainer: LinearLayout
-    private var userId: Int = -1
+    private lateinit var projectsContainer: LinearLayout // Contém os projetos
+    private var userId: Int = -1 // ID do utilizador
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_historico_projetos)
+        setContentView(R.layout.activity_historico_projetos) // Define o layout
 
-        projectsContainer = findViewById(R.id.projects_container)
-        userId = intent.getIntExtra("user_id", -1)
+        projectsContainer = findViewById(R.id.projects_container) // Container dos projetos
+        userId = intent.getIntExtra("user_id", -1) // ID vindo da intent
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
-        if (userId == -1) {
+        if (userId == -1) { // Se não existir utilizador
             Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        loadProjects()
+        loadProjects() // Carrega projetos concluídos
 
         /// Navegação
         findViewById<ImageView>(R.id.btn_home).setOnClickListener {
@@ -44,14 +44,14 @@ class HistoricoProjetosActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
+        findViewById<ImageView>(R.id.btn_profile).setOnClickListener { // Vai para o perfil
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("tipo_perfil", tipoPerfil)
             startActivity(intent)
         }
 
-        findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
+        findViewById<ImageView>(R.id.btn_settings).setOnClickListener { // Vai para definições
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("tipo_perfil", tipoPerfil)
@@ -59,7 +59,7 @@ class HistoricoProjetosActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadProjects() {
+    private fun loadProjects() { // Obter projetos do utilizador
         val data = mapOf("utilizador_id" to userId)
         RetrofitClient.instance.getProjects(data).enqueue(object : Callback<ProjectResponse> {
             override fun onResponse(call: Call<ProjectResponse>, response: Response<ProjectResponse>) {
@@ -79,10 +79,10 @@ class HistoricoProjetosActivity : AppCompatActivity() {
         })
     }
 
-    private fun renderProjects(projetos: List<Project>) {
+    private fun renderProjects(projetos: List<Project>) { // Mostra projetos na tela
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
-        val inflater = LayoutInflater.from(this)
+        val inflater = LayoutInflater.from(this) // Para criar views
         projectsContainer.removeAllViews()
 
         for (projeto in projetos) {

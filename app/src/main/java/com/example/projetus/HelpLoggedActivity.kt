@@ -1,22 +1,22 @@
-package com.example.projetus
+package com.example.projetus // Pacote principal
 
-import android.content.Intent
-import android.os.Bundle
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent // Para navegação
+import android.os.Bundle // Estado da Activity
+import android.widget.* // Widgets
+import androidx.appcompat.app.AppCompatActivity // Activity base
 
-class HelpLoggedActivity : AppCompatActivity() {
+class HelpLoggedActivity : AppCompatActivity() { // Ecrã de ajuda para utilizadores autenticados
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help_logged)
+        setContentView(R.layout.activity_help_logged) // Define o layout
 
-        val userId = intent.getIntExtra("user_id", -1)
-        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+        val userId = intent.getIntExtra("user_id", -1) // ID do utilizador
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Perfil
 
-        val etMessage = findViewById<EditText>(R.id.et_message)
-        val btnSend = findViewById<Button>(R.id.btn_send)
+        val etMessage = findViewById<EditText>(R.id.et_message) // Campo de mensagem
+        val btnSend = findViewById<Button>(R.id.btn_send) // Botão enviar
 
-        btnSend.setOnClickListener {
+        btnSend.setOnClickListener { // Envio da mensagem
             val msg = etMessage.text.toString()
             if (msg.isNotEmpty()) {
                 Toast.makeText(this, "Mensagem enviada com sucesso!", Toast.LENGTH_SHORT).show()
