@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="#FAFAFA"
     android:padding="16dp">
 
-
-    <!-- Conteúdo principal com Scroll -->
+    <!-- Scroll do conteúdo -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,17 +21,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_settings"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="24dp"/>
+                android:textColor="#333333"
+                android:layout_marginBottom="24dp" />
 
-            <!-- Sugestões -->
+            <!-- Texto de sugestão -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/send_suggestion"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="#555555" />
 
+            <!-- Caixa de sugestão -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,26 +48,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_write_here"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="8dp"/>
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btn_enviar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/action_send"
-                    android:backgroundTint="#007BFF"
                     android:textColor="#FFFFFF"
-                    android:layout_marginStart="8dp"/>
+                    android:textSize="14sp"
+                    android:backgroundTint="#007BFF"
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
 
             <!-- Idioma -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/change_language"                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:text="@string/change_language"
+                android:textSize="16sp"
+                android:textColor="#555555"
+                android:layout_marginBottom="8dp" />
 
+            <!-- Botões de idioma -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,22 +82,25 @@
 
                 <Button
                     android:id="@+id/btn_pt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/lang_portuguese"
-                    android:background="#DDDDDD"
-                    android:layout_marginEnd="8dp"/>
+                    android:backgroundTint="#DDDDDD"
+                    android:textColor="#000"
+                    android:layout_marginEnd="8dp" />
 
                 <Button
                     android:id="@+id/btn_en"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/lang_english"
-                    android:background="#DDDDDD"/>
+                    android:backgroundTint="#DDDDDD"
+                    android:textColor="#000" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 
     <!-- Botão de ajuda -->
     <ImageView
@@ -100,9 +111,9 @@
         android:contentDescription="@string/desc_help"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp" />
 
-    <!-- Menu inferior fixo -->
+    <!-- Menu inferior -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -121,7 +132,7 @@
             android:src="@drawable/ic_home"
             android:contentDescription="@string/desc_home"
             android:scaleType="centerInside"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/btn_perfil"
@@ -131,7 +142,7 @@
             android:src="@drawable/ic_user"
             android:contentDescription="@string/desc_profile"
             android:scaleType="centerInside"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/btn_settings"
@@ -141,7 +152,7 @@
             android:src="@drawable/ic_settings"
             android:contentDescription="@string/desc_settings"
             android:scaleType="centerInside"
-            android:padding="8dp"/>
+            android:padding="8dp" />
     </LinearLayout>
-
 </RelativeLayout>
+

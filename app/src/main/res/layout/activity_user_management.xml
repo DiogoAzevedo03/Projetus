@@ -3,48 +3,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#F8F8F8">
+    android:background="#F5F5F5">
 
+    <!-- Título -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gestão de Utilizadores"
         android:textStyle="bold"
         android:textSize="24sp"
+        android:textColor="#111827"
         android:layout_marginBottom="16dp"/>
 
+    <!-- Scroll de utilizadores -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/users_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            android:divider="?android:dividerVertical"
+            android:showDividers="middle"
+            android:dividerPadding="8dp"/>
     </ScrollView>
 
+    <!-- Botão moderno -->
     <Button
         android:id="@+id/btn_add_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
         android:text="Adicionar utilizador"
-        android:backgroundTint="#EC4899"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="16dp"/>
-
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#4CAF50"
+        android:elevation="4dp"/>
 
     <!-- Menu inferior fixo -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="#FFFFFF"
-        android:elevation="4dp">
+        android:elevation="8dp"
+        android:layout_marginTop="16dp">
 
         <ImageView
             android:id="@+id/btn_home"
@@ -54,7 +66,7 @@
             android:src="@drawable/ic_home"
             android:contentDescription="Home"
             android:scaleType="centerInside"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/btn_profile"
@@ -64,7 +76,7 @@
             android:src="@drawable/ic_user"
             android:contentDescription="Perfil"
             android:scaleType="centerInside"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/btn_settings"
@@ -74,6 +86,7 @@
             android:src="@drawable/ic_settings"
             android:contentDescription="Configurações"
             android:scaleType="centerInside"
-            android:padding="8dp"/>
+            android:padding="8dp" />
     </LinearLayout>
 </LinearLayout>
+

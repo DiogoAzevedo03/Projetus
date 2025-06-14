@@ -7,6 +7,7 @@
     android:background="#F8F8F8"
     android:padding="16dp">
 
+    <!-- Título -->
     <TextView
         android:id="@+id/tv_titulo"
         android:layout_width="wrap_content"
@@ -14,15 +15,24 @@
         android:text="Tarefas"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp" />
 
-    <LinearLayout
-        android:id="@+id/tasks_container"
+    <!-- Lista de tarefas com scroll -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" />
+        android:layout_weight="1">
 
+        <LinearLayout
+            android:id="@+id/tasks_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <!-- Botão Nova Tarefa -->
     <Button
         android:id="@+id/btn_add_task"
         android:layout_width="match_parent"
@@ -39,7 +49,8 @@
         android:layout_height="64dp"
         android:background="#FFFFFF"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/btn_home"
@@ -47,8 +58,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:contentDescription="Home"
-            android:scaleType="centerInside" />
+            android:contentDescription="Ir para a página inicial"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/btn_profile"
@@ -56,8 +68,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Perfil"
-            android:scaleType="centerInside" />
+            android:contentDescription="Ir para o perfil"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/btn_settings"
@@ -65,7 +78,8 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
-            android:contentDescription="Definições"
-            android:scaleType="centerInside" />
+            android:contentDescription="Ir para as definições"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
     </LinearLayout>
 </LinearLayout>

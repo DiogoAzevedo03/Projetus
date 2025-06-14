@@ -3,16 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F6F6">
+    android:background="#F9F9F9">
 
-    <!-- Conteúdo principal dentro do ScrollView -->
     <ScrollView
-        android:id="@+id/login_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="24dp"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/help_icon"
-        android:padding="24dp">
+        android:layout_above="@+id/help_icon">
 
         <LinearLayout
             android:orientation="vertical"
@@ -21,26 +19,31 @@
             android:gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/logo_size"
+                android:layout_height="@dimen/logo_size"
                 android:src="@drawable/logo_projetus"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:contentDescription="Logo" />
 
             <TextView
-                android:id="@+id/tv_welcome"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Iniciar sessão!"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:text="Iniciar sessão"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#333"
+                android:layout_marginBottom="24dp"/>
 
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="Email"
-                android:layout_marginTop="32dp"
-                android:inputType="textEmailAddress"/>
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="8dp"/>
 
             <TextView
                 android:id="@+id/tv_forgot_email"
@@ -50,15 +53,17 @@
                 android:textColor="#1976D2"
                 android:textSize="12sp"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp" />
+                android:layout_marginBottom="16dp" />
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="Palavra-passe"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
                 android:inputType="textPassword"
-                android:layout_marginTop="16dp" />
+                android:layout_marginBottom="8dp"/>
 
             <TextView
                 android:id="@+id/tv_forgot_password"
@@ -68,34 +73,34 @@
                 android:textColor="#1976D2"
                 android:textSize="12sp"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp" />
+                android:layout_marginBottom="24dp" />
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Entrar"
-                android:background="#EC4899"
-                android:textColor="#fff"
-                android:layout_marginTop="24dp" />
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#EC4899"
+                android:layout_marginBottom="12dp" />
+
+
 
             <Button
                 android:id="@+id/btn_goto_register"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Criar conta"
-                android:background="#E9D5EC"
-                android:textColor="#000"
-                android:layout_marginTop="8dp" />
+                android:textColor="#000000"
+                android:backgroundTint="#E9D5EC"/>
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Ícone de ajuda no canto inferior esquerdo -->
     <ImageView
         android:id="@+id/help_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_margin="16dp"
@@ -104,3 +109,4 @@
         android:clickable="true"
         android:focusable="true"/>
 </RelativeLayout>
+

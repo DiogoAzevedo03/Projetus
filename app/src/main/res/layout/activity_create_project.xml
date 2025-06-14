@@ -1,70 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#F8F8F8">
+    android:background="#F8F8F8"
+    android:padding="24dp">
 
-    <TextView
-        android:text="Criar Projeto"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/et_nome_projeto"
-        android:hint="Nome do Projeto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/et_descricao_projeto"
-        android:hint="Descrição"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:minLines="3"
-        android:layout_marginTop="8dp" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_data_inicio"
-        android:hint="Início"
-        android:focusable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        <TextView
+            android:text="Criar Projeto"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:textColor="#1F1F1F"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/et_data_fim"
-        android:hint="Fim"
-        android:focusable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        <!-- Nome do projeto -->
+        <EditText
+            android:id="@+id/et_nome_projeto"
+            android:hint="Nome do Projeto"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="12dp" />
 
-    <Spinner
-        android:id="@+id/spinner_gestor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        <!-- Descrição -->
+        <EditText
+            android:id="@+id/et_descricao_projeto"
+            android:hint="Descrição"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:padding="12dp"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btn_guardar_projeto"
-        android:text="Guardar"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FF4081"
-        android:textColor="#FFFFFF"/>
+        <!-- Data início -->
+        <EditText
+            android:id="@+id/et_data_inicio"
+            android:hint="Data de Início"
+            android:focusable="false"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btn_cancelar_projeto"
-        android:text="Cancelar"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        <!-- Data fim -->
+        <EditText
+            android:id="@+id/et_data_fim"
+            android:hint="Data de Fim"
+            android:focusable="false"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Label do Spinner -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecionar Gestor do Projeto"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Spinner Gestor -->
+        <Spinner
+            android:id="@+id/spinner_gestor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_marginBottom="24dp" />
+
+
+        <!-- Botões -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btn_cancelar_projeto"
+                android:text="Cancelar"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:backgroundTint="#F44336"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_guardar_projeto"
+                android:text="Guardar"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:backgroundTint="#4CAF50" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

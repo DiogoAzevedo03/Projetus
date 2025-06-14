@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9"
-    android:padding="16dp">
+    android:background="#F5F5F5"
+    android:padding="20dp">
 
-    <!-- Conteúdo principal rolável -->
     <ScrollView
         android:id="@+id/scroll_content"
         android:layout_width="match_parent"
@@ -15,47 +15,64 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
+            <!-- Título -->
             <TextView
                 android:text="Detalhes da Tarefa"
                 android:textStyle="bold"
                 android:textSize="24sp"
-                android:layout_marginBottom="16dp"
+                android:textColor="#212121"
+                android:layout_marginBottom="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!-- Nome -->
             <TextView
                 android:id="@+id/tv_nome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome:"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginBottom="4dp" />
 
+            <!-- Descrição -->
             <TextView
                 android:id="@+id/tv_descricao"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="16dp" />
 
+            <!-- Data de entrega -->
             <TextView
                 android:id="@+id/tv_entrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Entrega:"
-                android:layout_marginTop="8dp" />
+                android:textSize="15sp"
+                android:textColor="#444"
+                android:layout_marginBottom="16dp" />
 
+            <!-- Progresso -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Taxa de Conclusão:"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp" />
+                android:textColor="#000000"
+                android:layout_marginBottom="8dp" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
 
                 <SeekBar
                     android:id="@+id/seekBarProgress"
@@ -63,68 +80,85 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:max="100"
-                    android:progress="0"/>
-
+                    android:progress="0"
+                    android:thumbTint="#2196F3"
+                    android:progressTint="#2196F3"
+                    android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/tv_percent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp" />
+                    android:text="0%"
+                    android:textColor="#333" />
             </LinearLayout>
 
+            <!-- Tempo Gasto -->
             <EditText
                 android:id="@+id/et_tempo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tempo Gasto"
-                android:layout_marginTop="12dp" />
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginBottom="12dp" />
 
+            <!-- Observações -->
             <EditText
                 android:id="@+id/et_obs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Observações"
-                android:layout_marginTop="12dp" />
+                android:padding="12dp"
+                android:minLines="3"
+                android:gravity="top"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginBottom="12dp" />
 
+            <!-- Foto -->
             <EditText
                 android:id="@+id/et_foto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Foto (URL ou caminho)"
-                android:layout_marginTop="12dp" />
+                android:hint="URL ou caminho da Foto"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginBottom="12dp" />
 
+            <!-- Imagem -->
             <ImageView
                 android:id="@+id/image_preview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="Pré-visualização da imagem"/>
+                android:background="#E0E0E0"
+                android:contentDescription="Pré-visualização da imagem"
+                android:cropToPadding="true" />
 
-
+            <!-- Botões -->
             <Button
                 android:id="@+id/btn_guardar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="Guardar alterações"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#2196F3"
-                android:textColor="#FFF" />
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#1976D2"
+                android:layout_marginBottom="12dp" />
 
             <Button
                 android:id="@+id/btn_concluir"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="Marcar como concluída"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="#4CAF50"
-                android:textColor="#FFF" />
-
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#4CAF50" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- Menu inferior fixo -->
+    <!-- Menu inferior -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -166,3 +200,4 @@
             android:padding="8dp" />
     </LinearLayout>
 </RelativeLayout>
+

@@ -11,67 +11,88 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
+        <!-- Logo -->
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="@dimen/logo_size"
+            android:layout_height="@dimen/logo_size"
             android:src="@drawable/logo_projetus"
             android:contentDescription="Logo"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Nome completo -->
         <EditText
             android:id="@+id/et_fullname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Nome completo"
-            android:layout_marginTop="24dp" />
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
 
+        <!-- Nome de utilizador -->
         <EditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Nome de utilizador"
-            android:layout_marginTop="16dp" />
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
 
+        <!-- Email -->
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="16dp" />
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
 
+        <!-- Palavra-passe -->
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Palavra-passe"
             android:inputType="textPassword"
-            android:layout_marginTop="16dp" />
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Foto de perfil -->
         <ImageView
             android:id="@+id/iv_profile_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_camera"
-            android:contentDescription="Adicionar foto"
-            android:layout_marginTop="16dp" />
+            android:background="@drawable/circle_background"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Adicionar foto" />
 
+        <!-- Botão Criar -->
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="Criar"
-            android:textColor="#fff"
-            android:background="#EC4899"
-            android:layout_marginTop="24dp" />
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#14AD1A"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Link para login -->
         <TextView
             android:id="@+id/tv_go_to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Já tens conta?"
             android:textColor="#1976D2"
-            android:layout_marginTop="16dp" />
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 </ScrollView>
+
 
