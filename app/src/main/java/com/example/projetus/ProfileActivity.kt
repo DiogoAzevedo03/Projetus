@@ -42,7 +42,7 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
         tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Lê o tipo de perfil
 
         if (userId == -1) { // Se não vier ID válido, mostra erro e termina
-            Toast.makeText(this, "ID de utilizador inválido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_invalid_user_id), Toast.LENGTH_SHORT).show()
             finish() // Fecha a activity
             return
         }
@@ -59,7 +59,7 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
 
             // Verifica se todos os campos estão preenchidos
             if (nomeTxt.isEmpty() || userTxt.isEmpty() || emailTxt.isEmpty() || passTxt.isEmpty() || fotoTxt.isEmpty()) { // Validação simples
-                Toast.makeText(this, "Preenche todos os campos!", Toast.LENGTH_SHORT).show() // Mostra aviso
+                Toast.makeText(this, getString(R.string.error_fill_all_fields), Toast.LENGTH_SHORT).show() // Mostra aviso
                 return@setOnClickListener // Sai do listener
             }
 
@@ -77,7 +77,7 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
 
         findViewById<ImageView>(R.id.btn_perfil).setOnClickListener { // Botão perfil
             // Já estás no perfil, apenas avisa
-            Toast.makeText(this, "Já estás no Perfil", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.already_on_profile), Toast.LENGTH_SHORT).show()
         }
 
         val btnSettings = findViewById<ImageView>(R.id.btn_settings) // Botão de definições
@@ -119,13 +119,13 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
                             Glide.with(this@ProfileActivity).load(user.foto).into(ivFoto) // Carrega imagem
                         }
                     } else {
-                        Toast.makeText(this@ProfileActivity, "Erro ao carregar perfil", Toast.LENGTH_SHORT).show() // Erro de API
+                        Toast.makeText(this@ProfileActivity, getString(R.string.error_loading_profile), Toast.LENGTH_SHORT).show() // Erro de API
                     }
                 }
 
                 override fun onFailure(call: Call<Utilizador>, t: Throwable) { // Falha na chamada
                     Log.e("ProfileActivity", "Erro: ${t.message}") // Log do erro
-                    Toast.makeText(this@ProfileActivity, "Erro de rede", Toast.LENGTH_SHORT).show() // Mensagem de erro
+                    Toast.makeText(this@ProfileActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show() // Mensagem de erro
                 }
             })
     }
@@ -149,20 +149,20 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
                     Log.d("ProfileActivity", "Código de resposta: ${response.code()}")
                     Log.d("ProfileActivity", "Resposta: ${response.body()}")
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(this@ProfileActivity, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity, getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show()
                         val fotoUrl = foto
                         if (fotoUrl.isNotBlank()) {
                             Glide.with(this@ProfileActivity).load(fotoUrl).into(ivFoto) // Atualiza imagem
                         }
                     } else {
-                        Toast.makeText(this@ProfileActivity, "Erro ao atualizar perfil", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity, getString(R.string.error_updating_profile), Toast.LENGTH_SHORT).show()
                     }
                 }
 
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) { // Falha
                     Log.e("ProfileActivity", "Erro: ${t.message}")
-                    Toast.makeText(this@ProfileActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProfileActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
     }

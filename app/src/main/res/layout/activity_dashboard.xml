@@ -37,7 +37,7 @@
                     android:id="@+id/tv_welcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bem-vindo!"
+                    android:text="@string/welcome_simple"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -63,7 +63,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Projetos Ativos"
+                        android:text="@string/active_projects"
                         android:textStyle="bold"
                         android:textSize="14sp"/>
 
@@ -89,7 +89,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tarefas Pendentes"
+                        android:text="@string/pending_tasks"
                         android:textStyle="bold"
                         android:textSize="14sp"/>
 
@@ -107,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Próxima tarefa:"
+                android:text="@string/next_task_label"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
 
@@ -115,7 +115,7 @@
                 android:id="@+id/et_next_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dia e hora - Descrição"
+                android:hint="@string/next_task_hint"
                 android:inputType="none"
                 android:enabled="false"
                 android:background="@android:drawable/editbox_background_normal"
@@ -126,7 +126,7 @@
                 android:id="@+id/btn_tasks"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Ver tarefas"
+                android:text="@string/view_tasks"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:backgroundTint="#42A5F5"
@@ -137,7 +137,7 @@
                 android:id="@+id/btn_projects"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Ver projetos"
+                android:text="@string/view_projects"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:backgroundTint="#26A69A"
@@ -148,7 +148,7 @@
                 android:id="@+id/btn_statistics"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Ver estatísticas"
+                android:text="@string/view_statistics"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:backgroundTint="#7E57C2"
@@ -159,7 +159,7 @@
                 android:id="@+id/btn_user_management"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Gestão de Utilizadores"
+                android:text="@string/user_management"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:backgroundTint="#EC407A"
@@ -170,7 +170,7 @@
                 android:id="@+id/btn_project_history"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Histórico de Projetos"
+                android:text="@string/project_history"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
@@ -181,7 +181,7 @@
                 android:id="@+id/btn_task_history"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Histórico de Tarefas"
+                android:text="@string/task_history"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
@@ -208,7 +208,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:contentDescription="Home"
+            android:contentDescription="@string/desc_home"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -218,7 +218,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Perfil"
+            android:contentDescription="@string/desc_profile"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -228,7 +228,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
-            android:contentDescription="Configurações"
+            android:contentDescription="@string/desc_settings"
             android:scaleType="centerInside"
             android:padding="8dp"/>
     </LinearLayout>

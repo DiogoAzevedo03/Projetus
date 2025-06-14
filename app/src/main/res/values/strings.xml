@@ -14,4 +14,39 @@
     <string name="desc_home">Home</string>
     <string name="desc_profile">Perfil</string>
     <string name="desc_settings">Definições</string>
+
+    <!-- Dashboard strings -->
+    <string name="welcome_simple">Bem-vindo!</string>
+    <string name="active_projects">Projetos Ativos</string>
+    <string name="pending_tasks">Tarefas Pendentes</string>
+    <string name="next_task_label">Próxima tarefa:</string>
+    <string name="next_task_hint">Dia e hora - Descrição</string>
+    <string name="view_tasks">Ver tarefas</string>
+    <string name="view_projects">Ver projetos</string>
+    <string name="view_statistics">Ver estatísticas</string>
+    <string name="user_management">Gestão de Utilizadores</string>
+    <string name="project_history">Histórico de Projetos</string>
+    <string name="task_history">Histórico de Tarefas</string>
+    <string name="error_user_not_authenticated">Erro: utilizador não autenticado</string>
+    <string name="welcome_user">Bem-vindo, %1$s!</string>
+    <string name="no_tasks_scheduled">Nenhuma tarefa agendada</string>
+    <string name="error_loading_dashboard">Erro ao carregar dados do dashboard</string>
+    <string name="error_server_connection">Erro na conexão com o servidor</string>
+
+    <!-- Profile strings -->
+    <string name="profile_management">Gestão de Perfil</string>
+    <string name="hint_full_name">Nome completo</string>
+    <string name="hint_username">Nome de utilizador</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Palavra-passe</string>
+    <string name="hint_photo_url">Foto (URL)</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_logout">Sair</string>
+    <string name="error_invalid_user_id">ID de utilizador inválido</string>
+    <string name="error_fill_all_fields">Preenche todos os campos!</string>
+    <string name="already_on_profile">Já estás no Perfil</string>
+    <string name="error_loading_profile">Erro ao carregar perfil</string>
+    <string name="error_network">Erro de rede</string>
+    <string name="profile_updated_successfully">Perfil atualizado com sucesso!</string>
+    <string name="error_updating_profile">Erro ao atualizar perfil</string>
 </resources>

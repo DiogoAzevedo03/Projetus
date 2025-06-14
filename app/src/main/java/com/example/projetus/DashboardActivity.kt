@@ -37,7 +37,7 @@ class DashboardActivity : AppCompatActivity() { // Ecrã principal depois do log
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Perfil recebido
 
         if (userId == -1) { // Se não veio utilizador
-            tvWelcome.text = "Erro: utilizador não autenticado"
+            tvWelcome.text = getString(R.string.error_user_not_authenticated)
             return
         }
 
@@ -45,8 +45,7 @@ class DashboardActivity : AppCompatActivity() { // Ecrã principal depois do log
             val user = withContext(Dispatchers.IO) { // Busca no BD local
                 AppDatabase.getDatabase(this@DashboardActivity).userDao().getById(userId)
             }
-            user?.let { tvWelcome.text = "Bem-vindo, ${it.nome}!" }
-        }
+            user?.let { tvWelcome.text = getString(R.string.welcome_user, it.nome) }        }
 
         // Chamada à API do dashboard
         RetrofitClient.instance.getDashboardData(mapOf("user_id" to userId))
@@ -60,16 +59,16 @@ class DashboardActivity : AppCompatActivity() { // Ecrã principal depois do log
                         etNextTask.setText(
                             data.proxima_tarefa?.let {
                                 "${it.data_entrega} - ${it.nome}"
-                            } ?: "Nenhuma tarefa agendada"
+                            } ?: getString(R.string.no_tasks_scheduled)
                         )
                     } else {
-                        Toast.makeText(applicationContext, "Erro ao carregar dados do dashboard", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.error_loading_dashboard), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<DashboardResponse>, t: Throwable) { // Erro da API
                     Log.e("Dashboard", "Erro na API: ${t.message}")
-                    Toast.makeText(applicationContext, "Erro na conexão com o servidor", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.error_server_connection), Toast.LENGTH_SHORT).show()
                 }
             })
 
