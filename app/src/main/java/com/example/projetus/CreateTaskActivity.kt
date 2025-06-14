@@ -1,73 +1,73 @@
-package com.example.projetus
+package com.example.projetus // Define o pacote da aplicação
 
-import android.app.DatePickerDialog
-import android.os.Bundle
-import android.util.Log
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.GenericResponse
-import com.example.projetus.network.ProjectResponse
-import com.example.projetus.network.UtilizadoresResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
-import com.example.projetus.network.Project
-import com.example.projetus.network.Utilizador
+import android.app.DatePickerDialog // Para mostrar o seletor de data
+import android.os.Bundle // Estado da Activity
+import android.util.Log // Utilizado para logs de depuração
+import android.widget.* // Importa widgets do Android
+import androidx.appcompat.app.AppCompatActivity // Activity base com suporte a ActionBar
+import com.example.projetus.network.GenericResponse // Modelo de resposta genérica da API
+import com.example.projetus.network.ProjectResponse // Modelo de resposta de projetos
+import com.example.projetus.network.UtilizadoresResponse // Modelo de resposta de utilizadores
+import retrofit2.Call // Chamada da API
+import retrofit2.Callback // Callback de resposta
+import retrofit2.Response // Resposta da API
+import java.util.* // Utilitários para datas e listas
+import com.example.projetus.network.Project // Modelo de projeto
+import com.example.projetus.network.Utilizador // Modelo de utilizador
 
 class CreateTaskActivity : AppCompatActivity() {
 
-    private lateinit var etNome: EditText
-    private lateinit var etDescricao: EditText
-    private lateinit var spinnerProjetos: Spinner
-    private lateinit var spinnerUtilizadores: Spinner
-    private lateinit var spinnerEstado: Spinner
-    private lateinit var etDataEntrega: EditText
-    private lateinit var btnGuardar: Button
-    private lateinit var btnCancelar: Button
+    private lateinit var etNome: EditText // Campo para o nome da tarefa
+    private lateinit var etDescricao: EditText // Campo para a descrição
+    private lateinit var spinnerProjetos: Spinner // Lista de projetos existentes
+    private lateinit var spinnerUtilizadores: Spinner // Lista de utilizadores do projeto
+    private lateinit var spinnerEstado: Spinner // Estado da tarefa
+    private lateinit var etDataEntrega: EditText // Campo para data de entrega
+    private lateinit var btnGuardar: Button // Botão para guardar a tarefa
+    private lateinit var btnCancelar: Button // Botão para cancelar a criação
 
-    private var projetosList = listOf<Project>() // Cria modelo Project se ainda não tiveres
-    private var utilizadoresList = listOf<Utilizador>() // Cria modelo Utilizador se ainda não tiveres
+    private var projetosList = listOf<Project>() // Lista de projetos obtidos da API
+    private var utilizadoresList = listOf<Utilizador>() // Lista de utilizadores associados ao projeto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_task)
+        setContentView(R.layout.activity_create_task) // Define o layout da Activity
 
         // Ligações ao layout
-        etNome = findViewById(R.id.et_nome)
-        etDescricao = findViewById(R.id.et_descricao)
-        spinnerProjetos = findViewById(R.id.spinner_projetos)
-        spinnerUtilizadores = findViewById(R.id.spinner_utilizadores)
-        spinnerEstado = findViewById(R.id.spinner_estado)
-        etDataEntrega = findViewById(R.id.et_data_entrega)
-        btnGuardar = findViewById(R.id.btn_guardar)
-        btnCancelar = findViewById(R.id.btn_cancelar)
+        etNome = findViewById(R.id.et_nome) // Campo nome
+        etDescricao = findViewById(R.id.et_descricao) // Campo descrição
+        spinnerProjetos = findViewById(R.id.spinner_projetos) // Dropdown projetos
+        spinnerUtilizadores = findViewById(R.id.spinner_utilizadores) // Dropdown utilizadores
+        spinnerEstado = findViewById(R.id.spinner_estado) // Dropdown estado
+        etDataEntrega = findViewById(R.id.et_data_entrega) // Campo data
+        btnGuardar = findViewById(R.id.btn_guardar) // Botão guardar
+        btnCancelar = findViewById(R.id.btn_cancelar) // Botão cancelar
 
-        val userId = intent.getIntExtra("user_id", -1)
-        Log.d("CreateTaskActivity", "Recebido user_id: $userId")
+        val userId = intent.getIntExtra("user_id", -1) // ID do utilizador recebido
+        Log.d("CreateTaskActivity", "Recebido user_id: $userId") // Log de depuração
 
-        setupEstadoSpinner()
-        setupDatePicker()
-        carregarProjetos(userId)
+        setupEstadoSpinner() // Prepara spinner de estados
+        setupDatePicker() // Prepara seletor de data
+        carregarProjetos(userId) // Carrega projetos disponíveis
 
-        btnGuardar.setOnClickListener {
-            val nome = etNome.text.toString().trim()
-            val descricao = etDescricao.text.toString().trim()
-            val dataEntrega = etDataEntrega.text.toString().trim()
-            val estado = spinnerEstado.selectedItem.toString()
-            val projetoSelecionado = projetosList[spinnerProjetos.selectedItemPosition]
+        btnGuardar.setOnClickListener { // Ação ao clicar em Guardar
+            val nome = etNome.text.toString().trim() // Obtém o nome
+            val descricao = etDescricao.text.toString().trim() // Obtém a descrição
+            val dataEntrega = etDataEntrega.text.toString().trim() // Obtém a data
+            val estado = spinnerEstado.selectedItem.toString() // Obtém o estado
+            val projetoSelecionado = projetosList[spinnerProjetos.selectedItemPosition] // Projeto escolhido
             if (utilizadoresList.isEmpty() || spinnerUtilizadores.selectedItemPosition == -1) {
                 Toast.makeText(this, "Nenhum utilizador selecionado", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val utilizadorSelecionado = utilizadoresList[spinnerUtilizadores.selectedItemPosition]
+            val utilizadorSelecionado = utilizadoresList[spinnerUtilizadores.selectedItemPosition] // Utilizador escolhido
 
-            if (nome.isEmpty() || descricao.isEmpty() || dataEntrega.isEmpty()) {
+            if (nome.isEmpty() || descricao.isEmpty() || dataEntrega.isEmpty()) { // Valida campos obrigatórios
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val dados = mapOf(
+            val dados = mapOf( // Cria mapa com os dados a enviar
                 "nome" to nome,
                 "descricao" to descricao,
                 "projeto_id" to projetoSelecionado.id.toString(),
@@ -76,17 +76,17 @@ class CreateTaskActivity : AppCompatActivity() {
                 "estado" to estado
             )
 
-            RetrofitClient.instance.addTask(dados).enqueue(object : Callback<GenericResponse> {
-                override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
+            RetrofitClient.instance.addTask(dados).enqueue(object : Callback<GenericResponse> { // Envia para API
+                override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) { // Resposta
                     if (response.isSuccessful && response.body()?.success == true) {
                         Toast.makeText(this@CreateTaskActivity, "Tarefa criada com sucesso!", Toast.LENGTH_SHORT).show()
-                        finish()
+                        finish() // Fecha Activity após sucesso
                     } else {
                         Toast.makeText(this@CreateTaskActivity, response.body()?.message ?: "Erro", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GenericResponse>, t: Throwable) { // Erro de rede
                     Toast.makeText(this@CreateTaskActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -112,47 +112,47 @@ class CreateTaskActivity : AppCompatActivity() {
         spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, estados)
     }
 
-    private fun setupDatePicker() {
-        val calendar = Calendar.getInstance()
+    private fun setupDatePicker() { // Configura o DatePicker
+        val calendar = Calendar.getInstance() // Data atual
         etDataEntrega.setOnClickListener {
             DatePickerDialog(
                 this,
                 { _, year, month, day ->
-                    val date = String.format("%04d-%02d-%02d", year, month + 1, day)
+                    val date = String.format("%04d-%02d-%02d", year, month + 1, day) // Formata a data
                     etDataEntrega.setText(date)
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            ).show() // Mostra o seletor
         }
     }
 
-    private fun carregarProjetos(userId: Int) {
+    private fun carregarProjetos(userId: Int) { // Obtém projetos do utilizador
         val data = mapOf("utilizador_id" to userId)
         RetrofitClient.instance.getProjects(data).enqueue(object : Callback<ProjectResponse> {
             override fun onResponse(call: Call<ProjectResponse>, response: Response<ProjectResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
-                    projetosList = response.body()?.projetos ?: emptyList()
-                    val nomes = projetosList.map { it.nome }
+                    projetosList = response.body()?.projetos ?: emptyList() // Guarda lista
+                    val nomes = projetosList.map { it.nome } // Nomes para o spinner
                     spinnerProjetos.adapter = ArrayAdapter(this@CreateTaskActivity, android.R.layout.simple_spinner_dropdown_item, nomes)
                 } else {
                     Toast.makeText(this@CreateTaskActivity, "Erro ao carregar projetos", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<ProjectResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ProjectResponse>, t: Throwable) { // Falha na requisição
                 Toast.makeText(this@CreateTaskActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun carregarUtilizadoresDoProjeto(projetoId: Int) {
+    private fun carregarUtilizadoresDoProjeto(projetoId: Int) { // Carrega colaboradores
         val data = mapOf("projeto_id" to projetoId)
         RetrofitClient.instance.getColaboradoresDoProjeto(data).enqueue(object : Callback<UtilizadoresResponse> {
             override fun onResponse(call: Call<UtilizadoresResponse>, response: Response<UtilizadoresResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
-                    utilizadoresList = response.body()?.utilizadores ?: emptyList()
+                    utilizadoresList = response.body()?.utilizadores ?: emptyList() // Guarda utilizadores
                     val nomes = utilizadoresList.map { it.nome }
                     spinnerUtilizadores.adapter = ArrayAdapter(this@CreateTaskActivity, android.R.layout.simple_spinner_dropdown_item, nomes)
                 } else {
@@ -160,7 +160,7 @@ class CreateTaskActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<UtilizadoresResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UtilizadoresResponse>, t: Throwable) { // Falha na obtenção
                 Toast.makeText(this@CreateTaskActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })

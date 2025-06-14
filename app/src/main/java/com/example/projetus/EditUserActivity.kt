@@ -1,39 +1,39 @@
-package com.example.projetus
+package com.example.projetus // Pacote principal
 
-import android.os.Bundle
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.GenericResponse
-import com.example.projetus.network.Utilizador
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.os.Bundle // Bundle para Activity
+import android.widget.* // Widgets padrão
+import androidx.appcompat.app.AppCompatActivity // Activity com ActionBar
+import com.example.projetus.network.GenericResponse // Modelo de resposta genérica
+import com.example.projetus.network.Utilizador // Modelo de utilizador
+import retrofit2.Call // Chamada da API
+import retrofit2.Callback // Callback da API
+import retrofit2.Response // Resposta da API
 
-class EditUserActivity : AppCompatActivity() {
+class EditUserActivity : AppCompatActivity() { // Activity para editar utilizadores
 
-    private lateinit var nomeET: EditText
-    private lateinit var usernameET: EditText
-    private lateinit var emailET: EditText
-    private lateinit var passwordET: EditText
-    private lateinit var btnAtualizar: Button
-    private lateinit var fotoET: EditText
+    private lateinit var nomeET: EditText // Campo nome
+    private lateinit var usernameET: EditText // Campo username
+    private lateinit var emailET: EditText // Campo email
+    private lateinit var passwordET: EditText // Campo password
+    private lateinit var btnAtualizar: Button // Botão atualizar
+    private lateinit var fotoET: EditText // Campo foto
 
-    private lateinit var perfilSpinner: Spinner
+    private lateinit var perfilSpinner: Spinner // Spinner de perfis
 
-    private val perfis = listOf("utilizador", "administrador", "gestor")
+    private val perfis = listOf("utilizador", "administrador", "gestor") // Opções de perfil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_user)
+        setContentView(R.layout.activity_edit_user) // Define o layout
 
-        nomeET = findViewById(R.id.et_nome)
-        usernameET = findViewById(R.id.et_username)
-        emailET = findViewById(R.id.et_email)
-        passwordET = findViewById(R.id.et_password)
-        fotoET = findViewById(R.id.et_foto)
+        nomeET = findViewById(R.id.et_nome) // Liga campo nome
+        usernameET = findViewById(R.id.et_username) // Liga campo username
+        emailET = findViewById(R.id.et_email) // Liga campo email
+        passwordET = findViewById(R.id.et_password) // Liga campo password
+        fotoET = findViewById(R.id.et_foto) // Liga campo foto
 
-        btnAtualizar = findViewById(R.id.btn_atualizar)
-        perfilSpinner = findViewById(R.id.spinner_perfil)
+        btnAtualizar = findViewById(R.id.btn_atualizar) // Botão atualizar
+        perfilSpinner = findViewById(R.id.spinner_perfil) // Spinner de perfil
 
         // Preencher spinner com os tipos de perfil
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, perfis)
@@ -43,7 +43,7 @@ class EditUserActivity : AppCompatActivity() {
         // Receber dados do utilizador passado por Intent
         val user = intent.getSerializableExtra("utilizador") as? Utilizador
 
-        if (user != null) {
+        if (user != null) { // Preenche campos se veio utilizador
             nomeET.setText(user.nome)
             usernameET.setText(user.username)
             emailET.setText(user.email)
@@ -57,7 +57,7 @@ class EditUserActivity : AppCompatActivity() {
             }
         }
 
-        btnAtualizar.setOnClickListener {
+        btnAtualizar.setOnClickListener { // Ao clicar atualizar
             val nome = nomeET.text.toString()
             val username = usernameET.text.toString()
             val email = emailET.text.toString()
@@ -66,7 +66,7 @@ class EditUserActivity : AppCompatActivity() {
 
             val tipoPerfil = perfilSpinner.selectedItem.toString()
 
-            if (nome.isEmpty() || username.isEmpty() || email.isEmpty()) {
+            if (nome.isEmpty() || username.isEmpty() || email.isEmpty()) { // Valida campos
                 Toast.makeText(this, "Preenche todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -77,9 +77,10 @@ class EditUserActivity : AppCompatActivity() {
                 "username" to username,
                 "email" to email,
                 "tipo_perfil" to tipoPerfil,
-                "foto" to foto            )
+                "foto" to foto
+            ) // Dados a enviar
 
-            if (password.isNotEmpty()) {
+            if (password.isNotEmpty()) { // Se mudou a password
                 data["password"] = password
             }
 
@@ -93,7 +94,7 @@ class EditUserActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GenericResponse>, t: Throwable) { // Erro de rede
                     Toast.makeText(this@EditUserActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
