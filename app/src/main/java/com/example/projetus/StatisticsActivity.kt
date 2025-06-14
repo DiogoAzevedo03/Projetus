@@ -1,132 +1,132 @@
-package com.example.projetus
+package com.example.projetus // pacote da aplicação
 
-import android.content.ContentValues
-import android.content.Intent
-import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.StatisticsResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import android.graphics.pdf.PdfDocument
-import java.io.File
-import java.io.FileOutputStream
-import android.os.Build
-import android.os.Environment
-import java.io.OutputStream
-import com.example.projetus.network.StatisticsProjetoResponse
-import com.example.projetus.network.ProjectStat
-import android.content.res.ColorStateList
-import android.graphics.Color
-import com.example.projetus.network.TaskStat
-import com.example.projetus.network.StatisticsTarefaResponse
+import android.content.ContentValues // para definir metadados ao guardar ficheiros
+import android.content.Intent // utilizado para navegar entre activities
+import android.os.Bundle // estado guardado da activity
+import android.provider.MediaStore // acesso ao armazenamento
+import android.util.Log // logs de debug
+import android.widget.* // widgets do layout
+import androidx.appcompat.app.AppCompatActivity // classe base das activities
+import com.example.projetus.network.StatisticsResponse // modelo de resposta das estatísticas de utilizador
+import retrofit2.Call // chamada retrofit
+import retrofit2.Callback // callback retrofit
+import retrofit2.Response // resposta retrofit
+import android.graphics.pdf.PdfDocument // para gerar PDF
+import java.io.File // representação de ficheiro
+import java.io.FileOutputStream // escrita em ficheiros
+import android.os.Build // verificação de versão Android
+import android.os.Environment // acesso a pastas públicas
+import java.io.OutputStream // fluxo de saída
+import com.example.projetus.network.StatisticsProjetoResponse // resposta de estatísticas de projeto
+import com.example.projetus.network.ProjectStat // modelo de projeto
+import android.content.res.ColorStateList // lista de estados de cor
+import android.graphics.Color // utilitários de cor
+import com.example.projetus.network.TaskStat // modelo de tarefa
+import com.example.projetus.network.StatisticsTarefaResponse // resposta de estatísticas de tarefa
 
-class StatisticsActivity : AppCompatActivity() {
+class StatisticsActivity : AppCompatActivity() { // activity que apresenta estatísticas
 
-    private var filtroAtual: String = "utilizador"
-    private lateinit var statsContainer: LinearLayout
+    private var filtroAtual: String = "utilizador" // filtro atualmente selecionado
+    private lateinit var statsContainer: LinearLayout // contêiner para as estatísticas
 
     // Variáveis estatísticas para utilizador
-    private var nome = ""
-    private var tarefasAtribuidas = 0
-    private var tarefasConcluidas = 0
-    private var taxaConclusao = 0
-    private var projetosConcluidos = 0
+    private var nome = "" // nome do utilizador
+    private var tarefasAtribuidas = 0 // total de tarefas atribuídas
+    private var tarefasConcluidas = 0 // tarefas concluídas
+    private var taxaConclusao = 0 // percentagem de conclusão
+    private var projetosConcluidos = 0 // projetos concluídos
 
     // Lista para armazenar todos os projetos
-    private var listaProjetos: List<ProjectStat> = emptyList()
+    private var listaProjetos: List<ProjectStat> = emptyList() // projetos obtidos da API
 
     // Lista para armazenar todas as tarefas
-    private var listaTarefas: List<TaskStat> = emptyList()
+    private var listaTarefas: List<TaskStat> = emptyList() // tarefas obtidas da API
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_statistics)
+    override fun onCreate(savedInstanceState: Bundle?) { // método chamado na criação da activity
+        super.onCreate(savedInstanceState) // inicializa a activity pai
+        setContentView(R.layout.activity_statistics) // define o layout desta activity
 
-        statsContainer = findViewById(R.id.stats_container)
+        statsContainer = findViewById(R.id.stats_container) // obtém o contêiner onde as estatísticas serão mostradas
 
-        val userId = intent.getIntExtra("user_id", -1)
-        if (userId == -1) {
-            Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+        val userId = intent.getIntExtra("user_id", -1) // id recebido da activity anterior
+        if (userId == -1) { // verifica se foi enviado um id válido
+            Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show() // informa erro
+            finish() // encerra a activity
+            return // sai do método
         }
-        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // tipo de perfil do utilizador
 
-        val btnUtilizador = findViewById<Button>(R.id.btn_utilizador)
-        val btnProjeto = findViewById<Button>(R.id.btn_projeto)
-        val btnTarefa = findViewById<Button>(R.id.btn_tarefa)
+        val btnUtilizador = findViewById<Button>(R.id.btn_utilizador) // botão para filtro de utilizador
+        val btnProjeto = findViewById<Button>(R.id.btn_projeto) // botão para filtro de projetos
+        val btnTarefa = findViewById<Button>(R.id.btn_tarefa) // botão para filtro de tarefas
 
         // Carregar estatísticas por defeito
-        carregarEstatisticasUtilizador(userId)
+        carregarEstatisticasUtilizador(userId) // mostra estatísticas do utilizador inicialmente
 
-        btnUtilizador.setOnClickListener {
-            filtroAtual = "utilizador"
-            carregarEstatisticasUtilizador(userId)
+        btnUtilizador.setOnClickListener { // clique no botão utilizador
+            filtroAtual = "utilizador" // define filtro
+            carregarEstatisticasUtilizador(userId) // carrega estatísticas do utilizador
         }
 
-        btnProjeto.setOnClickListener {
-            filtroAtual = "projeto"
-            carregarEstatisticasProjeto(userId)
+        btnProjeto.setOnClickListener { // clique no botão projeto
+            filtroAtual = "projeto" // define filtro
+            carregarEstatisticasProjeto(userId) // carrega estatísticas por projeto
         }
 
-        btnTarefa.setOnClickListener {
-            filtroAtual = "tarefa"
-            carregarEstatisticasTarefa(userId)
+        btnTarefa.setOnClickListener { // clique no botão tarefa
+            filtroAtual = "tarefa" // define filtro
+            carregarEstatisticasTarefa(userId) // carrega estatísticas por tarefa
         }
 // Navegação
-        findViewById<ImageView>(R.id.btn_home).setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.putExtra("user_id", userId)
-            intent.putExtra("tipo_perfil", tipoPerfil)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.btn_home).setOnClickListener { // clique no ícone home
+            val intent = Intent(this, DashboardActivity::class.java) // cria intent para o dashboard
+            intent.putExtra("user_id", userId) // envia id do utilizador
+            intent.putExtra("tipo_perfil", tipoPerfil) // envia tipo de perfil
+            startActivity(intent) // abre o dashboard
         }
 
-        findViewById<ImageView>(R.id.btn_profile).setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra("user_id", userId)
-            intent.putExtra("tipo_perfil", tipoPerfil)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.btn_profile).setOnClickListener { // clique no ícone perfil
+            val intent = Intent(this, ProfileActivity::class.java) // abre ProfileActivity
+            intent.putExtra("user_id", userId) // envia id
+            intent.putExtra("tipo_perfil", tipoPerfil) // envia tipo de perfil
+            startActivity(intent) // inicia activity de perfil
         }
 
-        findViewById<ImageView>(R.id.btn_settings).setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            intent.putExtra("user_id", userId)
-            intent.putExtra("tipo_perfil", tipoPerfil)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.btn_settings).setOnClickListener { // clique em definições
+            val intent = Intent(this, SettingsActivity::class.java) // abre SettingsActivity
+            intent.putExtra("user_id", userId) // envia id
+            intent.putExtra("tipo_perfil", tipoPerfil) // envia tipo perfil
+            startActivity(intent) // inicia activity
         }
 
-    }
+    } // fim do onCreate
 
-    private fun carregarEstatisticasUtilizador(userId: Int) {
-        statsContainer.removeAllViews()
-        layoutInflater.inflate(R.layout.layout_user_stats, statsContainer, true)
+    private fun carregarEstatisticasUtilizador(userId: Int) { // obtém estatísticas do utilizador
+        statsContainer.removeAllViews() // limpa o contêiner
+        layoutInflater.inflate(R.layout.layout_user_stats, statsContainer, true) // infla layout com estatísticas de utilizador
 
         // Configurar o botão exportar APÓS inflatar o layout
-        configurarBotaoExportar()
+        configurarBotaoExportar() // associa o botão exportar
 
-        RetrofitClient.instance.getEstatisticas(mapOf("user_id" to userId))
-            .enqueue(object : Callback<StatisticsResponse> {
+        RetrofitClient.instance.getEstatisticas(mapOf("user_id" to userId)) // chamada à API
+            .enqueue(object : Callback<StatisticsResponse> { // callback da resposta
                 override fun onResponse(call: Call<StatisticsResponse>, response: Response<StatisticsResponse>) {
-                    if (response.isSuccessful && response.body()?.success == true) {
-                        val stats = response.body()!!
-                        nome = stats.nome
-                        tarefasAtribuidas = stats.tarefas_atribuidas
-                        tarefasConcluidas = stats.tarefas_concluidas
-                        taxaConclusao = stats.taxa_conclusao
-                        projetosConcluidos = stats.projetos_concluidos
+                    if (response.isSuccessful && response.body()?.success == true) { // se sucesso
+                        val stats = response.body()!! // obtém dados
+                        nome = stats.nome // guarda nome
+                        tarefasAtribuidas = stats.tarefas_atribuidas // guarda tarefas atribuídas
+                        tarefasConcluidas = stats.tarefas_concluidas // guarda concluídas
+                        taxaConclusao = stats.taxa_conclusao // guarda taxa
+                        projetosConcluidos = stats.projetos_concluidos // guarda projetos concluídos
 
-                        updateUI()
+                        updateUI() // actualiza a interface
                     }
                 }
 
-                override fun onFailure(call: Call<StatisticsResponse>, t: Throwable) {
+                override fun onFailure(call: Call<StatisticsResponse>, t: Throwable) { // em caso de falha
                     Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas", Toast.LENGTH_SHORT).show()
                 }
-            })
+            }) // fim da chamada
     }
 
     private fun carregarEstatisticasProjeto(userId: Int) {
@@ -137,32 +137,32 @@ class StatisticsActivity : AppCompatActivity() {
                     response: Response<StatisticsProjetoResponse>
                 ) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        val stats = response.body()!!
+                        val stats = response.body()!! // corpo da resposta
 
-                        statsContainer.removeAllViews()
+                        statsContainer.removeAllViews() // limpa o contêiner
 
                         // Armazenar TODOS os projetos
-                        listaProjetos = stats.projetos ?: emptyList()
+                        listaProjetos = stats.projetos ?: emptyList() // guarda lista de projetos
 
                         // Adicionar informações dos projetos
-                        listaProjetos.forEach { projeto ->
+                        listaProjetos.forEach { projeto -> // para cada projeto
                             val tvProjeto = TextView(this@StatisticsActivity).apply {
                                 text = """
                                 Nome: ${projeto.nome}
                                 Tarefas Atribuídas: ${projeto.tarefas_atribuidas}
                                 Tarefas Concluídas: ${projeto.tarefas_concluidas}
                                 Taxa de Conclusão: ${projeto.taxa_conclusao}%
-                                """.trimIndent()
-                                setPadding(0, 0, 0, 32)
+                                """.trimIndent() // conteúdo textual
+                                setPadding(0, 0, 0, 32) // espaçamento inferior
                             }
-                            statsContainer.addView(tvProjeto)
+                            statsContainer.addView(tvProjeto) // adiciona texto ao contêiner
                         }
 
                         // Adicionar botão exportar no final
-                        adicionarBotaoExportar()
+                        adicionarBotaoExportar() // botão para exportar dados
 
                     } else {
-                        Toast.makeText(this@StatisticsActivity, "Erro: projeto não encontrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@StatisticsActivity, "Erro: projeto não encontrado", Toast.LENGTH_SHORT).show() // mensagem de erro
                     }
                 }
 
@@ -170,26 +170,26 @@ class StatisticsActivity : AppCompatActivity() {
                     call: Call<StatisticsProjetoResponse>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas de projeto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas de projeto", Toast.LENGTH_SHORT).show() // erro na chamada
                 }
             })
     }
 
-    private fun carregarEstatisticasTarefa(userId: Int) {
-        statsContainer.removeAllViews()
+    private fun carregarEstatisticasTarefa(userId: Int) { // obtém estatísticas das tarefas
+        statsContainer.removeAllViews() // limpa contêiner
 
         // CORRIGIDO: Usar endpoint específico para tarefas
-        RetrofitClient.instance.getEstatisticasTarefas(mapOf("user_id" to userId))
-            .enqueue(object : Callback<StatisticsTarefaResponse> {
+        RetrofitClient.instance.getEstatisticasTarefas(mapOf("user_id" to userId)) // chamada à API
+            .enqueue(object : Callback<StatisticsTarefaResponse> { // callback
                 override fun onResponse(
                     call: Call<StatisticsTarefaResponse>,
                     response: Response<StatisticsTarefaResponse>
                 ) {
-                    if (response.isSuccessful && response.body()?.success == true) {
-                        val stats = response.body()!!
+                    if (response.isSuccessful && response.body()?.success == true) { // se sucesso
+                        val stats = response.body()!! // corpo da resposta
 
                         // Armazenar TODAS as tarefas
-                        listaTarefas = stats.tarefas ?: emptyList()
+                        listaTarefas = stats.tarefas ?: emptyList() // guarda lista de tarefas
 
                         if (listaTarefas.isNotEmpty()) {
                             // Mostrar todas as tarefas
@@ -201,51 +201,51 @@ class StatisticsActivity : AppCompatActivity() {
                                     Estado: ${tarefa.estado}
                                     Data Criação: ${tarefa.data_criacao ?: "N/A"}
                                     Data Conclusão: ${tarefa.data_conclusao ?: "Pendente"}
-                                    """.trimIndent()
-                                    setPadding(0, 0, 0, 32)
+                                    """.trimIndent() // texto da tarefa
+                                    setPadding(0, 0, 0, 32) // espaçamento
                                 }
-                                statsContainer.addView(tvTarefa)
+                                statsContainer.addView(tvTarefa) // adiciona ao contêiner
                             }
                         } else {
                             val tvSemTarefas = TextView(this@StatisticsActivity).apply {
                                 text = "Nenhuma tarefa encontrada."
                                 setPadding(0, 0, 0, 32)
                             }
-                            statsContainer.addView(tvSemTarefas)
+                            statsContainer.addView(tvSemTarefas) // mensagem caso não haja tarefas
                         }
 
                         // Adicionar botão exportar
-                        adicionarBotaoExportar()
+                        adicionarBotaoExportar() // adiciona botão de exportação
                     } else {
-                        Toast.makeText(this@StatisticsActivity, "Erro ao carregar tarefas", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@StatisticsActivity, "Erro ao carregar tarefas", Toast.LENGTH_SHORT).show() // erro de resposta
                     }
                 }
 
-                override fun onFailure(call: Call<StatisticsTarefaResponse>, t: Throwable) {
+                override fun onFailure(call: Call<StatisticsTarefaResponse>, t: Throwable) { // falha na chamada
                     Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas das tarefas", Toast.LENGTH_SHORT).show()
                 }
             })
     }
 
-    private fun configurarBotaoExportar() {
-        val btnExportar = statsContainer.findViewById<Button>(R.id.btn_exportar)
-        btnExportar?.setOnClickListener {
-            exportarEstatisticas()
+    private fun configurarBotaoExportar() { // procura botão de exportar existente
+        val btnExportar = statsContainer.findViewById<Button>(R.id.btn_exportar) // referência ao botão
+        btnExportar?.setOnClickListener { // define clique
+            exportarEstatisticas() // executa exportação
         }
     }
 
-    private fun adicionarBotaoExportar() {
-        val btnExportar = layoutInflater.inflate(R.layout.layout_export_button, statsContainer, false) as Button
+    private fun adicionarBotaoExportar() { // adiciona botão de exportar dinamicamente
+        val btnExportar = layoutInflater.inflate(R.layout.layout_export_button, statsContainer, false) as Button // infla layout do botão
         btnExportar.setOnClickListener {
-            exportarEstatisticas()
+            exportarEstatisticas() // acção de exportar
         }
-        statsContainer.addView(btnExportar)
+        statsContainer.addView(btnExportar) // insere botão no contêiner
     }
 
 
-    private fun exportarEstatisticas() {
-        val fileContents = when (filtroAtual) {
-            "utilizador" -> """
+    private fun exportarEstatisticas() { // compõe dados e gera PDF
+        val fileContents = when (filtroAtual) { // verifica filtro activo
+            "utilizador" -> """ // estatísticas do utilizador
                 Estatísticas do Utilizador:
 
                 Nome: $nome
@@ -256,7 +256,7 @@ class StatisticsActivity : AppCompatActivity() {
             """.trimIndent()
 
             "projeto" -> {
-                val headerProjetos = "Estatísticas dos Projetos:\n\n"
+                val headerProjetos = "Estatísticas dos Projetos:\n\n" // cabeçalho
                 val dadosProjetos = if (listaProjetos.isNotEmpty()) {
                     listaProjetos.mapIndexed { index, projeto ->
                         """
@@ -270,12 +270,12 @@ class StatisticsActivity : AppCompatActivity() {
                 } else {
                     "Nenhum projeto encontrado."
                 }
-                headerProjetos + dadosProjetos
+                headerProjetos + dadosProjetos // junta cabeçalho aos dados
             }
 
             "tarefa" -> {
                 // CORRIGIDO: Exportar TODAS as tarefas
-                val headerTarefas = "Estatísticas das Tarefas:\n\n"
+                val headerTarefas = "Estatísticas das Tarefas:\n\n" // cabeçalho
                 val dadosTarefas = if (listaTarefas.isNotEmpty()) {
                     listaTarefas.mapIndexed { index, tarefa ->
                         """
@@ -290,93 +290,93 @@ class StatisticsActivity : AppCompatActivity() {
                 } else {
                     "Nenhuma tarefa encontrada."
                 }
-                headerTarefas + dadosTarefas
+                headerTarefas + dadosTarefas // resultado final
             }
 
             else -> "Nenhum dado disponível."
         }
 
-        val filename = "estatisticas_${filtroAtual}_${System.currentTimeMillis()}"
-        gerarPDF(fileContents, filename)
+        val filename = "estatisticas_${filtroAtual}_${System.currentTimeMillis()}" // nome do ficheiro
+        gerarPDF(fileContents, filename) // gera o PDF
     }
 
-    private fun updateUI() {
-        val tvNome = statsContainer.findViewById<TextView?>(R.id.tv_nome)
-        val tvTarefas = statsContainer.findViewById<TextView?>(R.id.tv_tarefas)
-        val tvTaxa = statsContainer.findViewById<TextView?>(R.id.tv_taxa)
-        val tvProjetos = statsContainer.findViewById<TextView?>(R.id.tv_projetos)
+    private fun updateUI() { // actualiza os textos do layout
+        val tvNome = statsContainer.findViewById<TextView?>(R.id.tv_nome) // campo nome
+        val tvTarefas = statsContainer.findViewById<TextView?>(R.id.tv_tarefas) // campo tarefas
+        val tvTaxa = statsContainer.findViewById<TextView?>(R.id.tv_taxa) // campo taxa
+        val tvProjetos = statsContainer.findViewById<TextView?>(R.id.tv_projetos) // campo projetos
 
         if (tvNome == null || tvTarefas == null || tvTaxa == null || tvProjetos == null) {
-            Log.e("updateUI", "Views não estão presentes no layout atual. Ignorando update.")
-            return
+            Log.e("updateUI", "Views não estão presentes no layout atual. Ignorando update.") // erro caso views não estejam presentes
+            return // sai se não houver views
         }
 
-        tvNome.text = nome
-        tvTarefas.text = "Tarefas Atribuídas: $tarefasAtribuidas\nTarefas Concluídas: $tarefasConcluidas"
-        tvTaxa.text = "Taxa Média de Conclusão: $taxaConclusao%"
-        tvProjetos.text = "Projetos Concluídos: $projetosConcluidos"
+        tvNome.text = nome // actualiza nome
+        tvTarefas.text = "Tarefas Atribuídas: $tarefasAtribuidas\nTarefas Concluídas: $tarefasConcluidas" // actualiza tarefas
+        tvTaxa.text = "Taxa Média de Conclusão: $taxaConclusao%" // actualiza taxa
+        tvProjetos.text = "Projetos Concluídos: $projetosConcluidos" // actualiza projetos
     }
 
-    private fun gerarPDF(content: String, filename: String) {
-        val pdfDocument = PdfDocument()
+    private fun gerarPDF(content: String, filename: String) { // geração do ficheiro PDF
+        val pdfDocument = PdfDocument() // documento PDF
         var pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // Tamanho A4
-        var page = pdfDocument.startPage(pageInfo)
+        var page = pdfDocument.startPage(pageInfo) // primeira página
 
-        var canvas = page.canvas
-        val paint = android.graphics.Paint()
-        paint.textSize = 12f
+        var canvas = page.canvas // área de desenho
+        val paint = android.graphics.Paint() // pincel
+        paint.textSize = 12f // tamanho da fonte
 
-        val lines = content.split("\n")
-        var y = 50
-        val pageHeight = 842
-        val bottomMargin = 50
+        val lines = content.split("\n") // texto dividido em linhas
+        var y = 50 // posição inicial
+        val pageHeight = 842 // altura total
+        val bottomMargin = 50 // margem inferior
 
-        for (line in lines) {
+        for (line in lines) { // percorre cada linha
             // Verificar se precisamos de uma nova página
             if (y + 20 > pageHeight - bottomMargin) {
-                pdfDocument.finishPage(page)
-                pageInfo = PdfDocument.PageInfo.Builder(595, 842, pdfDocument.pages.size + 1).create()
+                pdfDocument.finishPage(page) // termina página actual
+                pageInfo = PdfDocument.PageInfo.Builder(595, 842, pdfDocument.pages.size + 1).create() // nova página
                 page = pdfDocument.startPage(pageInfo)
                 canvas = page.canvas
-                y = 50
+                y = 50 // reinicia posição vertical
             }
 
-            canvas.drawText(line, 30f, y.toFloat(), paint)
-            y += 20
+            canvas.drawText(line, 30f, y.toFloat(), paint) // desenha texto
+            y += 20 // avança para próxima linha
         }
 
-        pdfDocument.finishPage(page)
+        pdfDocument.finishPage(page) // finaliza última página
 
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // dispositivos recentes
                 val contentValues = ContentValues().apply {
-                    put(MediaStore.Downloads.DISPLAY_NAME, "$filename.pdf")
-                    put(MediaStore.Downloads.MIME_TYPE, "application/pdf")
-                    put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                    put(MediaStore.Downloads.DISPLAY_NAME, "$filename.pdf") // nome do ficheiro
+                    put(MediaStore.Downloads.MIME_TYPE, "application/pdf") // tipo MIME
+                    put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS) // pasta Downloads
                 }
 
-                val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues) // cria URI
 
                 uri?.let {
-                    val outputStream: OutputStream? = contentResolver.openOutputStream(it)
-                    pdfDocument.writeTo(outputStream!!)
-                    outputStream?.close()
-                    Toast.makeText(this, "PDF guardado na pasta Downloads", Toast.LENGTH_LONG).show()
+                    val outputStream: OutputStream? = contentResolver.openOutputStream(it) // abre stream
+                    pdfDocument.writeTo(outputStream!!) // escreve PDF
+                    outputStream?.close() // fecha stream
+                    Toast.makeText(this, "PDF guardado na pasta Downloads", Toast.LENGTH_LONG).show() // informa utilizador
                 }
 
-            } else {
-                val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                val file = File(downloadsDir, "$filename.pdf")
-                val outputStream = FileOutputStream(file)
-                pdfDocument.writeTo(outputStream)
-                outputStream.close()
-                Toast.makeText(this, "PDF guardado na pasta Downloads", Toast.LENGTH_LONG).show()
+            } else { // para versões antigas
+                val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) // pasta downloads
+                val file = File(downloadsDir, "$filename.pdf") // ficheiro destino
+                val outputStream = FileOutputStream(file) // abre ficheiro
+                pdfDocument.writeTo(outputStream) // escreve no ficheiro
+                outputStream.close() // fecha
+                Toast.makeText(this, "PDF guardado na pasta Downloads", Toast.LENGTH_LONG).show() // informa utilizador
             }
 
-        } catch (e: Exception) {
+        } catch (e: Exception) { // em caso de erro
             Toast.makeText(this, "Erro ao guardar PDF: ${e.message}", Toast.LENGTH_LONG).show()
         } finally {
-            pdfDocument.close()
+            pdfDocument.close() // encerra documento
         }
-    }
-}
+    } // fim gerarPDF
+} // fim da classe
