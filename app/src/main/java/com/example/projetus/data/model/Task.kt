@@ -1,14 +1,14 @@
-package com.example.projetus.data.model
+package com.example.projetus.data.model // Pacote das entidades de dados
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.Entity // Anotação de entidade Room
+import androidx.room.PrimaryKey // Chave primária
 
-@Entity(tableName = "Tarefas")
+@Entity(tableName = "Tarefas") // Tabela de tarefas
 data class Task(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val nome: String,
-    val descricao: String,
-    val projeto_id: Int,
-    val data_entrega: String, // <-- O nome correto
-    val estado: String
+    @PrimaryKey(autoGenerate = true) val id: Int = 0, // Identificador gerado automaticamente
+    val nome: String, // Nome da tarefa
+    val descricao: String, // Descrição da tarefa
+    val projeto_id: Int, // Identificador do projeto associado
+    val data_entrega: String, // Data de entrega
+    val estado: String // Estado atual
 )
