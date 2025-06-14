@@ -1,37 +1,37 @@
 package com.example.projetus
 
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.Task
-import com.example.projetus.network.TasksResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.content.Intent // Navegação entre ecrãs
+import android.os.Bundle // Ciclo de vida
+import android.util.Log // Registos de debug
+import android.view.LayoutInflater // Inflar layouts
+import android.widget.* // Widgets Android
+import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.network.Task // Modelo de tarefa
+import com.example.projetus.network.TasksResponse // Resposta com tarefas
+import retrofit2.Call // Chamada Retrofit
+import retrofit2.Callback // Callback Retrofit
+import retrofit2.Response // Resposta Retrofit
 
-class ProjectTasksActivity : AppCompatActivity() {
+class ProjectTasksActivity : AppCompatActivity() { // Lista de tarefas do projeto
 
-    private lateinit var tarefasContainer: LinearLayout
-    private var userId: Int = -1
-    private var projectId: Int = -1
-    private var projectName: String = ""
+    private lateinit var tarefasContainer: LinearLayout // Container das tarefas
+    private var userId: Int = -1 // ID do utilizador
+    private var projectId: Int = -1 // ID do projeto
+    private var projectName: String = "" // Nome do projeto
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { // onCreate
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_tasks)
-        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Tipo de perfil
 
-        tarefasContainer = findViewById(R.id.tarefas_container)
+        tarefasContainer = findViewById(R.id.tarefas_container) // Container de tarefas
 
         // Receber dados do intent
         userId = intent.getIntExtra("user_id", -1)
         projectId = intent.getIntExtra("project_id", -1)
         projectName = intent.getStringExtra("project_name") ?: ""
 
-        if (projectId == -1 || userId == -1) {
+        if (projectId == -1 || userId == -1) { // Validação dos dados
             Toast.makeText(this, "Erro ao receber dados do projeto", Toast.LENGTH_SHORT).show()
             finish()
             return
@@ -66,11 +66,11 @@ class ProjectTasksActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadTasks() {
+    private fun loadTasks() { // Pede tarefas do projeto
         val data = mapOf("projeto_id" to projectId)
 
         RetrofitClient.instance.getTasksByProject(mapOf("projeto_id" to projectId))
-            .enqueue(object : Callback<TasksResponse> {
+            .enqueue(object : Callback<TasksResponse> { // Chamada assíncrona
                 override fun onResponse(call: Call<TasksResponse>, response: Response<TasksResponse>) {
                     Log.d("DEBUG", "Resposta recebida: ${response.body()}")
 
@@ -90,11 +90,11 @@ class ProjectTasksActivity : AppCompatActivity() {
             })
     }
 
-    private fun renderTasks(tarefas: List<Task>) {
+    private fun renderTasks(tarefas: List<Task>) { // Mostra tarefas no ecrã
         val inflater = LayoutInflater.from(this)
         tarefasContainer.removeAllViews()
 
-        for (tarefa in tarefas) {
+        for (tarefa in tarefas) { // Percorre lista de tarefas
             val view = inflater.inflate(R.layout.item_task, tarefasContainer, false)
 
             view.findViewById<TextView>(R.id.tv_task_name).text = tarefa.nome
@@ -111,7 +111,7 @@ class ProjectTasksActivity : AppCompatActivity() {
 
 
 
-            tarefasContainer.addView(view)
+            tarefasContainer.addView(view) // Adiciona card ao container
         }
     }
 }

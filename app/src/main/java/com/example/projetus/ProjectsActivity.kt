@@ -1,57 +1,57 @@
 package com.example.projetus
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projetus.network.ProjectResponse
-import com.example.projetus.network.Project
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.content.Intent // Para iniciar novas Activities
+import android.os.Bundle // Ciclo de vida da Activity
+import android.view.LayoutInflater // Para inflar layouts
+import android.widget.* // Widgets Android
+import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.network.ProjectResponse // Resposta da API com projetos
+import com.example.projetus.network.Project // Modelo de projeto
+import retrofit2.Call // Chamada Retrofit
+import retrofit2.Callback // Callback Retrofit
+import retrofit2.Response // Resposta Retrofit
 
-class ProjectsActivity : AppCompatActivity() {
+class ProjectsActivity : AppCompatActivity() { // Activity que lista projetos
 
-    private lateinit var projectsContainer: LinearLayout
-    private var userId: Int = -1
+    private lateinit var projectsContainer: LinearLayout // Container dos projetos
+    private var userId: Int = -1 // ID do utilizador
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { // Método chamado na criação
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_projects)
+        setContentView(R.layout.activity_projects) // Define layout
 
-        projectsContainer = findViewById(R.id.projects_container)
-        userId = intent.getIntExtra("user_id", -1)
-        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
+        projectsContainer = findViewById(R.id.projects_container) // Container onde os projetos serão inseridos
+        userId = intent.getIntExtra("user_id", -1) // Id do utilizador recebido
+        val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Tipo de perfil
 
-        if (userId == -1) {
+        if (userId == -1) { // Caso não haja utilizador válido
             Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        loadProjects()
+        loadProjects() // Carrega projetos existentes
 
-        findViewById<Button>(R.id.btn_add_project).setOnClickListener {
+        findViewById<Button>(R.id.btn_add_project).setOnClickListener { // Botão para criar novo projeto
             val intent = Intent(this, CreateProjectActivity::class.java)
             intent.putExtra("user_id", userId)
             startActivityForResult(intent, 1001)
         }
 
 
-        val btnHome = findViewById<ImageView>(R.id.btn_home)
+        val btnHome = findViewById<ImageView>(R.id.btn_home) // Botão home
 
-        findViewById<ImageView>(R.id.btn_home).setOnClickListener {
+        findViewById<ImageView>(R.id.btn_home).setOnClickListener { // Voltar ao dashboard
             val intent = Intent(this, DashboardActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("tipo_perfil", tipoPerfil)
 
             startActivity(intent)
         }
-        val btnProfile = findViewById<ImageView>(R.id.btn_profile)
-        val btnSettings = findViewById<ImageView>(R.id.btn_settings)
+        val btnProfile = findViewById<ImageView>(R.id.btn_profile) // Botão perfil
+        val btnSettings = findViewById<ImageView>(R.id.btn_settings) // Botão definições
 
-        btnProfile.setOnClickListener {
+        btnProfile.setOnClickListener { // Vai para o perfil
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("tipo_perfil", tipoPerfil)
@@ -59,7 +59,7 @@ class ProjectsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnSettings.setOnClickListener {
+        btnSettings.setOnClickListener { // Abre definições
             val intent = Intent(this, SettingsActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("tipo_perfil", tipoPerfil)
@@ -70,7 +70,7 @@ class ProjectsActivity : AppCompatActivity() {
 
     }
 
-    private fun loadProjects() {
+    private fun loadProjects() { // Chama a API para obter projetos
         val data = mapOf("utilizador_id" to userId)
         RetrofitClient.instance.getProjects(data).enqueue(object : Callback<ProjectResponse> {
             override fun onResponse(call: Call<ProjectResponse>, response: Response<ProjectResponse>) {
@@ -78,7 +78,7 @@ class ProjectsActivity : AppCompatActivity() {
                     val projetos = response.body()?.projetos?.filter {
                         it.estado.equals("Ativo", ignoreCase = true)
                     } ?: emptyList()
-                    renderProjects(projetos)
+                    renderProjects(projetos) // Mostra apenas projetos ativos
                 } else {
                     Toast.makeText(this@ProjectsActivity, "Erro ao carregar projetos", Toast.LENGTH_SHORT).show()
                 }
@@ -91,11 +91,11 @@ class ProjectsActivity : AppCompatActivity() {
     }
 
 
-    private fun renderProjects(projetos: List<Project>) {
+    private fun renderProjects(projetos: List<Project>) { // Insere cards de projeto
         val inflater = LayoutInflater.from(this)
         projectsContainer.removeAllViews()
 
-        for (projeto in projetos) {
+        for (projeto in projetos) { // Percorre lista de projetos
             val view = inflater.inflate(R.layout.item_project, projectsContainer, false)
             val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
@@ -104,7 +104,7 @@ class ProjectsActivity : AppCompatActivity() {
             view.findViewById<TextView>(R.id.tv_project_status).text = "Estado: ${projeto.estado}"
             view.findViewById<TextView>(R.id.tv_task_count).text = "${projeto.total_tarefas} tarefas"
 
-            val btn = view.findViewById<Button>(R.id.btn_project_action)
+            val btn = view.findViewById<Button>(R.id.btn_project_action) // Botão principal do card
             btn.text = if (userId == 1) "Editar" else "Ver"
             btn.setOnClickListener {
                 val intent = Intent(this, ProjectDetailsActivity::class.java)
@@ -115,7 +115,7 @@ class ProjectsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            val btnVerTarefas = view.findViewById<Button>(R.id.btn_ver_tarefas)
+            val btnVerTarefas = view.findViewById<Button>(R.id.btn_ver_tarefas) // Botão para ver tarefas
             btnVerTarefas.setOnClickListener {
                 val intent = Intent(this, ProjectTasksActivity::class.java)
                 intent.putExtra("project_id", projeto.id)
@@ -128,10 +128,10 @@ class ProjectsActivity : AppCompatActivity() {
 
 
 
-            projectsContainer.addView(view)
+            projectsContainer.addView(view) // Adiciona card ao container
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) { // Resultado da criação
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1001 && resultCode == RESULT_OK) {
             val created = data?.getBooleanExtra("project_created", false) ?: false
