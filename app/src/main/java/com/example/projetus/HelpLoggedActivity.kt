@@ -31,19 +31,19 @@ class HelpLoggedActivity : AppCompatActivity() { // Ecrã de ajuda para utilizad
                 RetrofitClient.instance.enviarDuvida(request).enqueue(object : Callback<SimpleResponse> {
                     override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
                         if (response.isSuccessful && response.body()?.success == true) {
-                            Toast.makeText(this@HelpLoggedActivity, "Mensagem enviada com sucesso!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@HelpLoggedActivity, getString(R.string.message_sent), Toast.LENGTH_SHORT).show()
                             etMessage.text.clear()
                         } else {
-                            Toast.makeText(this@HelpLoggedActivity, "Erro ao enviar mensagem", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@HelpLoggedActivity, getString(R.string.error_sending_message), Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                        Toast.makeText(this@HelpLoggedActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@HelpLoggedActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {
-                Toast.makeText(this, "Escreve uma mensagem primeiro", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_write_question), Toast.LENGTH_SHORT).show()
             }
         }
 

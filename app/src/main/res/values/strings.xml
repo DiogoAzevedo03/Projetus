@@ -105,4 +105,14 @@
         <item>Pendente</item>
         <item>Concluída</item>
     </string-array>
+
+    <!-- Ecrãs adicionais -->
+    <string name="hint_new_password_optional">Nova password (opcional)</string>
+    <string name="action_update">Atualizar</string>
+    <string name="error_generic">Erro: %1$s</string>
+    <string name="error_loading_tasks">Erro ao carregar tarefas</string>
+    <string name="invalid_user">Utilizador inválido</string>
+    <string name="label_manager">Gestor: %1$s</string>
+    <string name="label_status">Estado: %1$s</string>
+    <string name="label_task_count">%1$d tarefas</string>
 </resources>

@@ -21,8 +21,7 @@ class EditUserActivity : AppCompatActivity() { // Activity para editar utilizado
     private lateinit var fotoET: EditText // Campo foto
 
     private lateinit var perfilSpinner: Spinner // Spinner de perfis
-
-    private val perfis = listOf("utilizador", "administrador", "gestor") // Opções de perfil
+    private lateinit var perfis: List<String> // Opções de perfil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +37,11 @@ class EditUserActivity : AppCompatActivity() { // Activity para editar utilizado
         perfilSpinner = findViewById(R.id.spinner_perfil) // Spinner de perfil
 
         // Preencher spinner com os tipos de perfil
+        perfis = listOf(
+            getString(R.string.profile_option_user),
+            getString(R.string.profile_option_admin),
+            getString(R.string.profile_option_manager)
+        )
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, perfis)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         perfilSpinner.adapter = adapter
@@ -69,19 +73,19 @@ class EditUserActivity : AppCompatActivity() { // Activity para editar utilizado
             val tipoPerfil = perfilSpinner.selectedItem.toString()
 
             if (nome.isEmpty() || username.isEmpty() || email.isEmpty()) { // Valida campos
-                Toast.makeText(this, "Preenche todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (password.isNotEmpty()) {
                 val passwordPattern = Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}")
                 if (!passwordPattern.containsMatchIn(password)) {
-                    Toast.makeText(this, "Palavra-passe fraca", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.error_weak_password), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
@@ -102,15 +106,23 @@ class EditUserActivity : AppCompatActivity() { // Activity para editar utilizado
             RetrofitClient.instance.updateUser(data).enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(this@EditUserActivity, "Atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@EditUserActivity, getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        Toast.makeText(this@EditUserActivity, "Erro: ${response.body()?.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@EditUserActivity,
+                            getString(R.string.error_generic, response.body()?.message ?: ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) { // Erro de rede
-                    Toast.makeText(this@EditUserActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@EditUserActivity,
+                        getString(R.string.error_generic, t.message ?: ""),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
         }

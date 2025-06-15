@@ -26,7 +26,7 @@ class HistoricoTarefasActivity : AppCompatActivity() { // activity que apresenta
         userId = intent.getIntExtra("user_id", -1) // obtém o id do utilizador
 
         if (userId == -1) { // verifica se o id do utilizador é válido
-            Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.invalid_user), Toast.LENGTH_SHORT).show()
             finish() // fecha a activity se for inválido
             return
         }
@@ -78,13 +78,17 @@ class HistoricoTarefasActivity : AppCompatActivity() { // activity que apresenta
                             container.addView(view)
                         }
                     } else {
-                        Toast.makeText(this@HistoricoTarefasActivity, "Erro ao carregar tarefas", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@HistoricoTarefasActivity, getString(R.string.error_loading_tasks), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TasksResponse>, t: Throwable) { // callback de erro
                     Log.e("HistoricoTarefas", "Erro: ${t.message}") // regista o erro
-                    Toast.makeText(this@HistoricoTarefasActivity, "Erro de rede", Toast.LENGTH_SHORT).show() // mostra erro
+                    Toast.makeText(
+                        this@HistoricoTarefasActivity,
+                        getString(R.string.error_network),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
