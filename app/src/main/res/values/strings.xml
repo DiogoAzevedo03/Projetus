@@ -115,4 +115,48 @@
     <string name="label_manager">Gestor: %1$s</string>
     <string name="label_status">Estado: %1$s</string>
     <string name="label_task_count">%1$d tarefas</string>
+
+    <!-- Detalhes do Projeto -->
+    <string name="title_project_details">Detalhes do Projeto</string>
+    <string name="label_project_name">Nome do Projeto:</string>
+    <string name="label_project_description">Descrição do Projeto:</string>
+    <string name="label_start">Início:</string>
+    <string name="label_end">Fim:</string>
+    <string name="label_manager_plain">Gestor:</string>
+    <string name="label_collaborators">Colaboradores:</string>
+    <string name="loading_collaborators">(a carregar...)</string>
+    <string name="label_completion_rate">Taxa de Conclusão:</string>
+    <string name="label_time_spent">Tempo Gasto:</string>
+    <string name="action_associate_collaborators">Associar Colaboradores</string>
+    <string name="action_mark_completed">Marcar como concluído</string>
+    <string name="action_delete_project">Apagar Projeto</string>
+    <string name="msg_project_deleted_success">Projeto apagado com sucesso</string>
+    <string name="msg_project_delete_error">Erro ao apagar projeto</string>
+
+    <!-- Avaliação de Projeto -->
+    <string name="title_evaluate_performance">Avaliar Performance</string>
+    <string name="action_save_evaluation">Guardar Avaliação</string>
+    <string name="action_mark_project_complete">Marcar projeto como concluído</string>
+    <string name="msg_invalid_project_data">Dados do projeto inválidos</string>
+    <string name="msg_error_loading_data">Erro ao carregar dados</string>
+    <string name="msg_error_saving_evaluation">Erro ao guardar avaliação</string>
+    <string name="msg_evaluations_saved">Avaliações guardadas!</string>
+    <string name="msg_project_completed">Projeto concluído!</string>
+    <string name="msg_error_completing_project">Erro ao concluir projeto</string>
+
+    <!-- Lista de Projetos -->
+    <string name="title_projects">Projetos</string>
+    <string name="action_add_project">Adicionar projeto</string>
+    <string name="msg_user_not_authenticated">Utilizador não autenticado</string>
+    <string name="msg_error_loading_projects">Erro ao carregar projetos</string>
+    <string name="label_project_manager">Gestor: %1$s</string>
+    <string name="label_project_status">Estado: %1$s</string>
+    <string name="label_project_tasks">%1$d tarefas</string>
+    <string name="action_view">Ver</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_view_tasks">Ver Tarefas</string>
+    <string name="label_rating">Nota:</string>
+    <string name="hint_comment">Comentário</string>
+    <string name="hint_collaborator_task">Nome - Tarefa</string>
+    <string name="none">Nenhum</string>
 </resources>

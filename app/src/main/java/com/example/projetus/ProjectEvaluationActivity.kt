@@ -32,7 +32,7 @@ class ProjectEvaluationActivity : AppCompatActivity() { // Activity para avaliar
         projectId = intent.getIntExtra("projeto_id", -1) // Lê ID do projeto
 
         if (userId == -1 || projectId == -1) { // Verifica se IDs são válidos
-            Toast.makeText(this, "Dados do projeto inválidos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.msg_invalid_project_data), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -114,12 +114,12 @@ class ProjectEvaluationActivity : AppCompatActivity() { // Activity para avaliar
                         }
 
                     } else {
-                        Toast.makeText(this@ProjectEvaluationActivity, "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.msg_error_loading_data), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AvaliacoesResponse>, t: Throwable) { // Erro de rede
-                    Toast.makeText(this@ProjectEvaluationActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
     }
@@ -154,18 +154,18 @@ class ProjectEvaluationActivity : AppCompatActivity() { // Activity para avaliar
                         Log.d("Avaliacao", "Resposta OK: ${response.body()}")
                     } else {
                         Log.e("Avaliacao", "Erro na resposta: ${response.errorBody()?.string()}")
-                        Toast.makeText(this@ProjectEvaluationActivity, "Erro ao guardar avaliação", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.msg_error_saving_evaluation), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
                     Log.e("Avaliacao", "Erro de rede", t)
-                    Toast.makeText(this@ProjectEvaluationActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
         }
 
-        Toast.makeText(this, "Avaliações guardadas!", Toast.LENGTH_SHORT).show() // Confirmação
+        Toast.makeText(this, getString(R.string.msg_evaluations_saved), Toast.LENGTH_SHORT).show() // Confirmação
     }
 
 
@@ -175,15 +175,15 @@ class ProjectEvaluationActivity : AppCompatActivity() { // Activity para avaliar
         RetrofitClient.instance.concluirProjeto(data).enqueue(object : Callback<SimpleResponse> {
             override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
-                    Toast.makeText(this@ProjectEvaluationActivity, "Projeto concluído!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.msg_project_completed), Toast.LENGTH_SHORT).show()
                     finish()
                 } else {
-                    Toast.makeText(this@ProjectEvaluationActivity, "Erro ao concluir projeto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.msg_error_completing_project), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                Toast.makeText(this@ProjectEvaluationActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ProjectEvaluationActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
             }
         })
     }

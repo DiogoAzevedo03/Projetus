@@ -11,7 +11,7 @@
         android:id="@+id/tv_titulo_avaliacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Avaliar Performance"
+        android:text="@string/title_evaluate_performance"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="#000000"
@@ -33,7 +33,7 @@
         android:id="@+id/btn_guardar_avaliacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Avaliação"
+        android:text="@string/action_save_evaluation"
         android:backgroundTint="#2196F3"
         android:textColor="#FFFFFF"
         android:layout_marginTop="8dp" />
@@ -42,7 +42,7 @@
         android:id="@+id/btn_concluir_projeto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Marcar projeto como concluído"
+        android:text="@string/action_mark_project_complete"
         android:backgroundTint="#4CAF50"
         android:textColor="#FFFFFF"
         android:layout_marginTop="8dp" />
@@ -61,7 +61,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:contentDescription="Home"
+            android:contentDescription="@string/desc_home"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -71,7 +71,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Perfil"
+            android:contentDescription="@string/desc_profile"
             android:scaleType="centerInside"
             android:padding="8dp"/>
 
@@ -81,7 +81,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
-            android:contentDescription="Configurações"
+            android:contentDescription="@string/desc_settings"
             android:scaleType="centerInside"
             android:padding="8dp"/>
     </LinearLayout>
