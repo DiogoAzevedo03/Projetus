@@ -211,7 +211,6 @@
     <string name="title_task_details">Detalhes da Tarefa</string>
     <string name="label_name">Nome:</string>
     <string name="label_delivery_date">Entrega:</string>
-    <string name="label_time_spent">Tempo Gasto</string>
     <string name="label_observations">Observações</string>
     <string name="desc_image_preview">Pré-visualização da imagem</string>
     <string name="action_save_changes">Guardar alterações</string>

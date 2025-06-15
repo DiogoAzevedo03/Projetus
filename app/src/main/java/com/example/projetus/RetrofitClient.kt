@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory // Conversor JSON para obje
 // Objeto que fornece uma instância única de Retrofit
 object RetrofitClient {
     // Endereço base da API (10.0.2.2 = localhost do computador no emulador)
-    private const val BASE_URL = "http://10.0.2.2/projetus_api/"
+    private const val BASE_URL = "http://192.168.68.105/projetus_api/"
 
     // Instância do serviço criada
     val instance: ApiService by lazy {

@@ -210,7 +210,6 @@
     <string name="title_task_details">Task Details</string>
     <string name="label_name">Name:</string>
     <string name="label_delivery_date">Delivery:</string>
-    <string name="label_time_spent">Time Spent</string>
     <string name="label_observations">Observations</string>
     <string name="desc_image_preview">Image preview</string>
     <string name="action_save_changes">Save changes</string>
