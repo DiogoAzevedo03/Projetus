@@ -41,22 +41,22 @@ class SettingsActivity : AppCompatActivity() {
             val sugestao = etSugestao.text.toString().trim()
 
             if (sugestao.isEmpty()) {
-                Toast.makeText(this, "Escreva uma sugestão", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_write_suggestion), Toast.LENGTH_SHORT).show()
             } else {
                 val request = SuggestionRequest(sugestao, userId)
 
                 RetrofitClient.instance.enviarSugestao(request).enqueue(object : Callback<SimpleResponse> {
                     override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
                         if (response.isSuccessful && response.body()?.success == true) {
-                            Toast.makeText(this@SettingsActivity, "Sugestão enviada com sucesso!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@SettingsActivity, getString(R.string.msg_suggestion_sent_success), Toast.LENGTH_SHORT).show()
                             etSugestao.text.clear()
                         } else {
-                            Toast.makeText(this@SettingsActivity, "Erro ao enviar sugestão", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@SettingsActivity, getString(R.string.error_sending_suggestion), Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                        Toast.makeText(this@SettingsActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SettingsActivity, getString(R.string.error_connection), Toast.LENGTH_SHORT).show()
                     }
                 })
             }

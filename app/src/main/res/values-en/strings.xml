@@ -18,6 +18,8 @@
     <string name="welcome_simple">Welcome!</string>
     <string name="active_projects">Active Projects</string>
     <string name="pending_tasks">Pending Tasks</string>
+    <string name="pending">Pending</string>
+    <string name="not_available">N/A</string>
     <string name="next_task_label">Next task:</string>
     <string name="next_task_hint">Date and time - Description</string>
     <string name="view_tasks">View tasks</string>
@@ -172,4 +174,35 @@
     <!-- Accessibility descriptions -->
     <string name="desc_logo">Logo</string>
     <string name="desc_add_photo">Add photo</string>
+
+    <!-- SettingsActivity -->
+    <string name="error_write_suggestion">Write a suggestion</string>
+    <string name="msg_suggestion_sent_success">Suggestion sent successfully!</string>
+    <string name="error_sending_suggestion">Error sending suggestion</string>
+    <string name="error_connection">Connection error</string>
+
+    <!-- StatisticsActivity -->
+    <string name="title_statistics">Statistics</string>
+    <string name="filter_user">User</string>
+    <string name="filter_project">Project</string>
+    <string name="filter_task">Task</string>
+    <string name="action_export">Export</string>
+    <string name="error_loading_statistics">Error loading statistics</string>
+    <string name="error_project_not_found">Error: project not found</string>
+    <string name="error_loading_project_stats">Error loading project statistics</string>
+    <string name="no_tasks_found">No tasks found.</string>
+    <string name="error_loading_tasks_stats">Error loading task statistics</string>
+    <string name="statistics_user_header">User Statistics:</string>
+    <string name="statistics_projects_header">Project Statistics:\n\n</string>
+    <string name="statistics_tasks_header">Task Statistics:\n\n</string>
+    <string name="statistics_user_content">Name: %1$s\nAssigned Tasks: %2$d\nCompleted Tasks: %3$d\nCompletion Rate: %4$d%%\nProjects Completed: %5$d</string>
+    <string name="statistics_project_item">Project %1$d:\nName: %2$s\nAssigned Tasks: %3$d\nCompleted Tasks: %4$d\nCompletion Rate: %5$d%%</string>
+    <string name="statistics_task_item">Task %1$d:\nName: %2$s\nProject: %3$s\nState: %4$s\nCreated: %5$s\nCompleted: %6$s</string>
+    <string name="no_projects_found">No projects found.</string>
+    <string name="no_data_available">No data available.</string>
+    <string name="pdf_saved">PDF saved to Downloads folder</string>
+    <string name="error_saving_pdf">Error saving PDF: %1$s</string>
+    <string name="stats_tasks_summary">Assigned Tasks: %1$d\nCompleted Tasks: %2$d</string>
+    <string name="stats_completion_rate">Average Completion Rate: %1$d%%</string>
+    <string name="stats_projects_completed">Projects Completed: %1$d</string>
 </resources>

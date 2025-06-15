@@ -10,7 +10,7 @@
         android:id="@+id/tv_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estatísticas"
+        android:text="@string/title_statistics"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="#212121" />
@@ -31,7 +31,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Utilizador"
+            android:text="@string/filter_user"
             android:textAllCaps="false"
             android:backgroundTint="#E0E0E0"
             android:textColor="#000" />
@@ -42,7 +42,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Projeto"
+            android:text="@string/filter_project"
             android:textAllCaps="false"
             android:backgroundTint="#E0E0E0"
             android:textColor="#000" />
@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Tarefa"
+            android:text="@string/filter_task"
             android:textAllCaps="false"
             android:backgroundTint="#E0E0E0"
             android:textColor="#000" />
@@ -73,7 +73,7 @@
 
         <TextView
             android:id="@+id/tv_nome"
-            android:text="João Silva"
+            android:text=""
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#333333"
@@ -85,7 +85,7 @@
 
         <TextView
             android:id="@+id/tv_tarefas"
-            android:text="Tarefas Atribuídas: 0\nTarefas Concluídas: 0"
+            android:text=""
             android:textColor="#555555"
             android:textSize="15sp"
             android:layout_marginBottom="8dp"
@@ -94,7 +94,7 @@
 
         <TextView
             android:id="@+id/tv_taxa"
-            android:text="Taxa Média de Conclusão: 0%"
+            android:text=""
             android:textColor="#555555"
             android:textSize="15sp"
             android:layout_marginBottom="8dp"
@@ -103,7 +103,7 @@
 
         <TextView
             android:id="@+id/tv_projetos"
-            android:text="Projetos Concluídos: 0"
+            android:text=""
             android:textColor="#555555"
             android:textSize="15sp"
             android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
-            android:text="Exportar"
+            android:text="@string/action_export"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
@@ -138,7 +138,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:contentDescription="Home"
+            android:contentDescription="@string/desc_home"
             android:scaleType="centerInside"
             android:padding="8dp" />
 
@@ -148,7 +148,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Perfil"
+            android:contentDescription="@string/desc_profile"
             android:scaleType="centerInside"
             android:padding="8dp" />
 
@@ -158,7 +158,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
-            android:contentDescription="Configurações"
+            android:contentDescription="@string/desc_settings"
             android:scaleType="centerInside"
             android:padding="8dp" />
     </LinearLayout>

@@ -50,7 +50,7 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
 
         val userId = intent.getIntExtra("user_id", -1) // id recebido da activity anterior
         if (userId == -1) { // verifica se foi enviado um id válido
-            Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show() // informa erro
+            Toast.makeText(this, getString(R.string.invalid_user), Toast.LENGTH_SHORT).show() // informa erro
             finish() // encerra a activity
             return // sai do metodo
         }
@@ -124,7 +124,7 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
                 }
 
                 override fun onFailure(call: Call<StatisticsResponse>, t: Throwable) { // em caso de falha
-                    Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@StatisticsActivity, getString(R.string.error_loading_statistics), Toast.LENGTH_SHORT).show()
                 }
             }) // fim da chamada
     }
@@ -145,24 +145,26 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
                         listaProjetos = stats.projetos ?: emptyList() // guarda lista de projetos
 
                         // Adicionar informações dos projetos
-                        listaProjetos.forEach { projeto -> // para cada projeto
+                        listaProjetos.forEachIndexed { index, projeto -> // para cada projeto
                             val tvProjeto = TextView(this@StatisticsActivity).apply {
-                                text = """
-                                Nome: ${projeto.nome}
-                                Tarefas Atribuídas: ${projeto.tarefas_atribuidas}
-                                Tarefas Concluídas: ${projeto.tarefas_concluidas}
-                                Taxa de Conclusão: ${projeto.taxa_conclusao}%
-                                """.trimIndent() // conteúdo textual
-                                setPadding(0, 0, 0, 32) // espaçamento inferior
+                                text = getString(
+                                    R.string.statistics_project_item,
+                                    index + 1,
+                                    projeto.nome,
+                                    projeto.tarefas_atribuidas,
+                                    projeto.tarefas_concluidas,
+                                    projeto.taxa_conclusao
+                                )
+                                setPadding(0, 0, 0, 32)
                             }
-                            statsContainer.addView(tvProjeto) // adiciona texto ao contêiner
+                            statsContainer.addView(tvProjeto)
                         }
 
                         // Adicionar botão exportar no final
                         adicionarBotaoExportar() // botão para exportar dados
 
                     } else {
-                        Toast.makeText(this@StatisticsActivity, "Erro: projeto não encontrado", Toast.LENGTH_SHORT).show() // mensagem de erro
+                        Toast.makeText(this@StatisticsActivity, getString(R.string.error_project_not_found), Toast.LENGTH_SHORT).show() // mensagem de erro
                     }
                 }
 
@@ -170,7 +172,7 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
                     call: Call<StatisticsProjetoResponse>,
                     t: Throwable
                 ) {
-                    Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas de projeto", Toast.LENGTH_SHORT).show() // erro na chamada
+                    Toast.makeText(this@StatisticsActivity, getString(R.string.error_loading_project_stats), Toast.LENGTH_SHORT).show() // erro na chamada
                 }
             })
     }
@@ -193,22 +195,24 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
 
                         if (listaTarefas.isNotEmpty()) {
                             // Mostrar todas as tarefas
-                            listaTarefas.forEach { tarefa ->
+                            listaTarefas.forEachIndexed { index, tarefa ->
                                 val tvTarefa = TextView(this@StatisticsActivity).apply {
-                                    text = """
-                                    Nome: ${tarefa.nome}
-                                    Projeto: ${tarefa.projeto_nome}
-                                    Estado: ${tarefa.estado}
-                                    Data Criação: ${tarefa.data_criacao ?: "N/A"}
-                                    Data Conclusão: ${tarefa.data_conclusao ?: "Pendente"}
-                                    """.trimIndent() // texto da tarefa
-                                    setPadding(0, 0, 0, 32) // espaçamento
+                                    text = getString(
+                                        R.string.statistics_task_item,
+                                        index + 1,
+                                        tarefa.nome,
+                                        tarefa.projeto_nome,
+                                        tarefa.estado,
+                                        tarefa.data_criacao ?: getString(R.string.not_available),
+                                        tarefa.data_conclusao ?: getString(R.string.pending)
+                                    )
+                                    setPadding(0, 0, 0, 32)
                                 }
-                                statsContainer.addView(tvTarefa) // adiciona ao contêiner
+                                statsContainer.addView(tvTarefa)
                             }
                         } else {
                             val tvSemTarefas = TextView(this@StatisticsActivity).apply {
-                                text = "Nenhuma tarefa encontrada."
+                                text = getString(R.string.no_tasks_found)
                                 setPadding(0, 0, 0, 32)
                             }
                             statsContainer.addView(tvSemTarefas) // mensagem caso não haja tarefas
@@ -217,12 +221,12 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
                         // Adicionar botão exportar
                         adicionarBotaoExportar() // adiciona botão de exportação
                     } else {
-                        Toast.makeText(this@StatisticsActivity, "Erro ao carregar tarefas", Toast.LENGTH_SHORT).show() // erro de resposta
+                        Toast.makeText(this@StatisticsActivity, getString(R.string.error_loading_tasks), Toast.LENGTH_SHORT).show() // erro de resposta
                     }
                 }
 
                 override fun onFailure(call: Call<StatisticsTarefaResponse>, t: Throwable) { // falha na chamada
-                    Toast.makeText(this@StatisticsActivity, "Erro ao carregar estatísticas das tarefas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@StatisticsActivity, getString(R.string.error_loading_tasks_stats), Toast.LENGTH_SHORT).show()
                 }
             })
     }
@@ -245,55 +249,60 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
 
     private fun exportarEstatisticas() { // compõe dados e gera PDF
         val fileContents = when (filtroAtual) { // verifica filtro activo
-            "utilizador" -> """ // estatísticas do utilizador
-                Estatísticas do Utilizador:
-
-                Nome: $nome
-                Tarefas Atribuídas: $tarefasAtribuidas
-                Tarefas Concluídas: $tarefasConcluidas
-                Taxa de Conclusão: $taxaConclusao%
-                Projetos Concluídos: $projetosConcluidos
-            """.trimIndent()
+            "utilizador" -> {
+                val header = getString(R.string.statistics_user_header)
+                val corpo = getString(
+                    R.string.statistics_user_content,
+                    nome,
+                    tarefasAtribuidas,
+                    tarefasConcluidas,
+                    taxaConclusao,
+                    projetosConcluidos
+                )
+                "$header\n\n$corpo"
+            }
 
             "projeto" -> {
-                val headerProjetos = "Estatísticas dos Projetos:\n\n" // cabeçalho
+                val headerProjetos = getString(R.string.statistics_projects_header)
                 val dadosProjetos = if (listaProjetos.isNotEmpty()) {
                     listaProjetos.mapIndexed { index, projeto ->
-                        """
-                        Projeto ${index + 1}:
-                        Nome: ${projeto.nome}
-                        Tarefas Atribuídas: ${projeto.tarefas_atribuidas}
-                        Tarefas Concluídas: ${projeto.tarefas_concluidas}
-                        Taxa de Conclusão: ${projeto.taxa_conclusao}%
-                        """.trimIndent()
+                        getString(
+                            R.string.statistics_project_item,
+                            index + 1,
+                            projeto.nome,
+                            projeto.tarefas_atribuidas,
+                            projeto.tarefas_concluidas,
+                            projeto.taxa_conclusao
+                        )
                     }.joinToString("\n\n")
                 } else {
-                    "Nenhum projeto encontrado."
+                    getString(R.string.no_projects_found)
                 }
                 headerProjetos + dadosProjetos // junta cabeçalho aos dados
             }
 
             "tarefa" -> {
                 // CORRIGIDO: Exportar TODAS as tarefas
-                val headerTarefas = "Estatísticas das Tarefas:\n\n" // cabeçalho
+                val headerTarefas = getString(R.string.statistics_tasks_header)
                 val dadosTarefas = if (listaTarefas.isNotEmpty()) {
                     listaTarefas.mapIndexed { index, tarefa ->
-                        """
-                        Tarefa ${index + 1}:
-                        Nome: ${tarefa.nome}
-                        Projeto: ${tarefa.projeto_nome}
-                        Estado: ${tarefa.estado}
-                        Data Criação: ${tarefa.data_criacao ?: "N/A"}
-                        Data Conclusão: ${tarefa.data_conclusao ?: "Pendente"}
-                        """.trimIndent()
+                        getString(
+                            R.string.statistics_task_item,
+                            index + 1,
+                            tarefa.nome,
+                            tarefa.projeto_nome,
+                            tarefa.estado,
+                            tarefa.data_criacao ?: getString(R.string.not_available),
+                            tarefa.data_conclusao ?: getString(R.string.pending)
+                        )
                     }.joinToString("\n\n")
                 } else {
-                    "Nenhuma tarefa encontrada."
+                    getString(R.string.no_tasks_found)
                 }
                 headerTarefas + dadosTarefas // resultado final
             }
 
-            else -> "Nenhum dado disponível."
+            else -> getString(R.string.no_data_available)
         }
 
         val filename = "estatisticas_${filtroAtual}_${System.currentTimeMillis()}" // nome do ficheiro
@@ -311,10 +320,10 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
             return // sai se não houver views
         }
 
-        tvNome.text = nome // actualiza nome
-        tvTarefas.text = "Tarefas Atribuídas: $tarefasAtribuidas\nTarefas Concluídas: $tarefasConcluidas" // actualiza tarefas
-        tvTaxa.text = "Taxa Média de Conclusão: $taxaConclusao%" // actualiza taxa
-        tvProjetos.text = "Projetos Concluídos: $projetosConcluidos" // actualiza projetos
+        tvNome.text = nome
+        tvTarefas.text = getString(R.string.stats_tasks_summary, tarefasAtribuidas, tarefasConcluidas)
+        tvTaxa.text = getString(R.string.stats_completion_rate, taxaConclusao)
+        tvProjetos.text = getString(R.string.stats_projects_completed, projetosConcluidos)
     }
 
     private fun gerarPDF(content: String, filename: String) { // geração do ficheiro PDF
@@ -361,7 +370,7 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
                     val outputStream: OutputStream? = contentResolver.openOutputStream(it) // abre stream
                     pdfDocument.writeTo(outputStream!!) // escreve PDF
                     outputStream?.close() // fecha stream
-                    Toast.makeText(this, "PDF guardado na pasta Downloads", Toast.LENGTH_LONG).show() // informa utilizador
+                    Toast.makeText(this, getString(R.string.pdf_saved), Toast.LENGTH_LONG).show() // informa utilizador
                 }
 
             } else { // para versões antigas
@@ -370,11 +379,11 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
                 val outputStream = FileOutputStream(file) // abre ficheiro
                 pdfDocument.writeTo(outputStream) // escreve no ficheiro
                 outputStream.close() // fecha
-                Toast.makeText(this, "PDF guardado na pasta Downloads", Toast.LENGTH_LONG).show() // informa utilizador
+                Toast.makeText(this, getString(R.string.pdf_saved), Toast.LENGTH_LONG).show() // informa utilizador
             }
 
         } catch (e: Exception) { // em caso de erro
-            Toast.makeText(this, "Erro ao guardar PDF: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.error_saving_pdf, e.message), Toast.LENGTH_LONG).show()
         } finally {
             pdfDocument.close() // encerra documento
         }
