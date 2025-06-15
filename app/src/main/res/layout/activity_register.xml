@@ -16,7 +16,7 @@
             android:layout_width="@dimen/logo_size"
             android:layout_height="@dimen/logo_size"
             android:src="@drawable/logo_projetus"
-            android:contentDescription="Logo"
+            android:contentDescription="@string/desc_logo"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp" />
 
@@ -25,7 +25,7 @@
             android:id="@+id/et_fullname"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Nome completo"
+            android:hint="@string/hint_full_name"
             android:background="@drawable/edittext_background"
             android:padding="12dp"
             android:layout_marginBottom="12dp" />
@@ -35,7 +35,7 @@
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Nome de utilizador"
+            android:hint="@string/hint_username"
             android:background="@drawable/edittext_background"
             android:padding="12dp"
             android:layout_marginBottom="12dp" />
@@ -45,7 +45,7 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Email"
+            android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:background="@drawable/edittext_background"
             android:padding="12dp"
@@ -56,7 +56,7 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Palavra-passe"
+            android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:background="@drawable/edittext_background"
             android:padding="12dp"
@@ -71,14 +71,14 @@
             android:background="@drawable/circle_background"
             android:padding="16dp"
             android:layout_marginBottom="16dp"
-            android:contentDescription="Adicionar foto" />
+            android:contentDescription="@string/desc_add_photo" />
 
         <!-- Botão Criar -->
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Criar"
+            android:text="@string/action_register"
             android:textColor="#FFFFFF"
             android:backgroundTint="#14AD1A"
             android:layout_marginBottom="16dp" />
@@ -88,7 +88,7 @@
             android:id="@+id/tv_go_to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Já tens conta?"
+            android:text="@string/already_have_account"
             android:textColor="#1976D2"
             android:textSize="14sp"
             android:layout_marginTop="8dp" />

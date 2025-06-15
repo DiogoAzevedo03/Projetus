@@ -159,4 +159,18 @@
     <string name="hint_comment">Comentário</string>
     <string name="hint_collaborator_task">Nome - Tarefa</string>
     <string name="none">Nenhum</string>
+
+    <!-- Registo e listas de tarefas -->
+    <string name="action_register">Criar</string>
+    <string name="already_have_account">Já tens conta?</string>
+    <string name="error_registration">Erro no registo</string>
+
+    <!-- Ecrã de Tarefas do Projeto -->
+    <string name="title_project_tasks">Tarefas do Projeto</string>
+    <string name="placeholder_project_name">Nome do Projeto</string>
+    <string name="error_receiving_project_data">Erro ao receber dados do projeto</string>
+
+    <!-- Descrições de acessibilidade -->
+    <string name="desc_logo">Logo</string>
+    <string name="desc_add_photo">Adicionar foto</string>
 </resources>
