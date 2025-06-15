@@ -29,7 +29,7 @@ class HistoricoProjetosActivity : AppCompatActivity() { // Lista projetos conclu
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
         if (userId == -1) { // Se não existir utilizador
-            Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_user_not_authenticated), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -69,12 +69,16 @@ class HistoricoProjetosActivity : AppCompatActivity() { // Lista projetos conclu
                     } ?: emptyList()
                     renderProjects(projetos)
                 } else {
-                    Toast.makeText(this@HistoricoProjetosActivity, "Erro ao carregar projetos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@HistoricoProjetosActivity, getString(R.string.error_loading_projects), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ProjectResponse>, t: Throwable) {
-                Toast.makeText(this@HistoricoProjetosActivity, "Erro: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@HistoricoProjetosActivity,
+                    getString(R.string.error_generic, t.message ?: ""),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
@@ -89,9 +93,12 @@ class HistoricoProjetosActivity : AppCompatActivity() { // Lista projetos conclu
             val view = inflater.inflate(R.layout.item_project, projectsContainer, false)
 
             view.findViewById<TextView>(R.id.tv_project_name).text = projeto.nome
-            view.findViewById<TextView>(R.id.tv_project_manager).text = "Gestor: ${projeto.gestor_nome}"
-            view.findViewById<TextView>(R.id.tv_project_status).text = "Estado: ${projeto.estado}"
-            view.findViewById<TextView>(R.id.tv_task_count).text = "${projeto.total_tarefas} tarefas"
+            view.findViewById<TextView>(R.id.tv_project_manager).text =
+                getString(R.string.label_manager, projeto.gestor_nome)
+            view.findViewById<TextView>(R.id.tv_project_status).text =
+                getString(R.string.label_status, projeto.estado)
+            view.findViewById<TextView>(R.id.tv_task_count).text =
+                getString(R.string.label_task_count, projeto.total_tarefas)
 
             //  Esconde o botão "Ver"
             val btnVer = view.findViewById<Button>(R.id.btn_project_action)

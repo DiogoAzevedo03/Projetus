@@ -104,4 +104,14 @@
         <item>Pending</item>
         <item>Completed</item>
     </string-array>
+
+    <!-- Additional screens -->
+    <string name="hint_new_password_optional">New password (optional)</string>
+    <string name="action_update">Update</string>
+    <string name="error_generic">Error: %1$s</string>
+    <string name="error_loading_tasks">Error loading tasks</string>
+    <string name="invalid_user">Invalid user</string>
+    <string name="label_manager">Manager: %1$s</string>
+    <string name="label_status">Status: %1$s</string>
+    <string name="label_task_count">%1$d tasks</string>
 </resources>
