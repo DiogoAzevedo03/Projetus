@@ -54,7 +54,7 @@ class CreateProjectActivity : AppCompatActivity() { // Activity para criar proje
             val gestorId = listaGestores.getOrNull(gestorSelecionado)?.id ?: -1 // Id do gestor
 
             if (nome.isEmpty() || descricao.isEmpty() || dataInicio.isEmpty() || dataFim.isEmpty() || gestorId == -1) {
-                Toast.makeText(this, "Preencha todos os campos e selecione um gestor", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_fill_all_fields_select_manager), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -67,7 +67,7 @@ class CreateProjectActivity : AppCompatActivity() { // Activity para criar proje
             ).enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(this@CreateProjectActivity, "Projeto criado!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CreateProjectActivity, getString(R.string.success_project_created), Toast.LENGTH_SHORT).show()
                         val resultIntent = Intent()
                         resultIntent.putExtra("project_created", true)
                         setResult(RESULT_OK, resultIntent)
@@ -78,7 +78,7 @@ class CreateProjectActivity : AppCompatActivity() { // Activity para criar proje
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(this@CreateProjectActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateProjectActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -98,7 +98,7 @@ class CreateProjectActivity : AppCompatActivity() { // Activity para criar proje
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerGestor.adapter = adapter
                 } else {
-                    Toast.makeText(this@CreateProjectActivity, "Erro ao carregar gestores", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateProjectActivity, getString(R.string.error_loading_managers), Toast.LENGTH_SHORT).show()
                 }
             }
 

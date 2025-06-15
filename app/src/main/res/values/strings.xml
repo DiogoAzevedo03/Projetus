@@ -67,4 +67,42 @@
     <string name="error_write_question">Escreva a sua dúvida</string>
     <string name="message_sent">Mensagem enviada</string>
     <string name="error_sending_message">Erro ao enviar mensagem</string>
+
+    <!-- Associação de Colaboradores -->
+    <string name="error_invalid_project">Projeto inválido</string>
+    <string name="error_loading_associated">Erro ao procurar associados</string>
+    <string name="error_network_associated">Falha na rede (associados)</string>
+    <string name="error_loading_users">Erro ao carregar utilizadores</string>
+    <string name="error_network_users">Falha na rede (todos)</string>
+    <string name="error_select_at_least_one_collaborator">Selecione pelo menos um colaborador</string>
+    <string name="success_collaborators_associated">Colaboradores associados com sucesso!</string>
+
+    <!-- Criação de Projeto -->
+    <string name="error_fill_all_fields_select_manager">Preencha todos os campos e selecione um gestor</string>
+    <string name="success_project_created">Projeto criado!</string>
+    <string name="error_loading_managers">Erro ao carregar gestores</string>
+
+    <!-- Criação de Tarefa -->
+    <string name="error_no_user_selected">Nenhum utilizador selecionado</string>
+    <string name="success_task_created">Tarefa criada com sucesso!</string>
+    <string name="error_loading_projects">Erro ao carregar projetos</string>
+    <string name="error_loading_collaborators">Erro ao carregar colaboradores</string>
+
+    <!-- Títulos e dicas -->
+    <string name="title_select_collaborators">Selecionar Colaboradores</string>
+    <string name="action_associate">Associar</string>
+    <string name="title_create_project">Criar Projeto</string>
+    <string name="hint_project_name">Nome do Projeto</string>
+    <string name="hint_description">Descrição</string>
+    <string name="hint_start_date">Data de Início</string>
+    <string name="hint_end_date">Data de Fim</string>
+    <string name="label_select_project_manager">Selecionar Gestor do Projeto</string>
+    <string name="title_create_task">Criar Tarefa</string>
+    <string name="hint_task_name">Nome da Tarefa</string>
+    <string name="hint_delivery_date">Data de Entrega</string>
+
+    <string-array name="task_states">
+        <item>Pendente</item>
+        <item>Concluída</item>
+    </string-array>
 </resources>

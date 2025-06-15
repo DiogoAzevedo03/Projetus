@@ -12,7 +12,7 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:text="Criar Tarefa"
+            android:text="@string/title_create_task"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#333333"
@@ -25,7 +25,7 @@
             android:id="@+id/et_nome"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Nome da Tarefa"
+            android:hint="@string/hint_task_name"
             android:background="@android:drawable/edit_text"
             android:padding="12dp"
             android:layout_marginBottom="12dp"/>
@@ -35,7 +35,7 @@
             android:id="@+id/et_descricao"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:hint="Descrição"
+            android:hint="@string/hint_description"
             android:background="@android:drawable/edit_text"
             android:padding="12dp"
             android:gravity="top"
@@ -66,7 +66,7 @@
             android:id="@+id/et_data_entrega"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Data de Entrega"
+            android:hint="@string/hint_delivery_date"
             android:focusable="false"
             android:background="@android:drawable/edit_text"
             android:padding="12dp"
@@ -93,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="Cancelar"
+                android:text="@string/action_cancel"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#F44336"
                 android:layout_marginEnd="8dp" />
@@ -103,7 +103,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="Guardar"
+                android:text="@string/action_save"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#4CAF50" />
         </LinearLayout>

@@ -30,7 +30,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para ass
         projetoId = intent.getIntExtra("projeto_id", -1) // Id do projeto vindo da Intent
 
         if (projetoId == -1) { // Valida projeto
-            Toast.makeText(this, "Projeto inválido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_invalid_project), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -85,22 +85,22 @@ class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para ass
                                     checkBoxes.add(Pair(checkBox, utilizador.id)) // Guarda para posterior uso
                                 }
                             } else {
-                                Toast.makeText(this@AssociarColaboradoresActivity, "Erro ao procurar associados", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@AssociarColaboradoresActivity, getString(R.string.error_loading_associated), Toast.LENGTH_SHORT).show()
                             }
                         }
 
                         override fun onFailure(call: Call<UtilizadoresResponse>, t: Throwable) {
-                            Toast.makeText(this@AssociarColaboradoresActivity, "Falha na rede (associados)", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AssociarColaboradoresActivity, getString(R.string.error_network_associated), Toast.LENGTH_SHORT).show()
                         }
                     })
 
                 } else {
-                    Toast.makeText(this@AssociarColaboradoresActivity, "Erro ao carregar utilizadores", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AssociarColaboradoresActivity, getString(R.string.error_loading_users), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<UtilizadoresResponse>, t: Throwable) {
-                Toast.makeText(this@AssociarColaboradoresActivity, "Falha na rede (todos)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AssociarColaboradoresActivity, getString(R.string.error_network_users), Toast.LENGTH_SHORT).show()
             }
         })
     } // Fim de carregarUtilizadores
@@ -111,7 +111,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para ass
         val selecionados = checkBoxes.filter { it.first.isChecked }.map { it.second }
 
         if (selecionados.isEmpty()) {
-            Toast.makeText(this, "Selecione pelo menos um colaborador", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_select_at_least_one_collaborator), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -129,7 +129,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para ass
             })
         }
 
-        Toast.makeText(this, "Colaboradores associados com sucesso!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.success_collaborators_associated), Toast.LENGTH_SHORT).show()
         finish() // Fecha a Activity após associar
     } // Fim de associarSelecionados
 }

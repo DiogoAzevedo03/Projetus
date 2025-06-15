@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="Criar Projeto"
+            android:text="@string/title_create_project"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="24dp"
@@ -21,7 +21,7 @@
         <!-- Nome do projeto -->
         <EditText
             android:id="@+id/et_nome_projeto"
-            android:hint="Nome do Projeto"
+            android:hint="@string/hint_project_name"
             android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         <!-- Descrição -->
         <EditText
             android:id="@+id/et_descricao_projeto"
-            android:hint="Descrição"
+            android:hint="@string/hint_description"
             android:inputType="textMultiLine"
             android:minLines="3"
             android:padding="12dp"
@@ -44,7 +44,7 @@
         <!-- Data início -->
         <EditText
             android:id="@+id/et_data_inicio"
-            android:hint="Data de Início"
+            android:hint="@string/hint_start_date"
             android:focusable="false"
             android:padding="12dp"
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
         <!-- Data fim -->
         <EditText
             android:id="@+id/et_data_fim"
-            android:hint="Data de Fim"
+            android:hint="@string/hint_end_date"
             android:focusable="false"
             android:padding="12dp"
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Selecionar Gestor do Projeto"
+            android:text="@string/label_select_project_manager"
             android:textSize="16sp"
             android:textColor="#333333"
             android:layout_marginBottom="4dp" />
@@ -90,7 +90,7 @@
 
             <Button
                 android:id="@+id/btn_cancelar_projeto"
-                android:text="Cancelar"
+                android:text="@string/action_cancel"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -103,7 +103,7 @@
 
             <Button
                 android:id="@+id/btn_guardar_projeto"
-                android:text="Guardar"
+                android:text="@string/action_save"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"

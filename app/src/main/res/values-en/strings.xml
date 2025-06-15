@@ -66,4 +66,42 @@
     <string name="error_write_question">Write your question</string>
     <string name="message_sent">Message sent</string>
     <string name="error_sending_message">Error sending message</string>
+
+    <!-- Associate Collaborators -->
+    <string name="error_invalid_project">Invalid project</string>
+    <string name="error_loading_associated">Error fetching associated users</string>
+    <string name="error_network_associated">Network failure (associates)</string>
+    <string name="error_loading_users">Error loading users</string>
+    <string name="error_network_users">Network failure (all)</string>
+    <string name="error_select_at_least_one_collaborator">Select at least one collaborator</string>
+    <string name="success_collaborators_associated">Collaborators successfully associated!</string>
+
+    <!-- Create Project -->
+    <string name="error_fill_all_fields_select_manager">Fill all fields and select a manager</string>
+    <string name="success_project_created">Project created!</string>
+    <string name="error_loading_managers">Error loading managers</string>
+
+    <!-- Create Task -->
+    <string name="error_no_user_selected">No user selected</string>
+    <string name="success_task_created">Task created successfully!</string>
+    <string name="error_loading_projects">Error loading projects</string>
+    <string name="error_loading_collaborators">Error loading collaborators</string>
+
+    <!-- Titles and hints -->
+    <string name="title_select_collaborators">Select Collaborators</string>
+    <string name="action_associate">Associate</string>
+    <string name="title_create_project">Create Project</string>
+    <string name="hint_project_name">Project Name</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_start_date">Start Date</string>
+    <string name="hint_end_date">End Date</string>
+    <string name="label_select_project_manager">Select Project Manager</string>
+    <string name="title_create_task">Create Task</string>
+    <string name="hint_task_name">Task Name</string>
+    <string name="hint_delivery_date">Delivery Date</string>
+
+    <string-array name="task_states">
+        <item>Pending</item>
+        <item>Completed</item>
+    </string-array>
 </resources>
