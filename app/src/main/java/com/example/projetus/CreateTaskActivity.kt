@@ -57,13 +57,13 @@ class CreateTaskActivity : AppCompatActivity() {
             val estado = spinnerEstado.selectedItem.toString() // Obtém o estado
             val projetoSelecionado = projetosList[spinnerProjetos.selectedItemPosition] // Projeto escolhido
             if (utilizadoresList.isEmpty() || spinnerUtilizadores.selectedItemPosition == -1) {
-                Toast.makeText(this, "Nenhum utilizador selecionado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_no_user_selected), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val utilizadorSelecionado = utilizadoresList[spinnerUtilizadores.selectedItemPosition] // Utilizador escolhido
 
             if (nome.isEmpty() || descricao.isEmpty() || dataEntrega.isEmpty()) { // Valida campos obrigatórios
-                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -79,7 +79,7 @@ class CreateTaskActivity : AppCompatActivity() {
             RetrofitClient.instance.addTask(dados).enqueue(object : Callback<GenericResponse> { // Envia para API
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) { // Resposta
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(this@CreateTaskActivity, "Tarefa criada com sucesso!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CreateTaskActivity, getString(R.string.success_task_created), Toast.LENGTH_SHORT).show()
                         finish() // Fecha Activity após sucesso
                     } else {
                         Toast.makeText(this@CreateTaskActivity, response.body()?.message ?: "Erro", Toast.LENGTH_SHORT).show()
@@ -87,7 +87,7 @@ class CreateTaskActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) { // Erro de rede
-                    Toast.makeText(this@CreateTaskActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateTaskActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -108,7 +108,7 @@ class CreateTaskActivity : AppCompatActivity() {
     }
 
     private fun setupEstadoSpinner() {
-        val estados = arrayOf("Pendente", "Concluída")
+        val estados = resources.getStringArray(R.array.task_states)
         spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, estados)
     }
 
@@ -137,7 +137,7 @@ class CreateTaskActivity : AppCompatActivity() {
                     val nomes = projetosList.map { it.nome } // Nomes para o spinner
                     spinnerProjetos.adapter = ArrayAdapter(this@CreateTaskActivity, android.R.layout.simple_spinner_dropdown_item, nomes)
                 } else {
-                    Toast.makeText(this@CreateTaskActivity, "Erro ao carregar projetos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateTaskActivity, getString(R.string.error_loading_projects), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -156,7 +156,7 @@ class CreateTaskActivity : AppCompatActivity() {
                     val nomes = utilizadoresList.map { it.nome }
                     spinnerUtilizadores.adapter = ArrayAdapter(this@CreateTaskActivity, android.R.layout.simple_spinner_dropdown_item, nomes)
                 } else {
-                    Toast.makeText(this@CreateTaskActivity, "Erro ao carregar colaboradores", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateTaskActivity, getString(R.string.error_loading_collaborators), Toast.LENGTH_SHORT).show()
                 }
             }
 
