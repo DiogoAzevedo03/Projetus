@@ -33,7 +33,6 @@
     <string name="error_loading_dashboard">Erro ao carregar dados do dashboard</string>
     <string name="error_server_connection">Erro na conexão com o servidor</string>
 
-    <!-- Profile strings -->
     <string name="profile_management">Gestão de Perfil</string>
     <string name="hint_full_name">Nome completo</string>
     <string name="hint_username">Nome de utilizador</string>
@@ -49,4 +48,23 @@
     <string name="error_network">Erro de rede</string>
     <string name="profile_updated_successfully">Perfil atualizado com sucesso!</string>
     <string name="error_updating_profile">Erro ao atualizar perfil</string>
+
+
+    <string name="title_add_user">Adicionar Utilizador</string>
+    <string name="profile_option_user">utilizador</string>
+    <string name="profile_option_admin">administrador</string>
+    <string name="profile_option_manager">gestor</string>
+    <string name="error_invalid_email">Email inválido</string>
+    <string name="error_weak_password">Palavra-passe fraca</string>
+    <string name="user_added_success">Utilizador adicionado com sucesso!</string>
+    <string name="offline_user_saved">Sem internet! Utilizador guardado localmente.</string>
+    <string name="action_cancel">Cancelar</string>
+
+    <string name="title_help">Ajuda</string>
+    <string name="help_prompt">Tens alguma dúvida?&#10;Envia-nos um email!</string>
+    <string name="hint_enter_question">Digite a sua dúvida</string>
+    <string name="back_to_login">Voltar ao login</string>
+    <string name="error_write_question">Escreva a sua dúvida</string>
+    <string name="message_sent">Mensagem enviada</string>
+    <string name="error_sending_message">Erro ao enviar mensagem</string>
 </resources>

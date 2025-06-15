@@ -17,29 +17,29 @@ class AjudaActivity : AppCompatActivity() { // Tela de ajuda ao utilizador
         super.onCreate(savedInstanceState) // Chamada à superclasse
         setContentView(R.layout.activity_ajuda) // Define o layout
 
-        val etMensagem = findViewById<EditText>(R.id.et_email_ajuda) // Campo de mensagem
+        val etMensagem = findViewById<EditText>(R.id.et_email_ajuda)
         val btnEnviar = findViewById<Button>(R.id.btn_enviar_ajuda) // Botão de envio
         val btnVoltar = findViewById<Button>(R.id.btn_voltar_login) // Botão de voltar ao login
 
         btnEnviar.setOnClickListener { // Ao clicar em enviar
-            val mensagem = etMensagem.text.toString().trim() // Obtém o texto
+            val mensagem = etMensagem.text.toString().trim()
             if (mensagem.isEmpty()) {
-                Toast.makeText(this, "Escreva a sua dúvida", Toast.LENGTH_SHORT).show() // Valida
+                Toast.makeText(this, getString(R.string.error_write_question), Toast.LENGTH_SHORT).show()
             } else {
                 val request = HelpRequest(mensagem) // Cria o objeto de envio
                 val userId = intent.getIntExtra("user_id", -1)
                 RetrofitClient.instance.enviarDuvida(request).enqueue(object : Callback<SimpleResponse> {
                     override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
                         if (response.isSuccessful && response.body()?.success == true) {
-                            Toast.makeText(this@AjudaActivity, "Mensagem enviada", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AjudaActivity, getString(R.string.message_sent), Toast.LENGTH_SHORT).show()
                             etMensagem.text.clear()
                         } else {
-                            Toast.makeText(this@AjudaActivity, "Erro ao enviar mensagem", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AjudaActivity, getString(R.string.error_sending_message), Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                        Toast.makeText(this@AjudaActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AjudaActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                     }
                 })
             }

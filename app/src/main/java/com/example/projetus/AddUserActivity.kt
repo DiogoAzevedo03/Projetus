@@ -37,9 +37,12 @@ class AddUserActivity : AppCompatActivity() { // Activity responsável por adici
         val btnCancelar = findViewById<Button>(R.id.btn_cancelar) // Botão de cancelar
         val btnGuardar = findViewById<Button>(R.id.btn_guardar) // Botão de guardar
 
-        val opcoes = listOf("utilizador", "administrador", "gestor") // Opções do spinner
-        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opcoes) // Associa opções ao spinner
-
+        val opcoes = listOf(
+            getString(R.string.profile_option_user),
+            getString(R.string.profile_option_admin),
+            getString(R.string.profile_option_manager)
+        )
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opcoes)
         btnCancelar.setOnClickListener { // Fecha a Activity sem guardar
             finish() // Termina a Activity
         }
@@ -53,18 +56,18 @@ class AddUserActivity : AppCompatActivity() { // Activity responsável por adici
             val foto = findViewById<EditText>(R.id.et_foto).text.toString()  // Mover a captura da foto aqui
 
             if (nomeTxt.isEmpty() || userTxt.isEmpty() || emailTxt.isEmpty() || passTxt.isEmpty()) {
-                Toast.makeText(this, "Preenche todos os campos!", Toast.LENGTH_SHORT).show() // Validação simples
+                Toast.makeText(this, getString(R.string.error_fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener // Interrompe se algum campo estiver vazio
             }
 
             if (!Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()) {
-                Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val passwordPattern = Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}")
             if (!passwordPattern.containsMatchIn(passTxt)) {
-                Toast.makeText(this, "Palavra-passe fraca", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_weak_password), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -73,7 +76,7 @@ class AddUserActivity : AppCompatActivity() { // Activity responsável por adici
                 .enqueue(object : Callback<GenericResponse> {
                     override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                         if (response.isSuccessful && response.body()?.success == true) {
-                            Toast.makeText(this@AddUserActivity, "Utilizador adicionado com sucesso!", Toast.LENGTH_SHORT).show() // Sucesso
+                            Toast.makeText(this@AddUserActivity, getString(R.string.user_added_success), Toast.LENGTH_SHORT).show()
                             finish() // Fecha a Activity
                         } else {
                             Toast.makeText(this@AddUserActivity, "Erro: ${response.body()?.message}", Toast.LENGTH_SHORT).show() // Mostra mensagem de erro
@@ -94,7 +97,7 @@ class AddUserActivity : AppCompatActivity() { // Activity responsável por adici
                         lifecycleScope.launch(Dispatchers.IO) { // Operação em background
                             AppDatabase.getDatabase(this@AddUserActivity).pendingUserDao().insert(userToSave) // Guarda na BD local
                             withContext(Dispatchers.Main) { // De volta à thread principal
-                                Toast.makeText(this@AddUserActivity, "Sem internet! Utilizador guardado localmente.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this@AddUserActivity, getString(R.string.offline_user_saved), Toast.LENGTH_LONG).show()
                                 finish() // Fecha após guardar
                             }
                         }

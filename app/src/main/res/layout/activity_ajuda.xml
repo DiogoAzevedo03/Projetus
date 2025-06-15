@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ajuda"
+        android:text="@string/title_help"
         android:textStyle="bold"
         android:textSize="24sp"
         android:layout_marginBottom="12dp"/>
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tens alguma dúvida?\nEnvia-nos um email!"
+        android:text="@string/help_prompt"
         android:textSize="16sp"
         android:gravity="center"
         android:layout_marginBottom="16dp"/>
@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Digite a sua dúvida"
+            android:hint="@string/hint_enter_question"
             android:background="@android:drawable/editbox_background"
             android:padding="12dp"/>
 
@@ -44,7 +44,7 @@
             android:id="@+id/btn_enviar_ajuda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enviar"
+            android:text="@string/action_send"
             android:backgroundTint="#007BFF"
             android:textColor="#FFFFFF"
             android:layout_marginStart="8dp"/>
@@ -62,7 +62,7 @@
         android:id="@+id/btn_voltar_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voltar ao login"
+        android:text="@string/back_to_login"
         android:backgroundTint="#007BFF"
         android:textColor="#FFFFFF"/>
 </LinearLayout>
