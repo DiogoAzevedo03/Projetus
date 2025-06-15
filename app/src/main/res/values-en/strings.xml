@@ -158,4 +158,18 @@
     <string name="hint_comment">Comment</string>
     <string name="hint_collaborator_task">Name - Task</string>
     <string name="none">None</string>
+
+    <!-- Registration and task lists -->
+    <string name="action_register">Create</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="error_registration">Registration error</string>
+
+    <!-- Project Tasks screen -->
+    <string name="title_project_tasks">Project Tasks</string>
+    <string name="placeholder_project_name">Project Name</string>
+    <string name="error_receiving_project_data">Error receiving project data</string>
+
+    <!-- Accessibility descriptions -->
+    <string name="desc_logo">Logo</string>
+    <string name="desc_add_photo">Add photo</string>
 </resources>

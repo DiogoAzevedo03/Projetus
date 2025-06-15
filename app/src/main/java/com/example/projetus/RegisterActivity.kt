@@ -35,18 +35,18 @@ class RegisterActivity : AppCompatActivity() {
 
             // Verifica se todos os campos foram preenchidos
             if (nome.isEmpty() || user.isEmpty() || mail.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Preenche todos os campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener // Encerra se faltarem dados
             }
 
             if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
-                Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val passwordPattern = Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}")
             if (!passwordPattern.containsMatchIn(pass)) {
-                Toast.makeText(this, "Palavra-passe fraca", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_weak_password), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -68,13 +68,13 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this@RegisterActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
                         finish() // Termina Activity em caso de sucesso
                     } else {
-                        Toast.makeText(this@RegisterActivity, response.body()?.message ?: "Erro no registo", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@RegisterActivity, response.body()?.message ?: getString(R.string.error_registration), Toast.LENGTH_LONG).show()
                     }
                 }
 
                 // Chamado quando ocorre um erro de rede
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(this@RegisterActivity, "Erro: ${t.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@RegisterActivity, getString(R.string.error_generic, t.message), Toast.LENGTH_LONG).show()
                 }
             })
         }

@@ -32,7 +32,7 @@ class ProjectTasksActivity : AppCompatActivity() { // Lista de tarefas do projet
         projectName = intent.getStringExtra("project_name") ?: ""
 
         if (projectId == -1 || userId == -1) { // Validação dos dados
-            Toast.makeText(this, "Erro ao receber dados do projeto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_receiving_project_data), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -79,13 +79,13 @@ class ProjectTasksActivity : AppCompatActivity() { // Lista de tarefas do projet
                         renderTasks(tarefas)
                     } else {
                         Log.e("DEBUG", "Falha na resposta: ${response.errorBody()?.string()}")
-                        Toast.makeText(this@ProjectTasksActivity, "Erro a carregar tarefas", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProjectTasksActivity, getString(R.string.error_loading_tasks), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TasksResponse>, t: Throwable) {
                     Log.e("DEBUG", "Erro de rede: ${t.message}", t)
-                    Toast.makeText(this@ProjectTasksActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectTasksActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
     }
