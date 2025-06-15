@@ -4,6 +4,12 @@ import android.content.Intent // Para navegação
 import android.os.Bundle // Estado da Activity
 import android.widget.* // Widgets
 import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.RetrofitClient // Cliente Retrofit
+import com.example.projetus.network.HelpRequest // Modelo do pedido de ajuda
+import com.example.projetus.network.SimpleResponse // Resposta simples da API
+import retrofit2.Call // Chamada HTTP
+import retrofit2.Callback // Callback do Retrofit
+import retrofit2.Response // Resposta do Retrofit
 
 class HelpLoggedActivity : AppCompatActivity() { // Ecrã de ajuda para utilizadores autenticados
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +25,23 @@ class HelpLoggedActivity : AppCompatActivity() { // Ecrã de ajuda para utilizad
         btnSend.setOnClickListener { // Envio da mensagem
             val msg = etMessage.text.toString()
             if (msg.isNotEmpty()) {
-                Toast.makeText(this, "Mensagem enviada com sucesso!", Toast.LENGTH_SHORT).show()
-                etMessage.text.clear()
+                val request = HelpRequest(msg, userId)
+                val userId = intent.getIntExtra("user_id", -1)
+
+                RetrofitClient.instance.enviarDuvida(request).enqueue(object : Callback<SimpleResponse> {
+                    override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                        if (response.isSuccessful && response.body()?.success == true) {
+                            Toast.makeText(this@HelpLoggedActivity, "Mensagem enviada com sucesso!", Toast.LENGTH_SHORT).show()
+                            etMessage.text.clear()
+                        } else {
+                            Toast.makeText(this@HelpLoggedActivity, "Erro ao enviar mensagem", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                        Toast.makeText(this@HelpLoggedActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                    }
+                })
             } else {
                 Toast.makeText(this, "Escreve uma mensagem primeiro", Toast.LENGTH_SHORT).show()
             }

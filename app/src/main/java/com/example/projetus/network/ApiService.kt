@@ -10,6 +10,7 @@ import retrofit2.http.FieldMap // Anotacao para enviar varios campos em formulá
 import retrofit2.http.FormUrlEncoded // Indica que a chamada envia dados codificados em formulário
 import retrofit2.http.GET // Anotacao para requisicoes GET
 import retrofit2.http.POST // Anotacao para requisicoes POST
+import com.example.projetus.network.HelpRequest // Modelo do pedido de ajuda
 
 interface ApiService { // Interface que define os endpoints da API
 
@@ -116,5 +117,11 @@ interface ApiService { // Interface que define os endpoints da API
     @POST("get_gestores.php") // Lista de gestores
     fun getGestores(): Call<GestoresResponse> // Resposta com gestores
 
+    @POST("enviar_duvida.php") // Envia dúvida de suporte
+    fun enviarDuvida(@Body request: HelpRequest): Call<SimpleResponse> // Envia mensagem de ajuda
+
+
+    @POST("enviar_sugestao.php")
+    fun enviarSugestao(@Body request: SuggestionRequest): Call<SimpleResponse>
 
 } // Fim da interface

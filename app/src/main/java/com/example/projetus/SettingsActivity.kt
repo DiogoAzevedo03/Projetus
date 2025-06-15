@@ -6,6 +6,14 @@ import android.widget.* // Widgets de interface do usuário
 import androidx.appcompat.app.AppCompatActivity // Activity com ActionBar
 
 import com.example.projetus.LocaleManager // Classe responsável pela gestão de idioma
+import com.example.projetus.network.SimpleResponse
+import com.example.projetus.network.SuggestionRequest
+
+import com.example.projetus.RetrofitClient
+
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // Activity responsável pelas definições da aplicação
 class SettingsActivity : AppCompatActivity() {
@@ -30,10 +38,30 @@ class SettingsActivity : AppCompatActivity() {
 
         // Envia a sugestão escrita pelo utilizador
         btnEnviar.setOnClickListener {
-            val sugestao = etSugestao.text.toString()
-            Toast.makeText(this, "Sugestão enviada: $sugestao", Toast.LENGTH_SHORT).show()
-            etSugestao.text.clear() // Limpa o campo de texto
+            val sugestao = etSugestao.text.toString().trim()
+
+            if (sugestao.isEmpty()) {
+                Toast.makeText(this, "Escreva uma sugestão", Toast.LENGTH_SHORT).show()
+            } else {
+                val request = SuggestionRequest(sugestao, userId)
+
+                RetrofitClient.instance.enviarSugestao(request).enqueue(object : Callback<SimpleResponse> {
+                    override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                        if (response.isSuccessful && response.body()?.success == true) {
+                            Toast.makeText(this@SettingsActivity, "Sugestão enviada com sucesso!", Toast.LENGTH_SHORT).show()
+                            etSugestao.text.clear()
+                        } else {
+                            Toast.makeText(this@SettingsActivity, "Erro ao enviar sugestão", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                        Toast.makeText(this@SettingsActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
         }
+
 
         // Troca o idioma para Português
         btnPt.setOnClickListener {

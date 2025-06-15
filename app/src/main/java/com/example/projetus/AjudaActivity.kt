@@ -4,6 +4,12 @@ import android.content.Intent // Para iniciar atividades
 import android.os.Bundle // Estado da atividade
 import android.widget.* // Componentes visuais
 import androidx.appcompat.app.AppCompatActivity // Activity base
+import com.example.projetus.RetrofitClient // Cliente Retrofit
+import com.example.projetus.network.HelpRequest // Modelo de pedido de ajuda
+import com.example.projetus.network.SimpleResponse // Resposta simples da API
+import retrofit2.Call // Chamada HTTP
+import retrofit2.Callback // Callback do Retrofit
+import retrofit2.Response // Resposta do Retrofit
 
 class AjudaActivity : AppCompatActivity() { // Tela de ajuda ao utilizador
 
@@ -20,9 +26,22 @@ class AjudaActivity : AppCompatActivity() { // Tela de ajuda ao utilizador
             if (mensagem.isEmpty()) {
                 Toast.makeText(this, "Escreva a sua dúvida", Toast.LENGTH_SHORT).show() // Valida
             } else {
-                // TODO: Enviar mensagem via API (futuramente)
-                Toast.makeText(this, "Mensagem enviada", Toast.LENGTH_SHORT).show() // Confirma
-                etMensagem.text.clear() // Limpa o campo
+                val request = HelpRequest(mensagem) // Cria o objeto de envio
+                val userId = intent.getIntExtra("user_id", -1)
+                RetrofitClient.instance.enviarDuvida(request).enqueue(object : Callback<SimpleResponse> {
+                    override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                        if (response.isSuccessful && response.body()?.success == true) {
+                            Toast.makeText(this@AjudaActivity, "Mensagem enviada", Toast.LENGTH_SHORT).show()
+                            etMensagem.text.clear()
+                        } else {
+                            Toast.makeText(this@AjudaActivity, "Erro ao enviar mensagem", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                        Toast.makeText(this@AjudaActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
         }
 
