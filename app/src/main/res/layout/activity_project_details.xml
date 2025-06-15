@@ -175,6 +175,18 @@
                 android:backgroundTint="#4CAF50"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_apagar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Apagar Projeto"
+                android:backgroundTint="#F44336"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
+
         </LinearLayout>
     </ScrollView>
 

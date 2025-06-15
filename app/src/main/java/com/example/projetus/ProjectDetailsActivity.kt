@@ -2,9 +2,11 @@ package com.example.projetus
 
 import android.content.Intent // Navegação entre ecrãs
 import android.os.Bundle // Para o ciclo de vida da Activity
+import android.view.View
 import android.widget.* // Widgets usados no layout
 import androidx.appcompat.app.AppCompatActivity // Activity base
 import com.example.projetus.network.Project // Modelo de projeto
+import com.example.projetus.network.SimpleResponse
 import com.example.projetus.network.UtilizadoresResponse // Resposta com utilizadores
 import retrofit2.Call // Chamada Retrofit
 import retrofit2.Callback // Callback Retrofit
@@ -27,6 +29,12 @@ class ProjectDetailsActivity : AppCompatActivity() { // Activity com detalhes do
         val btnConcluir = findViewById<Button>(R.id.btn_concluir) // Botão concluir
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Tipo de perfil
 
+        val btnApagar = findViewById<Button>(R.id.btn_apagar)
+
+// Só mostra o botão se o perfil for administrador
+        if (tipoPerfil == "administrador") {
+            btnApagar.visibility = View.VISIBLE
+        }
 
 
         val projeto = intent.getSerializableExtra("projeto") as? Project // Projeto recebido na intent
@@ -87,6 +95,27 @@ class ProjectDetailsActivity : AppCompatActivity() { // Activity com detalhes do
                 colaboradoresTv.text = "Falha na rede"
             }
         })
+
+        btnApagar.setOnClickListener {
+            if (projeto != null) {
+                val data = mapOf("projeto_id" to projeto.id)
+                RetrofitClient.instance.apagarProjeto(data).enqueue(object : Callback<SimpleResponse> {
+                    override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                        if (response.isSuccessful && response.body()?.success == true) {
+                            Toast.makeText(this@ProjectDetailsActivity, "Projeto apagado com sucesso", Toast.LENGTH_SHORT).show()
+                            finish() // Fecha a activity
+                        } else {
+                            Toast.makeText(this@ProjectDetailsActivity, "Erro ao apagar projeto", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                        Toast.makeText(this@ProjectDetailsActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+
 
         val btnHome = findViewById<ImageView>(R.id.btn_home) // Botão home
 

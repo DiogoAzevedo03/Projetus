@@ -124,4 +124,7 @@ interface ApiService { // Interface que define os endpoints da API
     @POST("enviar_sugestao.php")
     fun enviarSugestao(@Body request: SuggestionRequest): Call<SimpleResponse>
 
+    @POST("delete_project.php")
+    fun apagarProjeto(@Body data: Map<String, Int>): Call<SimpleResponse>
+
 } // Fim da interface
