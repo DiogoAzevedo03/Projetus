@@ -22,7 +22,7 @@
             android:id="@+id/tv_task_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome da Tarefa"
+            android:text="@string/hint_task_name"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="#000000" />
@@ -31,7 +31,7 @@
             android:id="@+id/tv_task_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2024-06-01"
+            android:text="@string/hint_delivery_date"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginTop="4dp" />
@@ -42,7 +42,7 @@
         android:id="@+id/tv_task_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pendente"
+        android:text="@string/pending"
         android:textSize="12sp"
         android:textColor="#000000"
         android:paddingHorizontal="12dp"

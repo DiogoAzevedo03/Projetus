@@ -29,7 +29,7 @@ class TasksActivity : AppCompatActivity() {
 
         // Caso o ID não seja válido, encerra a Activity
         if (userId == -1) {
-            Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.invalid_user), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -68,13 +68,13 @@ class TasksActivity : AppCompatActivity() {
 
 
                     } else {
-                        Toast.makeText(this@TasksActivity, "Erro ao carregar tarefas", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TasksActivity, getString(R.string.error_loading_tasks), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TasksResponse>, t: Throwable) {
                     Log.e("TasksActivity", "Erro: ${t.message}")
-                    Toast.makeText(this@TasksActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@TasksActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
 

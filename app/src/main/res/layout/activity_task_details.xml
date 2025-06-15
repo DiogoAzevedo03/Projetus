@@ -20,7 +20,7 @@
 
             <!-- Título -->
             <TextView
-                android:text="Detalhes da Tarefa"
+                android:text="@string/title_task_details"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:textColor="#212121"
@@ -33,7 +33,7 @@
                 android:id="@+id/tv_nome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome:"
+                android:text="@string/label_name"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#333333"
@@ -53,7 +53,7 @@
                 android:id="@+id/tv_entrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entrega:"
+                android:text="@string/label_delivery_date"
                 android:textSize="15sp"
                 android:textColor="#444"
                 android:layout_marginBottom="16dp" />
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Taxa de Conclusão:"
+                android:text="@string/label_completion_rate"
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:layout_marginBottom="8dp" />
@@ -98,7 +98,7 @@
                 android:id="@+id/et_tempo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tempo Gasto"
+                android:hint="@string/label_time_spent"
                 android:padding="12dp"
                 android:background="@android:drawable/edit_text"
                 android:layout_marginBottom="12dp" />
@@ -108,7 +108,7 @@
                 android:id="@+id/et_obs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Observações"
+                android:hint="@string/label_observations"
                 android:padding="12dp"
                 android:minLines="3"
                 android:gravity="top"
@@ -120,7 +120,7 @@
                 android:id="@+id/et_foto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="URL ou caminho da Foto"
+                android:hint="@string/hint_photo_url"
                 android:padding="12dp"
                 android:background="@android:drawable/edit_text"
                 android:layout_marginBottom="12dp" />
@@ -133,7 +133,7 @@
                 android:layout_marginBottom="16dp"
                 android:scaleType="centerCrop"
                 android:background="#E0E0E0"
-                android:contentDescription="Pré-visualização da imagem"
+                android:contentDescription="@string/desc_image_preview"
                 android:cropToPadding="true" />
 
             <!-- Botões -->
@@ -141,7 +141,7 @@
                 android:id="@+id/btn_guardar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Guardar alterações"
+                android:text="@string/action_save_changes"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#1976D2"
@@ -151,7 +151,7 @@
                 android:id="@+id/btn_concluir"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Marcar como concluída"
+                android:text="@string/action_mark_task_completed"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#4CAF50" />
@@ -175,7 +175,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:contentDescription="Home"
+            android:contentDescription="@string/desc_home"
             android:scaleType="centerInside"
             android:padding="8dp" />
 
@@ -185,7 +185,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:contentDescription="Perfil"
+            android:contentDescription="@string/desc_profile"
             android:scaleType="centerInside"
             android:padding="8dp" />
 
@@ -195,7 +195,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:src="@drawable/ic_settings"
-            android:contentDescription="Configurações"
+            android:contentDescription="@string/desc_settings"
             android:scaleType="centerInside"
             android:padding="8dp" />
     </LinearLayout>

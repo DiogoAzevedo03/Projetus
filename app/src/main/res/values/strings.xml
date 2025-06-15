@@ -206,4 +206,39 @@
     <string name="stats_tasks_summary">Tarefas Atribuídas: %1$d\nTarefas Concluídas: %2$d</string>
     <string name="stats_completion_rate">Taxa Média de Conclusão: %1$d%%</string>
     <string name="stats_projects_completed">Projetos Concluídos: %1$d</string>
+
+    <!-- Task Details -->
+    <string name="title_task_details">Detalhes da Tarefa</string>
+    <string name="label_name">Nome:</string>
+    <string name="label_delivery_date">Entrega:</string>
+    <string name="label_time_spent">Tempo Gasto</string>
+    <string name="label_observations">Observações</string>
+    <string name="desc_image_preview">Pré-visualização da imagem</string>
+    <string name="action_save_changes">Guardar alterações</string>
+    <string name="action_mark_task_completed">Marcar como concluída</string>
+    <string name="error_invalid_data">Dados inválidos</string>
+    <string name="msg_changes_saved">Alterações guardadas!</string>
+    <string name="msg_error_saving">Erro ao guardar</string>
+    <string name="msg_task_marked_completed">Tarefa marcada como concluída!</string>
+    <string name="msg_error_completing_task">Erro ao concluir tarefa</string>
+
+    <!-- Tasks Screen -->
+    <string name="title_tasks">Tarefas</string>
+    <string name="action_add_task">Nova tarefa</string>
+
+    <!-- User Management -->
+    <string name="dialog_remove_user_title">Remover Utilizador</string>
+    <string name="dialog_remove_user_message">Tens a certeza que queres remover %1$s?</string>
+    <string name="action_yes">Sim</string>
+    <string name="msg_user_removed">Utilizador removido!</string>
+    <string name="error_removing_user">Erro ao remover</string>
+    <string name="label_email">Email:</string>
+    <string name="label_profile">Perfil:</string>
+    <string name="action_remove">Remover</string>
+
+    <!-- Dynamic labels -->
+    <string name="label_name_value">Nome: %1$s</string>
+    <string name="label_delivery_date_value">Entrega: %1$s</string>
+    <string name="label_email_value">Email: %1$s</string>
+    <string name="label_profile_value">Perfil: %1$s</string>
 </resources>

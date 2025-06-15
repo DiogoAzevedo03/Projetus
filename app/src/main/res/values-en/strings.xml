@@ -205,4 +205,39 @@
     <string name="stats_tasks_summary">Assigned Tasks: %1$d\nCompleted Tasks: %2$d</string>
     <string name="stats_completion_rate">Average Completion Rate: %1$d%%</string>
     <string name="stats_projects_completed">Projects Completed: %1$d</string>
+
+    <!-- Task Details -->
+    <string name="title_task_details">Task Details</string>
+    <string name="label_name">Name:</string>
+    <string name="label_delivery_date">Delivery:</string>
+    <string name="label_time_spent">Time Spent</string>
+    <string name="label_observations">Observations</string>
+    <string name="desc_image_preview">Image preview</string>
+    <string name="action_save_changes">Save changes</string>
+    <string name="action_mark_task_completed">Mark as completed</string>
+    <string name="error_invalid_data">Invalid data</string>
+    <string name="msg_changes_saved">Changes saved!</string>
+    <string name="msg_error_saving">Error saving</string>
+    <string name="msg_task_marked_completed">Task marked as completed!</string>
+    <string name="msg_error_completing_task">Error completing task</string>
+
+    <!-- Tasks Screen -->
+    <string name="title_tasks">Tasks</string>
+    <string name="action_add_task">New task</string>
+
+    <!-- User Management -->
+    <string name="dialog_remove_user_title">Remove User</string>
+    <string name="dialog_remove_user_message">Are you sure you want to remove %1$s?</string>
+    <string name="action_yes">Yes</string>
+    <string name="msg_user_removed">User removed!</string>
+    <string name="error_removing_user">Error removing</string>
+    <string name="label_email">Email:</string>
+    <string name="label_profile">Profile:</string>
+    <string name="action_remove">Remove</string>
+
+    <!-- Dynamic labels -->
+    <string name="label_name_value">Name: %1$s</string>
+    <string name="label_delivery_date_value">Delivery: %1$s</string>
+    <string name="label_email_value">Email: %1$s</string>
+    <string name="label_profile_value">Profile: %1$s</string>
 </resources>
