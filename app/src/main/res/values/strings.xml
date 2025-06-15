@@ -19,6 +19,8 @@
     <string name="welcome_simple">Bem-vindo!</string>
     <string name="active_projects">Projetos Ativos</string>
     <string name="pending_tasks">Tarefas Pendentes</string>
+    <string name="pending">Pendente</string>
+    <string name="not_available">N/A</string>
     <string name="next_task_label">Próxima tarefa:</string>
     <string name="next_task_hint">Dia e hora - Descrição</string>
     <string name="view_tasks">Ver tarefas</string>
@@ -173,4 +175,35 @@
     <!-- Descrições de acessibilidade -->
     <string name="desc_logo">Logo</string>
     <string name="desc_add_photo">Adicionar foto</string>
+
+    <!-- SettingsActivity -->
+    <string name="error_write_suggestion">Escreva uma sugestão</string>
+    <string name="msg_suggestion_sent_success">Sugestão enviada com sucesso!</string>
+    <string name="error_sending_suggestion">Erro ao enviar sugestão</string>
+    <string name="error_connection">Erro de conexão</string>
+
+    <!-- StatisticsActivity -->
+    <string name="title_statistics">Estatísticas</string>
+    <string name="filter_user">Utilizador</string>
+    <string name="filter_project">Projeto</string>
+    <string name="filter_task">Tarefa</string>
+    <string name="action_export">Exportar</string>
+    <string name="error_loading_statistics">Erro ao carregar estatísticas</string>
+    <string name="error_project_not_found">Erro: projeto não encontrado</string>
+    <string name="error_loading_project_stats">Erro ao carregar estatísticas de projeto</string>
+    <string name="no_tasks_found">Nenhuma tarefa encontrada.</string>
+    <string name="error_loading_tasks_stats">Erro ao carregar estatísticas das tarefas</string>
+    <string name="statistics_user_header">Estatísticas do Utilizador:</string>
+    <string name="statistics_projects_header">Estatísticas dos Projetos:\n\n</string>
+    <string name="statistics_tasks_header">Estatísticas das Tarefas:\n\n</string>
+    <string name="statistics_user_content">Nome: %1$s\nTarefas Atribuídas: %2$d\nTarefas Concluídas: %3$d\nTaxa de Conclusão: %4$d%%\nProjetos Concluídos: %5$d</string>
+    <string name="statistics_project_item">Projeto %1$d:\nNome: %2$s\nTarefas Atribuídas: %3$d\nTarefas Concluídas: %4$d\nTaxa de Conclusão: %5$d%%</string>
+    <string name="statistics_task_item">Tarefa %1$d:\nNome: %2$s\nProjeto: %3$s\nEstado: %4$s\nData Criação: %5$s\nData Conclusão: %6$s</string>
+    <string name="no_projects_found">Nenhum projeto encontrado.</string>
+    <string name="no_data_available">Nenhum dado disponível.</string>
+    <string name="pdf_saved">PDF guardado na pasta Downloads</string>
+    <string name="error_saving_pdf">Erro ao guardar PDF: %1$s</string>
+    <string name="stats_tasks_summary">Tarefas Atribuídas: %1$d\nTarefas Concluídas: %2$d</string>
+    <string name="stats_completion_rate">Taxa Média de Conclusão: %1$d%%</string>
+    <string name="stats_projects_completed">Projetos Concluídos: %1$d</string>
 </resources>
