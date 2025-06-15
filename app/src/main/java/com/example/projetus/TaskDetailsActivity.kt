@@ -58,7 +58,7 @@ class TaskDetailsActivity : AppCompatActivity() {
 
         // Verifica se os dados necessários foram fornecidos
         if (tarefaId == -1 || utilizadorId == -1) {
-            Toast.makeText(this, "Dados inválidos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_invalid_data), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -74,8 +74,8 @@ class TaskDetailsActivity : AppCompatActivity() {
                     val t = response.body()!!.tarefa
 
                     // Preenche os campos com os dados recebidos
-                    nome.text = "Nome: ${t["nome"]}"
-                    dataEntrega.text = "Entrega: ${t["data_entrega"]}"
+                    nome.text = getString(R.string.label_name_value, t["nome"])
+                    dataEntrega.text = getString(R.string.label_delivery_date_value, t["data_entrega"])
                     tempo.setText((t["tempo_gasto"] ?: "").toString())
                     observacoes.setText((t["observacoes"] ?: "").toString())
 
@@ -105,7 +105,7 @@ class TaskDetailsActivity : AppCompatActivity() {
                     }
                 }
                 else {
-                    Toast.makeText(this@TaskDetailsActivity, "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@TaskDetailsActivity, getString(R.string.error_loading_tasks), Toast.LENGTH_SHORT).show()
                 }
 
 
@@ -113,7 +113,7 @@ class TaskDetailsActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<TaskDetailsResponse>, t: Throwable) {
                 // Caso a chamada falhe
-                Toast.makeText(this@TaskDetailsActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@TaskDetailsActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -137,14 +137,14 @@ class TaskDetailsActivity : AppCompatActivity() {
             RetrofitClient.instance.updateTaskDetails(data).enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(this@TaskDetailsActivity, "Alterações guardadas!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TaskDetailsActivity, getString(R.string.msg_changes_saved), Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@TaskDetailsActivity, "Erro ao guardar", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TaskDetailsActivity, getString(R.string.msg_error_saving), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(this@TaskDetailsActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@TaskDetailsActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -157,15 +157,15 @@ class TaskDetailsActivity : AppCompatActivity() {
             RetrofitClient.instance.marcarTarefaConcluida(data).enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(this@TaskDetailsActivity, "Tarefa marcada como concluída!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TaskDetailsActivity, getString(R.string.msg_task_marked_completed), Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        Toast.makeText(this@TaskDetailsActivity, "Erro ao concluir tarefa", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TaskDetailsActivity, getString(R.string.msg_error_completing_task), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(this@TaskDetailsActivity, "Erro de rede", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@TaskDetailsActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                 }
             })
         }

@@ -83,12 +83,12 @@ class UserManagementActivity : AppCompatActivity() { // activity para gestão de
                     val lista = response.body()?.utilizadores ?: emptyList() // obtém lista de utilizadores
                     mostrarUtilizadores(lista) // apresenta na interface
                 } else { // em caso de erro
-                    Toast.makeText(this@UserManagementActivity, "Erro ao carregar utilizadores", Toast.LENGTH_SHORT).show() // mostra mensagem
+                    Toast.makeText(this@UserManagementActivity, getString(R.string.error_loading_users), Toast.LENGTH_SHORT).show() // mostra mensagem
                 }
             }
 
             override fun onFailure(call: Call<UtilizadoresResponse>, t: Throwable) { // erro na chamada
-                Toast.makeText(this@UserManagementActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show() // exibe erro
+                Toast.makeText(this@UserManagementActivity, getString(R.string.error_generic, t.message ?: ""), Toast.LENGTH_SHORT).show() // exibe erro
             }
         }) // fim da chamada
     } // fim do metodo carregarUtilizadores
@@ -100,8 +100,8 @@ class UserManagementActivity : AppCompatActivity() { // activity para gestão de
             val card = layoutInflater.inflate(R.layout.user_card_item, usersContainer, false) // infla o layout do cartão
 
             card.findViewById<TextView>(R.id.tv_nome).text = user.nome // define o nome
-            card.findViewById<TextView>(R.id.tv_email).text = "Email: ${user.email}" // define o email
-            card.findViewById<TextView>(R.id.tv_perfil).text = "Perfil: ${user.tipo_perfil}" // define o perfil
+            card.findViewById<TextView>(R.id.tv_email).text = getString(R.string.label_email_value, user.email)
+            card.findViewById<TextView>(R.id.tv_perfil).text = getString(R.string.label_profile_value, user.tipo_perfil)
 
             card.findViewById<Button>(R.id.btn_edit).setOnClickListener { // botão de editar utilizador
                 val intent = Intent(this, EditUserActivity::class.java) // inicia EditUserActivity
@@ -112,26 +112,26 @@ class UserManagementActivity : AppCompatActivity() { // activity para gestão de
 
             card.findViewById<Button>(R.id.btn_remove).setOnClickListener { // botão remover
                 AlertDialog.Builder(this)
-                    .setTitle("Remover Utilizador") // título do diálogo
-                    .setMessage("Tens a certeza que queres remover ${user.nome}?") // mensagem
-                    .setPositiveButton("Sim") { _, _ -> // acção positiva
+                    .setTitle(getString(R.string.dialog_remove_user_title))
+                    .setMessage(getString(R.string.dialog_remove_user_message, user.nome))
+                    .setPositiveButton(getString(R.string.action_yes)) { _, _ ->
                         val data = mapOf("utilizador_id" to user.id.toString()) // prepara parâmetros
                         RetrofitClient.instance.deleteUser(data).enqueue(object : Callback<GenericResponse> { // chamada de remoção
                             override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) { // resposta
                                 if (response.isSuccessful && response.body()?.success == true) { // sucesso
-                                    Toast.makeText(this@UserManagementActivity, "Utilizador removido!", Toast.LENGTH_SHORT).show() // feedback
+                                    Toast.makeText(this@UserManagementActivity, getString(R.string.msg_user_removed), Toast.LENGTH_SHORT).show() // feedback
                                     carregarUtilizadores()  // Atualiza lista
                                 } else { // falha na resposta
-                                    Toast.makeText(this@UserManagementActivity, response.body()?.message ?: "Erro ao remover", Toast.LENGTH_SHORT).show() // mostra erro
+                                    Toast.makeText(this@UserManagementActivity, response.body()?.message ?: getString(R.string.error_removing_user), Toast.LENGTH_SHORT).show()
                                 }
                             }
 
                             override fun onFailure(call: Call<GenericResponse>, t: Throwable) { // erro na chamada
-                                Toast.makeText(this@UserManagementActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show() // mostra erro
+                                Toast.makeText(this@UserManagementActivity, getString(R.string.error_generic, t.message ?: ""), Toast.LENGTH_SHORT).show()
                             }
                         }) // fim da chamada deleteUser
                     }
-                    .setNegativeButton("Cancelar", null) // opção cancelar
+                    .setNegativeButton(getString(R.string.action_cancel), null)
                     .show() // exibe o diálogo
             }
 
