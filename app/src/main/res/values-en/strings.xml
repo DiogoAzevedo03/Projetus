@@ -114,4 +114,48 @@
     <string name="label_manager">Manager: %1$s</string>
     <string name="label_status">Status: %1$s</string>
     <string name="label_task_count">%1$d tasks</string>
+
+    <!-- Project Details -->
+    <string name="title_project_details">Project Details</string>
+    <string name="label_project_name">Project Name:</string>
+    <string name="label_project_description">Project Description:</string>
+    <string name="label_start">Start:</string>
+    <string name="label_end">End:</string>
+    <string name="label_manager_plain">Manager:</string>
+    <string name="label_collaborators">Collaborators:</string>
+    <string name="loading_collaborators">(loading...)</string>
+    <string name="label_completion_rate">Completion Rate:</string>
+    <string name="label_time_spent">Time Spent:</string>
+    <string name="action_associate_collaborators">Associate Collaborators</string>
+    <string name="action_mark_completed">Mark as completed</string>
+    <string name="action_delete_project">Delete Project</string>
+    <string name="msg_project_deleted_success">Project deleted successfully</string>
+    <string name="msg_project_delete_error">Error deleting project</string>
+
+    <!-- Project Evaluation -->
+    <string name="title_evaluate_performance">Evaluate Performance</string>
+    <string name="action_save_evaluation">Save Evaluation</string>
+    <string name="action_mark_project_complete">Mark project as completed</string>
+    <string name="msg_invalid_project_data">Invalid project data</string>
+    <string name="msg_error_loading_data">Error loading data</string>
+    <string name="msg_error_saving_evaluation">Error saving evaluation</string>
+    <string name="msg_evaluations_saved">Evaluations saved!</string>
+    <string name="msg_project_completed">Project completed!</string>
+    <string name="msg_error_completing_project">Error completing project</string>
+
+    <!-- Projects List -->
+    <string name="title_projects">Projects</string>
+    <string name="action_add_project">Add project</string>
+    <string name="msg_user_not_authenticated">User not authenticated</string>
+    <string name="msg_error_loading_projects">Error loading projects</string>
+    <string name="label_project_manager">Manager: %1$s</string>
+    <string name="label_project_status">Status: %1$s</string>
+    <string name="label_project_tasks">%1$d tasks</string>
+    <string name="action_view">View</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_view_tasks">View Tasks</string>
+    <string name="label_rating">Rating:</string>
+    <string name="hint_comment">Comment</string>
+    <string name="hint_collaborator_task">Name - Task</string>
+    <string name="none">None</string>
 </resources>

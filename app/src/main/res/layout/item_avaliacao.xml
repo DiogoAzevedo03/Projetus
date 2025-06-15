@@ -12,7 +12,7 @@
         android:id="@+id/tv_nome_colaborador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="João Silva  Criar Interface"
+        android:text="@string/hint_collaborator_task"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="#000000"/>
@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nota:"
+        android:text="@string/label_rating"
         android:layout_marginTop="6dp"
         android:textColor="#333"/>
 
@@ -37,7 +37,7 @@
         android:id="@+id/et_comentario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Comentário"
+        android:hint="@string/hint_comment"
         android:background="@drawable/rounded_edittext"
         android:padding="8dp"
         android:layout_marginTop="8dp"/>

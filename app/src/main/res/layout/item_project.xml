@@ -19,7 +19,7 @@
             android:id="@+id/tv_project_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome do Projeto"
+            android:text="@string/label_project_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#333333"
@@ -29,7 +29,7 @@
             android:id="@+id/tv_project_manager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gestor: Nome"
+            android:text="@string/label_project_manager"
             android:textSize="14sp"
             android:textColor="#666666" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/tv_project_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado: Ativo"
+            android:text="@string/label_project_status"
             android:textSize="14sp"
             android:textColor="#666666" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/tv_task_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12 tarefas"
+            android:text="@string/label_project_tasks"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginBottom="12dp" />
@@ -60,7 +60,7 @@
                 android:id="@+id/btn_project_action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ver"
+                android:text="@string/action_view"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#7E57C2"
@@ -72,7 +72,7 @@
                 android:id="@+id/btn_ver_tarefas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ver Tarefas"
+                android:text="@string/action_view_tasks"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#5C6BC0"

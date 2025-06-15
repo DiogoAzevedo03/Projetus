@@ -40,10 +40,10 @@ class ProjectDetailsActivity : AppCompatActivity() { // Activity com detalhes do
         val projeto = intent.getSerializableExtra("projeto") as? Project // Projeto recebido na intent
 
         if (projeto != null) { // Se foi passado um projeto
-            nome.text = "Nome: ${projeto.nome}" // Mostra nome
-            descricao.text = "Descrição: ${projeto.descricao}" // Mostra descrição
-            inicio.text = "Início: ${projeto.data_inicio}" // Mostra data início
-            fim.text = "Fim: ${projeto.data_fim}" // Mostra data fim
+            nome.text = getString(R.string.label_project_name) + " ${projeto.nome}"
+            descricao.text = getString(R.string.label_project_description) + " ${projeto.descricao}"
+            inicio.text = getString(R.string.label_start) + " ${projeto.data_inicio}"
+            fim.text = getString(R.string.label_end) + " ${projeto.data_fim}"
             gestor.setText(projeto.gestor_nome) // Mostra gestor
             val totalSegundos = projeto.tempo_total_segundos // Converte tempo total
             val horas = totalSegundos / 3600 // Horas totais
@@ -84,15 +84,15 @@ class ProjectDetailsActivity : AppCompatActivity() { // Activity com detalhes do
         RetrofitClient.instance.getColaboradoresDoProjeto(data).enqueue(object : Callback<UtilizadoresResponse> { // Chamada para obter colaboradores
             override fun onResponse(call: Call<UtilizadoresResponse>, response: Response<UtilizadoresResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
-                    val nomes = response.body()?.utilizadores?.joinToString(", ") { it.nome } ?: "Nenhum" // Junta nomes
+                    val nomes = response.body()?.utilizadores?.joinToString(", ") { it.nome } ?: getString(R.string.none)
                     colaboradoresTv.text = nomes
                 } else {
-                    colaboradoresTv.text = "Erro ao carregar" // Caso de erro
+                    colaboradoresTv.text = getString(R.string.msg_error_loading_data)
                 }
             }
 
             override fun onFailure(call: Call<UtilizadoresResponse>, t: Throwable) { // Falha de rede
-                colaboradoresTv.text = "Falha na rede"
+                colaboradoresTv.text = getString(R.string.error_network)
             }
         })
 
@@ -102,15 +102,15 @@ class ProjectDetailsActivity : AppCompatActivity() { // Activity com detalhes do
                 RetrofitClient.instance.apagarProjeto(data).enqueue(object : Callback<SimpleResponse> {
                     override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
                         if (response.isSuccessful && response.body()?.success == true) {
-                            Toast.makeText(this@ProjectDetailsActivity, "Projeto apagado com sucesso", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ProjectDetailsActivity, getString(R.string.msg_project_deleted_success), Toast.LENGTH_SHORT).show()
                             finish() // Fecha a activity
                         } else {
-                            Toast.makeText(this@ProjectDetailsActivity, "Erro ao apagar projeto", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ProjectDetailsActivity, getString(R.string.msg_project_delete_error), Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                        Toast.makeText(this@ProjectDetailsActivity, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProjectDetailsActivity, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                     }
                 })
             }

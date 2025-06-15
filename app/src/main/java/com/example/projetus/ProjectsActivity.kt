@@ -25,7 +25,7 @@ class ProjectsActivity : AppCompatActivity() { // Activity que lista projetos
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // Tipo de perfil
 
         if (userId == -1) { // Caso não haja utilizador válido
-            Toast.makeText(this, "Utilizador não autenticado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.msg_user_not_authenticated), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -80,12 +80,12 @@ class ProjectsActivity : AppCompatActivity() { // Activity que lista projetos
                     } ?: emptyList()
                     renderProjects(projetos) // Mostra apenas projetos ativos
                 } else {
-                    Toast.makeText(this@ProjectsActivity, "Erro ao carregar projetos", Toast.LENGTH_SHORT).show()
-                }
+                    Toast.makeText(this@ProjectsActivity, getString(R.string.msg_error_loading_projects), Toast.LENGTH_SHORT).show()
+            }
             }
 
             override fun onFailure(call: Call<ProjectResponse>, t: Throwable) {
-                Toast.makeText(this@ProjectsActivity, "Erro: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@ProjectsActivity, getString(R.string.error_generic, t.message ?: ""), Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -100,12 +100,15 @@ class ProjectsActivity : AppCompatActivity() { // Activity que lista projetos
             val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador"
 
             view.findViewById<TextView>(R.id.tv_project_name).text = projeto.nome
-            view.findViewById<TextView>(R.id.tv_project_manager).text = "Gestor: ${projeto.gestor_nome}"
-            view.findViewById<TextView>(R.id.tv_project_status).text = "Estado: ${projeto.estado}"
-            view.findViewById<TextView>(R.id.tv_task_count).text = "${projeto.total_tarefas} tarefas"
+            view.findViewById<TextView>(R.id.tv_project_manager).text =
+                getString(R.string.label_project_manager, projeto.gestor_nome)
+            view.findViewById<TextView>(R.id.tv_project_status).text =
+                getString(R.string.label_project_status, projeto.estado)
+            view.findViewById<TextView>(R.id.tv_task_count).text =
+                getString(R.string.label_project_tasks, projeto.total_tarefas)
 
             val btn = view.findViewById<Button>(R.id.btn_project_action) // Botão principal do card
-            btn.text = if (userId == 1) "Editar" else "Ver"
+            btn.text = if (userId == 1) getString(R.string.action_edit) else getString(R.string.action_view)
             btn.setOnClickListener {
                 val intent = Intent(this, ProjectDetailsActivity::class.java)
                 intent.putExtra("projeto", projeto)
