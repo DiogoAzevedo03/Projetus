@@ -42,7 +42,7 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
     // Lista para armazenar todas as tarefas
     private var listaTarefas: List<TaskStat> = emptyList() // tarefas obtidas da API
 
-    override fun onCreate(savedInstanceState: Bundle?) { // método chamado na criação da activity
+    override fun onCreate(savedInstanceState: Bundle?) { // metodo chamado na criação da activity
         super.onCreate(savedInstanceState) // inicializa a activity pai
         setContentView(R.layout.activity_statistics) // define o layout desta activity
 
@@ -52,7 +52,7 @@ class StatisticsActivity : AppCompatActivity() { // activity que apresenta estat
         if (userId == -1) { // verifica se foi enviado um id válido
             Toast.makeText(this, "Utilizador inválido", Toast.LENGTH_SHORT).show() // informa erro
             finish() // encerra a activity
-            return // sai do método
+            return // sai do metodo
         }
         val tipoPerfil = intent.getStringExtra("tipo_perfil") ?: "utilizador" // tipo de perfil do utilizador
 

@@ -25,7 +25,6 @@ class PasswordRecoveryActivity : AppCompatActivity() { // ecrã para recuperar p
             if (email.isEmpty()) {
                 Toast.makeText(this, "Introduza o email de recuperação", Toast.LENGTH_SHORT).show()
             } else {
-                // TODO: Aqui podes chamar a tua API PHP para envio de recuperação
                 Toast.makeText(this, "Email de recuperação enviado (mock)", Toast.LENGTH_SHORT).show()
             }
         }

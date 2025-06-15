@@ -18,7 +18,7 @@ class CreateProjectActivity : AppCompatActivity() { // Activity para criar proje
     private lateinit var spinnerGestor: Spinner // Dropdown de gestores
     private var listaGestores: List<Gestor> = emptyList() // Lista carregada da API
 
-    override fun onCreate(savedInstanceState: Bundle?) { // Método inicial
+    override fun onCreate(savedInstanceState: Bundle?) { // Metodo inicial
         super.onCreate(savedInstanceState) // Super
         setContentView(R.layout.activity_create_project) // Layout
 

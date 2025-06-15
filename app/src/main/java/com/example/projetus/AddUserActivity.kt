@@ -1,10 +1,10 @@
 package com.example.projetus // Define o pacote da aplicação
 
 import android.content.Intent // Necessário para navegação entre atividades
-import android.os.Bundle // Permite acessar o estado da Activity
+import android.os.Bundle // Permite aceder o estado da Activity
 import android.widget.* // Importa componentes de interface do Android
 import androidx.appcompat.app.AppCompatActivity // Classe base para Activities
-import androidx.lifecycle.lifecycleScope // Escopo para coroutines vinculadas ao ciclo de vida
+import androidx.lifecycle.lifecycleScope // Corpo para coroutines vinculadas ao ciclo de vida
 import com.example.projetus.data.local.AppDatabase // Acesso à base de dados local
 import com.example.projetus.data.local.PendingUser // Entidade para utilizadores pendentes
 import com.example.projetus.network.GenericResponse // Modelo de resposta genérica da API
@@ -20,7 +20,7 @@ class AddUserActivity : AppCompatActivity() { // Activity responsável por adici
 
     private var userId: Int = -1 // Guarda o ID do utilizador autenticado
 
-    override fun onCreate(savedInstanceState: Bundle?) { // Método chamado ao criar a Activity
+    override fun onCreate(savedInstanceState: Bundle?) { // Metodo chamado ao criar a Activity
         super.onCreate(savedInstanceState) // Chama a implementação da superclasse
         setContentView(R.layout.activity_add_user) // Define o layout da Activity
 

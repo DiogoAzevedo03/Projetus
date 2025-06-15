@@ -20,7 +20,7 @@ class TaskDetailsActivity : AppCompatActivity() {
     // ID do utilizador associado
     private var utilizadorId: Int = -1
 
-    // Método executado na criação da Activity
+    // Metodo executado na criação da Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("DEBUG", "tarefaId: $tarefaId | utilizadorId: $utilizadorId") // Log para depuração
 

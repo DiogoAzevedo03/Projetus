@@ -25,7 +25,7 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
     private var userId: Int = -1 // ID do utilizador corrente
     private var tipoPerfil: String = "utilizador" // Tipo de perfil do utilizador
 
-    override fun onCreate(savedInstanceState: Bundle?) { // Método chamado na criação da Activity
+    override fun onCreate(savedInstanceState: Bundle?) { // Metodo chamado na criação da Activity
         super.onCreate(savedInstanceState) // Chama implementação da superclasse
         setContentView(R.layout.activity_profile) // Define o layout a usar
 
@@ -63,7 +63,7 @@ class ProfileActivity : AppCompatActivity() { // Activity que mostra e edita o p
                 return@setOnClickListener // Sai do listener
             }
 
-            // Agora chama o método para atualizar os dados do utilizador
+            // Agora chama o metodo para atualizar os dados do utilizador
             atualizarDadosUtilizador(nomeTxt, userTxt, emailTxt, passTxt, fotoTxt) // Chama API para atualizar
         }
 

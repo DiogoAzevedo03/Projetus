@@ -2,7 +2,7 @@ package com.example.projetus // Pacote da aplicação
 
 import android.content.Intent // Utilizado para iniciar novas Activities
 import android.os.Bundle // Contém dados do ciclo de vida
-import android.widget.* // Widgets de interface do usuário
+import android.widget.* // Widgets de interface do utilizador
 import androidx.appcompat.app.AppCompatActivity // Activity com ActionBar
 
 import com.example.projetus.LocaleManager // Classe responsável pela gestão de idioma
@@ -21,7 +21,7 @@ class SettingsActivity : AppCompatActivity() {
     // Identificador do utilizador atual
     private var userId: Int = -1
 
-    // Método executado aquando da criação da Activity
+    // Metodo executado aquando da criação da Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings) // Define o layout

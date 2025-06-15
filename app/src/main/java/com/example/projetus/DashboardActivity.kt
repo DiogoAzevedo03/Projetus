@@ -42,7 +42,7 @@ class DashboardActivity : AppCompatActivity() { // Ecrã principal depois do log
         }
 
         lifecycleScope.launch {
-            val user = withContext(Dispatchers.IO) { // Busca no BD local
+            val user = withContext(Dispatchers.IO) { // procurar na BD local
                 AppDatabase.getDatabase(this@DashboardActivity).userDao().getById(userId)
             }
             user?.let { tvWelcome.text = getString(R.string.welcome_user, it.nome) }        }

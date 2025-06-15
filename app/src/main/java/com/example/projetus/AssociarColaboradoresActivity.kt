@@ -56,13 +56,13 @@ class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para ass
     } // Fim do onCreate
 
     private fun carregarUtilizadores() { // Obtém e lista utilizadores
-        // 1. Vai buscar todos os utilizadores
+        // 1. Vai procurar todos os utilizadores
         RetrofitClient.instance.getUtilizadores().enqueue(object : Callback<UtilizadoresResponse> {
             override fun onResponse(call: Call<UtilizadoresResponse>, response: Response<UtilizadoresResponse>) {
                 if (response.isSuccessful && response.body()?.success == true) {
                     val todosUtilizadores = response.body()?.utilizadores ?: emptyList()
 
-                    // 2. Vai buscar os utilizadores já associados ao projeto
+                    // 2. Vai procurar os utilizadores já associados ao projeto
                     val data = mapOf("projeto_id" to projetoId)
                     RetrofitClient.instance.getColaboradoresDoProjeto(data).enqueue(object : Callback<UtilizadoresResponse> {
                         override fun onResponse(
@@ -85,7 +85,7 @@ class AssociarColaboradoresActivity : AppCompatActivity() { // Activity para ass
                                     checkBoxes.add(Pair(checkBox, utilizador.id)) // Guarda para posterior uso
                                 }
                             } else {
-                                Toast.makeText(this@AssociarColaboradoresActivity, "Erro ao buscar associados", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@AssociarColaboradoresActivity, "Erro ao procurar associados", Toast.LENGTH_SHORT).show()
                             }
                         }
 

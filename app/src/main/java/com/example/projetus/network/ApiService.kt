@@ -21,8 +21,8 @@ interface ApiService { // Interface que define os endpoints da API
         @Field("password") password: String // Password do utilizador
     ): Call<LoginResponse> // Resposta com os dados do login
 
-    @FormUrlEncoded // Envia os dados de registro como formulario
-    @POST("register.php") // Endpoint de registro
+    @FormUrlEncoded // Envia os dados de registo como formulario
+    @POST("register.php") // Endpoint de registo
     fun registerUser(
         @Field("nome") nome: String, // Nome do utilizador
         @Field("username") username: String, // Username do utilizador
@@ -94,7 +94,7 @@ interface ApiService { // Interface que define os endpoints da API
     @POST("associarColaborador.php") // Associa colaborador a projeto
     fun associarColaborador(@Body request: AssociarRequest): Call<SimpleResponse> // Usa objeto com ids
 
-    @POST("colaboradoresProjeto.php") // Busca colaboradores de um projeto
+    @POST("colaboradoresProjeto.php") // Procurar colaboradores de um projeto
     fun getColaboradoresDoProjeto(@Body data: Map<String, Int>): Call<UtilizadoresResponse> // Lista de utilizadores
 
     @POST("tarefasDoProjetoComColaboradores.php") // Tarefas de um projeto e seus colaboradores

@@ -93,11 +93,11 @@ class HistoricoProjetosActivity : AppCompatActivity() { // Lista projetos conclu
             view.findViewById<TextView>(R.id.tv_project_status).text = "Estado: ${projeto.estado}"
             view.findViewById<TextView>(R.id.tv_task_count).text = "${projeto.total_tarefas} tarefas"
 
-            // 🔴 Esconde o botão "Ver"
+            //  Esconde o botão "Ver"
             val btnVer = view.findViewById<Button>(R.id.btn_project_action)
             btnVer.visibility = Button.GONE
 
-            // 🔵 Mantém o botão "Ver Tarefas"
+            //  Mantém o botão "Ver Tarefas"
             view.findViewById<Button>(R.id.btn_ver_tarefas).setOnClickListener {
                 val intent = Intent(this, ProjectTasksActivity::class.java)
                 intent.putExtra("project_id", projeto.id)

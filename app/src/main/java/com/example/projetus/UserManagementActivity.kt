@@ -22,7 +22,7 @@ class UserManagementActivity : AppCompatActivity() { // activity para gestão de
     private lateinit var btnAddUser: Button // botão para adicionar utilizador
     private var userId: Int = -1  // armazena o id do utilizador logado
 
-    override fun onCreate(savedInstanceState: Bundle?) { // método chamado ao criar a activity
+    override fun onCreate(savedInstanceState: Bundle?) { // metodo chamado ao criar a activity
         super.onCreate(savedInstanceState) // inicializa a activity pai
         setContentView(R.layout.activity_user_management) // define o layout associado
 
@@ -91,7 +91,7 @@ class UserManagementActivity : AppCompatActivity() { // activity para gestão de
                 Toast.makeText(this@UserManagementActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show() // exibe erro
             }
         }) // fim da chamada
-    } // fim do método carregarUtilizadores
+    } // fim do metodo carregarUtilizadores
 
     private fun mostrarUtilizadores(lista: List<Utilizador>) { // apresenta cada utilizador num cartão
         usersContainer.removeAllViews() // limpa o contêiner
@@ -138,5 +138,5 @@ class UserManagementActivity : AppCompatActivity() { // activity para gestão de
 
             usersContainer.addView(card) // adiciona o cartão ao contêiner
         } // fim do loop
-    } // fim do método mostrarUtilizadores
+    } // fim do metodo mostrarUtilizadores
 } // fim da classe

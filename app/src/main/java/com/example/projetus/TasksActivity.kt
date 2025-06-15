@@ -15,7 +15,7 @@ import retrofit2.Response // Resposta Retrofit
 // Activity que lista as tarefas pendentes do utilizador
 class TasksActivity : AppCompatActivity() {
 
-    // Método executado quando a activity é criada
+    // Metodo executado quando a activity é criada
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasks)

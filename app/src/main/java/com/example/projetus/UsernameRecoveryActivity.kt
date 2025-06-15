@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity // classe base para actividades
 
 class UsernameRecoveryActivity : AppCompatActivity() { // activity para recuperar o nome de utilizador
 
-    override fun onCreate(savedInstanceState: Bundle?) { // método chamado na criação da activity
+    override fun onCreate(savedInstanceState: Bundle?) { // metodo chamado na criação da activity
         super.onCreate(savedInstanceState) // inicializa a actividade pai
         setContentView(R.layout.activity_username_recovery) // define o layout da activity
 
@@ -25,7 +25,6 @@ class UsernameRecoveryActivity : AppCompatActivity() { // activity para recupera
             if (email.isEmpty()) { // verifica se o email está vazio
                 Toast.makeText(this, "Introduza o email de recuperação", Toast.LENGTH_SHORT).show() // mostra aviso
             } else { // se o email não estiver vazio
-                // TODO: Chamada à API para enviar código de verificação
                 Toast.makeText(this, "Código de verificação enviado (mock)", Toast.LENGTH_SHORT).show() // feedback de sucesso mock
             }
         } // fim do listener do botão continuar

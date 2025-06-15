@@ -14,7 +14,7 @@ import retrofit2.Response // Resposta Retrofit
 
 class ProjectDetailsActivity : AppCompatActivity() { // Activity com detalhes do projeto
 
-    override fun onCreate(savedInstanceState: Bundle?) { // Método principal da Activity
+    override fun onCreate(savedInstanceState: Bundle?) { // Metodo principal da Activity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_details) // Define layout
 

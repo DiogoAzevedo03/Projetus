@@ -16,7 +16,7 @@ class ProjectsActivity : AppCompatActivity() { // Activity que lista projetos
     private lateinit var projectsContainer: LinearLayout // Container dos projetos
     private var userId: Int = -1 // ID do utilizador
 
-    override fun onCreate(savedInstanceState: Bundle?) { // Método chamado na criação
+    override fun onCreate(savedInstanceState: Bundle?) { // Metodo chamado na criação
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_projects) // Define layout
 
@@ -109,8 +109,8 @@ class ProjectsActivity : AppCompatActivity() { // Activity que lista projetos
             btn.setOnClickListener {
                 val intent = Intent(this, ProjectDetailsActivity::class.java)
                 intent.putExtra("projeto", projeto)
-                intent.putExtra("user_id", userId) // <- importante
-                intent.putExtra("tipo_perfil", tipoPerfil) // <-- ADICIONA ISTO!
+                intent.putExtra("user_id", userId)
+                intent.putExtra("tipo_perfil", tipoPerfil)
 
                 startActivity(intent)
             }

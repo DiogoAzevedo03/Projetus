@@ -1,8 +1,8 @@
-package com.example.projetus.network // Pacote do request de registro
+package com.example.projetus.network // Pacote do request de registo
 
 data class RegisterRequest(
     val nome: String, // Nome do novo utilizador
     val email: String, // Email do utilizador
     val password: String, // Password escolhida
     val tipo_perfil: String = "utilizador" // Perfil padrão
-) // Estrutura enviada para registrar
+) // Estrutura enviada para registar
